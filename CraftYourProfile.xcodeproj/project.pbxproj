@@ -13,6 +13,24 @@
 		DA8AD236246FBF8F00876C69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD235246FBF8F00876C69 /* Assets.xcassets */; };
 		DA8AD239246FBF8F00876C69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD237246FBF8F00876C69 /* LaunchScreen.storyboard */; };
 		DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD240246FC06300876C69 /* WelcomeViewController.swift */; };
+		DA8AD257246FD2C500876C69 /* SF-Compact-Rounded-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD24E246FD2C400876C69 /* SF-Compact-Rounded-Semibold.otf */; };
+		DA8AD258246FD2C500876C69 /* SF-Compact-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD24F246FD2C400876C69 /* SF-Compact-Rounded-Heavy.otf */; };
+		DA8AD259246FD2C500876C69 /* SF-Compact-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD250246FD2C500876C69 /* SF-Compact-Rounded-Regular.otf */; };
+		DA8AD25A246FD2C500876C69 /* SF-Compact-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD251246FD2C500876C69 /* SF-Compact-Rounded-Light.otf */; };
+		DA8AD25B246FD2C500876C69 /* SF-Compact-Rounded-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD252246FD2C500876C69 /* SF-Compact-Rounded-Thin.otf */; };
+		DA8AD25C246FD2C500876C69 /* SF-Compact-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD253246FD2C500876C69 /* SF-Compact-Rounded-Medium.otf */; };
+		DA8AD25D246FD2C500876C69 /* SF-Compact-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD254246FD2C500876C69 /* SF-Compact-Rounded-Bold.otf */; };
+		DA8AD25E246FD2C500876C69 /* SF-Compact-Rounded-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD255246FD2C500876C69 /* SF-Compact-Rounded-Black.otf */; };
+		DA8AD25F246FD2C500876C69 /* SF-Compact-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD256246FD2C500876C69 /* SF-Compact-Rounded-Ultralight.otf */; };
+		DA8AD263246FDAA500876C69 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD262246FDAA500876C69 /* UIFont+.swift */; };
+		DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD264246FDCFD00876C69 /* UIColor+.swift */; };
+		DA8AD267246FDF9100876C69 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD266246FDF9100876C69 /* UILabel+.swift */; };
+		DA8AD269246FE36000876C69 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD268246FE36000876C69 /* UIStackView+.swift */; };
+		DA8AD26B246FFDB700876C69 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD26A246FFDB700876C69 /* UIButton+.swift */; };
+		DA8AD26D24700EE900876C69 /* NSAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD26C24700EE900876C69 /* NSAttributedString+.swift */; };
+		DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD26E24701FC500876C69 /* UITextView+.swift */; };
+		DA8AD2712470759A00876C69 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD2702470759A00876C69 /* String+.swift */; };
+		DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD27224707FC700876C69 /* UIImage+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +44,24 @@
 		DA8AD238246FBF8F00876C69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA8AD23A246FBF8F00876C69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA8AD240246FC06300876C69 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		DA8AD24E246FD2C400876C69 /* SF-Compact-Rounded-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Semibold.otf"; sourceTree = "<group>"; };
+		DA8AD24F246FD2C400876C69 /* SF-Compact-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Heavy.otf"; sourceTree = "<group>"; };
+		DA8AD250246FD2C500876C69 /* SF-Compact-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Regular.otf"; sourceTree = "<group>"; };
+		DA8AD251246FD2C500876C69 /* SF-Compact-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Light.otf"; sourceTree = "<group>"; };
+		DA8AD252246FD2C500876C69 /* SF-Compact-Rounded-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Thin.otf"; sourceTree = "<group>"; };
+		DA8AD253246FD2C500876C69 /* SF-Compact-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Medium.otf"; sourceTree = "<group>"; };
+		DA8AD254246FD2C500876C69 /* SF-Compact-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Bold.otf"; sourceTree = "<group>"; };
+		DA8AD255246FD2C500876C69 /* SF-Compact-Rounded-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Black.otf"; sourceTree = "<group>"; };
+		DA8AD256246FD2C500876C69 /* SF-Compact-Rounded-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Ultralight.otf"; sourceTree = "<group>"; };
+		DA8AD262246FDAA500876C69 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		DA8AD264246FDCFD00876C69 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		DA8AD266246FDF9100876C69 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
+		DA8AD268246FE36000876C69 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		DA8AD26A246FFDB700876C69 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		DA8AD26C24700EE900876C69 /* NSAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+.swift"; sourceTree = "<group>"; };
+		DA8AD26E24701FC500876C69 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
+		DA8AD2702470759A00876C69 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		DA8AD27224707FC700876C69 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,11 +109,53 @@
 				DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */,
 				DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */,
 				DA8AD240246FC06300876C69 /* WelcomeViewController.swift */,
+				DA8AD260246FDA8700876C69 /* Extensions */,
 				DA8AD235246FBF8F00876C69 /* Assets.xcassets */,
+				DA8AD24D246FD29E00876C69 /* Fonts */,
 				DA8AD237246FBF8F00876C69 /* LaunchScreen.storyboard */,
 				DA8AD23A246FBF8F00876C69 /* Info.plist */,
 			);
 			path = CraftYourProfile;
+			sourceTree = "<group>";
+		};
+		DA8AD24D246FD29E00876C69 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DA8AD255246FD2C500876C69 /* SF-Compact-Rounded-Black.otf */,
+				DA8AD254246FD2C500876C69 /* SF-Compact-Rounded-Bold.otf */,
+				DA8AD24F246FD2C400876C69 /* SF-Compact-Rounded-Heavy.otf */,
+				DA8AD251246FD2C500876C69 /* SF-Compact-Rounded-Light.otf */,
+				DA8AD253246FD2C500876C69 /* SF-Compact-Rounded-Medium.otf */,
+				DA8AD250246FD2C500876C69 /* SF-Compact-Rounded-Regular.otf */,
+				DA8AD24E246FD2C400876C69 /* SF-Compact-Rounded-Semibold.otf */,
+				DA8AD252246FD2C500876C69 /* SF-Compact-Rounded-Thin.otf */,
+				DA8AD256246FD2C500876C69 /* SF-Compact-Rounded-Ultralight.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		DA8AD260246FDA8700876C69 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DA8AD261246FDA9400876C69 /* UIKit */,
+				DA8AD26C24700EE900876C69 /* NSAttributedString+.swift */,
+				DA8AD2702470759A00876C69 /* String+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DA8AD261246FDA9400876C69 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				DA8AD262246FDAA500876C69 /* UIFont+.swift */,
+				DA8AD264246FDCFD00876C69 /* UIColor+.swift */,
+				DA8AD266246FDF9100876C69 /* UILabel+.swift */,
+				DA8AD268246FE36000876C69 /* UIStackView+.swift */,
+				DA8AD26A246FFDB700876C69 /* UIButton+.swift */,
+				DA8AD26E24701FC500876C69 /* UITextView+.swift */,
+				DA8AD27224707FC700876C69 /* UIImage+.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 		FC795780290540DE90AE7B79 /* Frameworks */ = {
@@ -148,8 +226,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8AD25D246FD2C500876C69 /* SF-Compact-Rounded-Bold.otf in Resources */,
+				DA8AD258246FD2C500876C69 /* SF-Compact-Rounded-Heavy.otf in Resources */,
+				DA8AD259246FD2C500876C69 /* SF-Compact-Rounded-Regular.otf in Resources */,
+				DA8AD257246FD2C500876C69 /* SF-Compact-Rounded-Semibold.otf in Resources */,
+				DA8AD25A246FD2C500876C69 /* SF-Compact-Rounded-Light.otf in Resources */,
+				DA8AD25B246FD2C500876C69 /* SF-Compact-Rounded-Thin.otf in Resources */,
+				DA8AD25C246FD2C500876C69 /* SF-Compact-Rounded-Medium.otf in Resources */,
 				DA8AD239246FBF8F00876C69 /* LaunchScreen.storyboard in Resources */,
+				DA8AD25E246FD2C500876C69 /* SF-Compact-Rounded-Black.otf in Resources */,
 				DA8AD236246FBF8F00876C69 /* Assets.xcassets in Resources */,
+				DA8AD25F246FD2C500876C69 /* SF-Compact-Rounded-Ultralight.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,9 +289,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8AD269246FE36000876C69 /* UIStackView+.swift in Sources */,
+				DA8AD267246FDF9100876C69 /* UILabel+.swift in Sources */,
+				DA8AD263246FDAA500876C69 /* UIFont+.swift in Sources */,
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
 				DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */,
+				DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */,
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,
+				DA8AD2712470759A00876C69 /* String+.swift in Sources */,
+				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,
+				DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */,
+				DA8AD26D24700EE900876C69 /* NSAttributedString+.swift in Sources */,
+				DA8AD26B246FFDB700876C69 /* UIButton+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
