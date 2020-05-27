@@ -8,9 +8,6 @@
 
 import UIKit
 
-// TODO: 's
-// 1. Scaling interface SE - 8 - 11, попробовать замерить bounds / frame устройств, вычислить коэф
-
 class WelcomeViewController: UIViewController {
 
 // MARK: Init
@@ -120,7 +117,7 @@ extension WelcomeViewController {
         view.addSubview(letsGoButton)
 
         NSLayoutConstraint.activate([
-            mainLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            mainLabel.centerYAnchor.constraint(lessThanOrEqualTo: view.centerYAnchor, constant: -50),
             mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             additionalLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 6),
@@ -148,7 +145,9 @@ extension WelcomeViewController {
             bottomTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             bottomTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             bottomTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120),
-            bottomTextView.heightAnchor.constraint(equalToConstant: 80)
+            bottomTextView.heightAnchor.constraint(equalToConstant: 80),
+
+            bottomTextView.topAnchor.constraint(greaterThanOrEqualTo: letsGoButton.bottomAnchor, constant: 30)
         ])
     }
 
@@ -173,12 +172,12 @@ extension WelcomeViewController {
 
             homeButton.heightAnchor.constraint(equalToConstant: 64),
             homeButton.widthAnchor.constraint(equalToConstant: 64),
-            homeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 90),
+            homeButton.leadingAnchor.constraint(equalTo: safariButton.trailingAnchor, constant: 26),
             homeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
 
             circleButton.heightAnchor.constraint(equalToConstant: 56),
             circleButton.widthAnchor.constraint(equalToConstant: 56),
-            circleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -90),
+            circleButton.trailingAnchor.constraint(equalTo: safariButton.leadingAnchor, constant: -30),
             circleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -45)
         ])
     }
