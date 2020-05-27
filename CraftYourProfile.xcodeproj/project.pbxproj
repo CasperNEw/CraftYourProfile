@@ -26,11 +26,11 @@
 		DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD264246FDCFD00876C69 /* UIColor+.swift */; };
 		DA8AD267246FDF9100876C69 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD266246FDF9100876C69 /* UILabel+.swift */; };
 		DA8AD269246FE36000876C69 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD268246FE36000876C69 /* UIStackView+.swift */; };
-		DA8AD26B246FFDB700876C69 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD26A246FFDB700876C69 /* UIButton+.swift */; };
 		DA8AD26D24700EE900876C69 /* NSAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD26C24700EE900876C69 /* NSAttributedString+.swift */; };
 		DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD26E24701FC500876C69 /* UITextView+.swift */; };
 		DA8AD2712470759A00876C69 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD2702470759A00876C69 /* String+.swift */; };
 		DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD27224707FC700876C69 /* UIImage+.swift */; };
+		DA8AD2752472792000876C69 /* UIControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD2742472791F00876C69 /* UIControl+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,11 +57,11 @@
 		DA8AD264246FDCFD00876C69 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		DA8AD266246FDF9100876C69 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		DA8AD268246FE36000876C69 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
-		DA8AD26A246FFDB700876C69 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		DA8AD26C24700EE900876C69 /* NSAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+.swift"; sourceTree = "<group>"; };
 		DA8AD26E24701FC500876C69 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		DA8AD2702470759A00876C69 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		DA8AD27224707FC700876C69 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		DA8AD2742472791F00876C69 /* UIControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,9 +151,9 @@
 				DA8AD264246FDCFD00876C69 /* UIColor+.swift */,
 				DA8AD266246FDF9100876C69 /* UILabel+.swift */,
 				DA8AD268246FE36000876C69 /* UIStackView+.swift */,
-				DA8AD26A246FFDB700876C69 /* UIButton+.swift */,
 				DA8AD26E24701FC500876C69 /* UITextView+.swift */,
 				DA8AD27224707FC700876C69 /* UIImage+.swift */,
+				DA8AD2742472791F00876C69 /* UIControl+.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -293,6 +293,7 @@
 				DA8AD267246FDF9100876C69 /* UILabel+.swift in Sources */,
 				DA8AD263246FDAA500876C69 /* UIFont+.swift in Sources */,
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
+				DA8AD2752472792000876C69 /* UIControl+.swift in Sources */,
 				DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */,
 				DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */,
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,
@@ -300,7 +301,6 @@
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,
 				DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */,
 				DA8AD26D24700EE900876C69 /* NSAttributedString+.swift in Sources */,
-				DA8AD26B246FFDB700876C69 /* UIButton+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,7 +447,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = CasperNEw.CraftYourProfile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -466,7 +466,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = CasperNEw.CraftYourProfile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

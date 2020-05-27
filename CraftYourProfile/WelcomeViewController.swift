@@ -8,50 +8,73 @@
 
 import UIKit
 
+// TODO: 's
+// 1. Scaling interface SE - 8 - 11, попробовать замерить bounds / frame устройств, вычислить коэф
+
 class WelcomeViewController: UIViewController {
 
+// MARK: Init
     let mainLabel = UILabel(text: "Craft Your Profile", font: .compactRounded(style: .bold, size: 26), color: .white)
     let additionalLabel = UILabel(text: "Create a profile, follow other accounts, make your own lives!",
                                   font: .compactRounded(style: .medium, size: 20),
                                   color: .grayText(), lines: 2)
-    let smileButton = UIButton(image: UIImage(named: "whiteSmile"))
-    let letsGoButton = UIButton(title: "LET'S GO!!!",
-                                titleColor: .blackText(),
-                                backgroundColor: .whiteButton(),
-                                font: .compactRounded(style: .bold, size: 20),
-                                cornerRadius: 23)
+    let smileView = UIImageView(image: UIImage(named: "whiteSmile"))
+    let letsGoButton = UIControl(title: "LET'S GO!!!",
+                                 titleColor: .blackText(),
+                                 backgroundColor: .whiteButton(),
+                                 font: .compactRounded(style: .bold, size: 20),
+                                 cornerRadius: 23)
     let bottomTextView = UITextView(text: "By signing up, you agree to our Terms and Privacy Policy",
                                 couples: [("Terms", "https://developer.apple.com/terms/"),
                                           ("Privacy Policy", "https://www.apple.com/legal/privacy/en-ww/")],
                                 font: .compactRounded(style: .medium, size: 16),
                                 textColor: .grayText(), backgroundColor: .welcomeBlue(), tintColor: .white)
 
-    let safariButton = UIButton(image: UIImage(named: "safari"))
-    let homeButton = UIButton(image: UIImage(named: "home"))
-    let circleButton = UIButton(image: UIImage(named: "circle"))
+    let circleButton = UIControl(image: UIImage(named: "circle"))
+    let safariButton = UIControl(image: UIImage(named: "safari"))
+    let homeButton = UIControl(image: UIImage(named: "home"))
 
+// MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.welcomeBlue()
         setupCenterElements()
         setupBottomTextView()
-        setupAnimation()
+        setupEmitterAnimation()
         setupBottomButtons()
+
+        letsGoButton.addTarget(self, action: #selector(letsGoButtonPressed), for: .touchUpInside)
+        circleButton.addTarget(self, action: #selector(circleButtonPressed), for: .touchUpInside)
+        safariButton.addTarget(self, action: #selector(safariButtonPressed), for: .touchUpInside)
+        homeButton.addTarget(self, action: #selector(homeButtonPressed), for: .touchUpInside)
+    }
+
+    @objc func letsGoButtonPressed() {
+        letsGoButton.clickAnimation()
+    }
+    @objc func circleButtonPressed() {
+        circleButton.clickAnimation()
+    }
+    @objc func safariButtonPressed() {
+        safariButton.clickAnimation()
+    }
+    @objc func homeButtonPressed() {
+        homeButton.clickAnimation()
     }
 }
 
 // MARK: Setup Animation
 extension WelcomeViewController {
 
-    private func setupAnimation() {
+    private func setupEmitterAnimation() {
 
         let emitterLayer = CAEmitterLayer()
-        emitterLayer.emitterPosition = CGPoint(x: view.bounds.width / 2, y: view.bounds.height + 50)
+        emitterLayer.emitterPosition = CGPoint(x: view.bounds.width / 2, y: view.bounds.height + 40)
         emitterLayer.emitterSize = CGSize(width: view.bounds.width + 50, height: 20)
         emitterLayer.emitterShape = .line
         emitterLayer.beginTime = CACurrentMediaTime()
-        emitterLayer.timeOffset = 1
+        emitterLayer.timeOffset = 5
         emitterLayer.birthRate = 0.3
 
         let emoji = ["😍", "🥰", "😘", "😜", "💋", "❤️"]
@@ -73,8 +96,8 @@ extension WelcomeViewController {
             cell.scaleRange = 0.3
             cell.birthRate = Float.random(in: 0.2...0.6)
             cell.lifetime = 8.0
-            cell.velocity = 20
-            cell.yAcceleration = -40
+            cell.velocity = 0
+            cell.yAcceleration = -view.bounds.height / 28
             cells.append(cell)
         }
         return cells
@@ -88,12 +111,12 @@ extension WelcomeViewController {
 
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         additionalLabel.translatesAutoresizingMaskIntoConstraints = false
-        smileButton.translatesAutoresizingMaskIntoConstraints = false
+        smileView.translatesAutoresizingMaskIntoConstraints = false
         letsGoButton.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(mainLabel)
         view.addSubview(additionalLabel)
-        view.addSubview(smileButton)
+        view.addSubview(smileView)
         view.addSubview(letsGoButton)
 
         NSLayoutConstraint.activate([
@@ -104,10 +127,10 @@ extension WelcomeViewController {
             additionalLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             additionalLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
 
-            smileButton.heightAnchor.constraint(equalToConstant: 70),
-            smileButton.widthAnchor.constraint(equalToConstant: 70),
-            smileButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            smileButton.bottomAnchor.constraint(equalTo: mainLabel.topAnchor, constant: -30),
+            smileView.heightAnchor.constraint(equalToConstant: 70),
+            smileView.widthAnchor.constraint(equalToConstant: 70),
+            smileView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            smileView.bottomAnchor.constraint(equalTo: mainLabel.topAnchor, constant: -30),
 
             letsGoButton.topAnchor.constraint(equalTo: additionalLabel.bottomAnchor, constant: 30),
             letsGoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
