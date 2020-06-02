@@ -1,16 +1,20 @@
 PODS:
+  - libPhoneNumber-iOS (0.9.15)
   - SwiftLint (0.39.1)
 
 DEPENDENCIES:
+  - libPhoneNumber-iOS (~> 0.8)
   - SwiftLint
 
 SPEC REPOS:
   trunk:
+    - libPhoneNumber-iOS
     - SwiftLint
 
 SPEC CHECKSUMS:
+  libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
 
-PODFILE CHECKSUM: 3869385ddfcec13367b8839630c03d4879fa3fd0
+PODFILE CHECKSUM: cd199e08bd1e167c62d0f22f4d0e145d643a0017
 
 COCOAPODS: 1.8.4

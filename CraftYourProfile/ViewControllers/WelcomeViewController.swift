@@ -14,18 +14,18 @@ class WelcomeViewController: UIViewController {
     let mainLabel = UILabel(text: "Craft Your Profile", font: .compactRounded(style: .bold, size: 26), color: .white)
     let additionalLabel = UILabel(text: "Create a profile, follow other accounts, make your own lives!",
                                   font: .compactRounded(style: .medium, size: 20),
-                                  color: .grayText(), lines: 2)
+                                  color: .mainGrayText(), lines: 2)
     let smileView = UIImageView(image: UIImage(named: "whiteSmile"))
     let letsGoButton = UIControl(title: "LET'S GO!!!",
-                                 titleColor: .blackText(),
-                                 backgroundColor: .whiteButton(),
+                                 titleColor: .mainBlackText(),
+                                 backgroundColor: .mainWhite(),
                                  font: .compactRounded(style: .bold, size: 20),
                                  cornerRadius: 23)
     let bottomTextView = UITextView(text: "By signing up, you agree to our Terms and Privacy Policy",
                                 couples: [("Terms", "https://developer.apple.com/terms/"),
                                           ("Privacy Policy", "https://www.apple.com/legal/privacy/en-ww/")],
                                 font: .compactRounded(style: .medium, size: 16),
-                                textColor: .grayText(), backgroundColor: .welcomeBlue(), tintColor: .white)
+                                textColor: .mainGrayText(), backgroundColor: .mainBlue(), tintColor: .white)
 
     let circleButton = UIControl(image: UIImage(named: "circle"))
     let safariButton = UIControl(image: UIImage(named: "safari"))
@@ -35,7 +35,8 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.welcomeBlue()
+        view.backgroundColor = UIColor.mainBlue()
+        setupNavigationBar()
         setupCenterElements()
         setupBottomTextView()
         setupEmitterAnimation()
@@ -49,6 +50,7 @@ class WelcomeViewController: UIViewController {
 
     @objc func letsGoButtonPressed() {
         letsGoButton.clickAnimation()
+        navigationController?.pushViewController(VerifyPhoneViewController(), animated: true)
     }
     @objc func circleButtonPressed() {
         circleButton.clickAnimation()
@@ -58,6 +60,14 @@ class WelcomeViewController: UIViewController {
     }
     @objc func homeButtonPressed() {
         homeButton.clickAnimation()
+    }
+}
+
+// MARK: Setup NAvigation Bar
+extension WelcomeViewController {
+
+    func setupNavigationBar() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 

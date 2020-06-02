@@ -5,6 +5,7 @@ target 'CraftYourProfile' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 pod 'SwiftLint'
+pod 'libPhoneNumber-iOS', '~> 0.8'
   # Pods for CraftYourProfile
 
 end

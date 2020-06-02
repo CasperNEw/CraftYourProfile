@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,6 +31,11 @@
 		DA8AD2712470759A00876C69 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD2702470759A00876C69 /* String+.swift */; };
 		DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD27224707FC700876C69 /* UIImage+.swift */; };
 		DA8AD2752472792000876C69 /* UIControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD2742472791F00876C69 /* UIControl+.swift */; };
+		DAAC5D0B247E916D0079E6F5 /* VerifyPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */; };
+		DAAC5D0E248148D30079E6F5 /* PopoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D0D248148D20079E6F5 /* PopoverTableViewController.swift */; };
+		DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1024860F050079E6F5 /* NetworkService.swift */; };
+		DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */; };
+		DAAC5D1624869FEA0079E6F5 /* PhoneValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1524869FEA0079E6F5 /* PhoneValidationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +67,11 @@
 		DA8AD2702470759A00876C69 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		DA8AD27224707FC700876C69 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		DA8AD2742472791F00876C69 /* UIControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+.swift"; sourceTree = "<group>"; };
+		DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneViewController.swift; sourceTree = "<group>"; };
+		DAAC5D0D248148D20079E6F5 /* PopoverTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTableViewController.swift; sourceTree = "<group>"; };
+		DAAC5D1024860F050079E6F5 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFromServer.swift; sourceTree = "<group>"; };
+		DAAC5D1524869FEA0079E6F5 /* PhoneValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +118,9 @@
 			children = (
 				DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */,
 				DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */,
-				DA8AD240246FC06300876C69 /* WelcomeViewController.swift */,
+				DAAC5D0C247E91750079E6F5 /* ViewControllers */,
+				DAAC5D0F24860EE80079E6F5 /* Services */,
+				DAAC5D1224869D760079E6F5 /* Models */,
 				DA8AD260246FDA8700876C69 /* Extensions */,
 				DA8AD235246FBF8F00876C69 /* Assets.xcassets */,
 				DA8AD24D246FD29E00876C69 /* Fonts */,
@@ -158,6 +170,33 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
+		DAAC5D0C247E91750079E6F5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DA8AD240246FC06300876C69 /* WelcomeViewController.swift */,
+				DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */,
+				DAAC5D0D248148D20079E6F5 /* PopoverTableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DAAC5D0F24860EE80079E6F5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DAAC5D1024860F050079E6F5 /* NetworkService.swift */,
+				DAAC5D1524869FEA0079E6F5 /* PhoneValidationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DAAC5D1224869D760079E6F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		FC795780290540DE90AE7B79 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,11 +212,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA8AD23D246FBF8F00876C69 /* Build configuration list for PBXNativeTarget "CraftYourProfile" */;
 			buildPhases = (
-				DA8AD242246FC4BF00876C69 /* ShellScript */,
 				E456149817222A74ABB9D844 /* [CP] Check Pods Manifest.lock */,
+				DA8AD242246FC4BF00876C69 /* ShellScript */,
 				DA8AD225246FBF8A00876C69 /* Sources */,
 				DA8AD226246FBF8A00876C69 /* Frameworks */,
 				DA8AD227246FBF8A00876C69 /* Resources */,
+				70A51310A59AD210177F674C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -243,6 +283,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		70A51310A59AD210177F674C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CraftYourProfile/Pods-CraftYourProfile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CraftYourProfile/Pods-CraftYourProfile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CraftYourProfile/Pods-CraftYourProfile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		DA8AD242246FC4BF00876C69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -291,12 +348,17 @@
 			files = (
 				DA8AD269246FE36000876C69 /* UIStackView+.swift in Sources */,
 				DA8AD267246FDF9100876C69 /* UILabel+.swift in Sources */,
+				DAAC5D0B247E916D0079E6F5 /* VerifyPhoneViewController.swift in Sources */,
 				DA8AD263246FDAA500876C69 /* UIFont+.swift in Sources */,
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
+				DAAC5D0E248148D30079E6F5 /* PopoverTableViewController.swift in Sources */,
 				DA8AD2752472792000876C69 /* UIControl+.swift in Sources */,
 				DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */,
+				DAAC5D1624869FEA0079E6F5 /* PhoneValidationService.swift in Sources */,
 				DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */,
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,
+				DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */,
+				DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */,
 				DA8AD2712470759A00876C69 /* String+.swift in Sources */,
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,
 				DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */,

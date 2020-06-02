@@ -10,19 +10,27 @@ import UIKit
 
 extension UIColor {
 
-    static func welcomeBlue() -> UIColor {
+    static func mainBlue() -> UIColor {
         return #colorLiteral(red: 0.2156862745, green: 0.4039215686, blue: 0.9098039216, alpha: 1)
     }
 
-    static func grayText() -> UIColor {
+    static func mainGrayText() -> UIColor {
         return #colorLiteral(red: 0.8117647059, green: 0.8509803922, blue: 0.9764705882, alpha: 1)
     }
 
-    static func blackText() -> UIColor {
+    static func mainBlackText() -> UIColor {
        return #colorLiteral(red: 0.137254902, green: 0.1411764706, blue: 0.1529411765, alpha: 1)
     }
 
-    static func whiteButton() -> UIColor {
+    static func mainWhite() -> UIColor {
         return #colorLiteral(red: 0.9450980392, green: 0.9450980392, blue: 0.9607843137, alpha: 1)
+    }
+
+    static func backgroundGray() -> UIColor {
+        return #colorLiteral(red: 0.9450980392, green: 0.9450980392, blue: 0.9607843137, alpha: 1)
+    }
+
+    static func grayText() -> UIColor {
+        return #colorLiteral(red: 0.6862745098, green: 0.7176470588, blue: 0.7568627451, alpha: 1)
     }
 }

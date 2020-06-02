@@ -44,6 +44,7 @@ extension UIControl {
     private func addLabel(text: String, font: UIFont?, color: UIColor) {
         let label = UILabel(text: text, font: font, color: color)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         self.addSubview(label)
 
         NSLayoutConstraint.activate([
