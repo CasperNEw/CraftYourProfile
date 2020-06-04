@@ -12,47 +12,36 @@ import libPhoneNumber_iOS
 class VerifyPhoneViewController: UIViewController {
 
 // MARK: Init
-    let crossButton = UIControl(image: UIImage(named: "cross"))
-    let mainLabel = UILabel(text: "Let's verify your phone number 😘",
-                            font: .compactRounded(style: .black, size: 32),
-                            color: .mainBlackText(), lines: 2, alignment: .left)
-    let additionalLabel = UILabel(text: "PHONE NUMBER",
-                                  font: .compactRounded(style: .semibold, size: 15),
-                                  color: .gray, lines: 1, alignment: .left)
 
-    let magicView = UIView()
-    let phoneTextField = UITextField()
-    let countryCodeTextField = UITextField()
-    let button = UIButton(image: UIImage(named: "rexona"))
-    let lineView = UIView()
+    var mainView: ViewWithScrollView? { return self.view as? ViewWithScrollView }
+    var popOver = PopoverTableViewController()
 
     let validationService = PhoneValidationService()
     let networkService = NetworkService()
-    var countryInf: [CountryFromServer] = []
 
+// MARK: loadView
+    override func loadView() {
+        self.view = ViewWithScrollView(frame: UIScreen.main.bounds)
+    }
 // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .white
-
-        getCountryCodes()
-        configureMagicView()
-        setupTextField()
-        setupConstraints()
-
-        crossButton.addTarget(self, action: #selector(crossButtonTapped), for: .touchUpInside)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-
-        let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        view.addGestureRecognizer(hideAction)
+        setupKeyboard()
+        setupButtons()
+//        getCountryCodes()
     }
 
-    @objc func hideKeyboard() {
-        view.endEditing(true)
+    private func setupButtons() {
+        guard let view = mainView?.scrollView?.view else { return }
+
+        view.crossButton.addTarget(self, action: #selector(crossButtonTapped), for: .touchUpInside)
+        view.codeButton.addTarget(self, action: #selector(codeButtonTapped), for: .touchUpInside)
+        view.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
 
     @objc func crossButtonTapped() {
+        guard let crossButton = mainView?.scrollView?.view?.crossButton else { return }
         crossButton.clickAnimation()
         perform(#selector(popViewController), with: nil, afterDelay: 0.5)
     }
@@ -61,120 +50,74 @@ class VerifyPhoneViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    @objc func buttonTapped() {
-        let popOver = PopoverTableViewController()
+    @objc func codeButtonTapped() {
         popOver.modalPresentationStyle = .popover
-        let popOverVC = popOver.popoverPresentationController
-        popOverVC?.delegate = self
-        popOverVC?.sourceView = self.button
-        popOverVC?.sourceRect = CGRect(x: self.button.bounds.midX, y: self.button.bounds.maxY, width: 0, height: 0)
+        guard let popOverVC = popOver.popoverPresentationController else { return }
+        popOverVC.delegate = self
+        popOverVC.sourceView = mainView?.scrollView?.view?.codeButton
+        guard let bounds = mainView?.scrollView?.view?.codeButton.bounds else { return }
+        popOverVC.sourceRect = CGRect(x: bounds.midX, y: bounds.maxY, width: 0, height: 0)
         popOver.preferredContentSize = CGSize(width: 250, height: 250)
-
         self.present(popOver, animated: true)
     }
 
-    func setupTextField() {
-        phoneTextField.font = .compactRounded(style: .semibold, size: 20)
-        phoneTextField.textContentType = .telephoneNumber
-        phoneTextField.keyboardType = .phonePad
-        phoneTextField.delegate = self
+    @objc func nextButtonTapped() {
+        guard let nextButton = mainView?.scrollView?.view?.crossButton else { return }
+        nextButton.clickAnimation()
     }
 
     func getCountryCodes() {
-        networkService.getCountriesInformation { [weak self] result in
+        networkService.getCountriesInformation { result in
             switch result {
             case .success(let data):
-                self?.countryInf = data
-                print(self?.countryInf ?? "check me - \(#function)")
-                //TODO: надо форматировать в новую структуру данных подходящую для отображения в PopoverVC
+                print(data)
+                //TODO: CountryModel -> PopoverVC
             case .failure(let error):
-                print(error.localizedDescription) //TODO: error processing
+                print(error.localizedDescription) //TODO: Error processing
             }
         }
     }
 }
 
-// MARK: Setup Subviews
+// MARK: setupKeyboard
 extension VerifyPhoneViewController {
 
-    private func configureMagicView() {
-        magicView.translatesAutoresizingMaskIntoConstraints = false
+    func setupKeyboard() {
 
-        countryCodeTextField.translatesAutoresizingMaskIntoConstraints = false
-        button.translatesAutoresizingMaskIntoConstraints = false
-        lineView .translatesAutoresizingMaskIntoConstraints = false
-        phoneTextField.translatesAutoresizingMaskIntoConstraints = false
+        // TODO: not work!
+        let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(hideAction)
 
-        magicView.backgroundColor = .backgroundGray()
-        magicView.layer.cornerRadius = 15
-
-        countryCodeTextField.backgroundColor = .black
-        phoneTextField.backgroundColor = .clear
-        lineView.backgroundColor = .grayText()
-        countryCodeTextField.font = .compactRounded(style: .semibold, size: 20)
-        countryCodeTextField.isUserInteractionEnabled = false
-
-        magicView.addSubview(countryCodeTextField)
-        magicView.addSubview(button)
-        magicView.addSubview(lineView)
-        magicView.addSubview(phoneTextField)
-
-        NSLayoutConstraint.activate([
-            countryCodeTextField.leadingAnchor.constraint(equalTo: magicView.leadingAnchor, constant: 12),
-            countryCodeTextField.centerYAnchor.constraint(equalTo: magicView.centerYAnchor),
-            countryCodeTextField.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.13),
-
-            button.leadingAnchor.constraint(equalTo: countryCodeTextField.trailingAnchor, constant: 0),
-            button.centerYAnchor.constraint(equalTo: magicView.centerYAnchor),
-            button.heightAnchor.constraint(equalToConstant: 40),
-            button.widthAnchor.constraint(equalToConstant: 40),
-
-            lineView.leadingAnchor.constraint(equalTo: button.trailingAnchor, constant: 0),
-            lineView.topAnchor.constraint(equalTo: magicView.topAnchor),
-            lineView.bottomAnchor.constraint(equalTo: magicView.bottomAnchor),
-            lineView.widthAnchor.constraint(equalToConstant: 1),
-
-            phoneTextField.leadingAnchor.constraint(equalTo: lineView.trailingAnchor, constant: 12),
-            phoneTextField.centerYAnchor.constraint(equalTo: magicView.centerYAnchor),
-            phoneTextField.trailingAnchor.constraint(equalTo: magicView.trailingAnchor, constant: -12)
-        ])
-
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
 
-    private func setupConstraints() {
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        let userInfo = notification.userInfo
+        guard let keyboardFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
+            .cgRectValue else { return }
 
-        crossButton.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        additionalLabel.translatesAutoresizingMaskIntoConstraints = false
+        guard let scroll = mainView?.scrollView else { return }
+        var contentInset: UIEdgeInsets = scroll.contentInset
+        contentInset.bottom = keyboardFrameSize.height - view.safeAreaInsets.bottom
+        mainView?.scrollView?.contentInset = contentInset
+    }
 
-        view.addSubview(crossButton)
-        view.addSubview(mainLabel)
-        view.addSubview(additionalLabel)
-        view.addSubview(magicView)
+    @objc func keyboardWillHide() {
+        let contentInset: UIEdgeInsets = UIEdgeInsets.zero
+        mainView?.scrollView?.contentInset = contentInset
+    }
 
-        NSLayoutConstraint.activate([
-
-            crossButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            crossButton.heightAnchor.constraint(equalToConstant: 44),
-            crossButton.widthAnchor.constraint(equalToConstant: 44),
-            crossButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 18),
-
-            mainLabel.topAnchor.constraint(equalTo: crossButton.bottomAnchor, constant: 24),
-            mainLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            mainLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48),
-
-            additionalLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 24),
-            additionalLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            additionalLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48),
-
-            magicView.topAnchor.constraint(equalTo: additionalLabel.bottomAnchor, constant: 24),
-            magicView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            magicView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            magicView.heightAnchor.constraint(equalToConstant: 50)
-        ])
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
 }
-
+/*
+// MARK: UITextFieldDelegate
 extension VerifyPhoneViewController: UITextFieldDelegate {
 
     func textField(_ textField: UITextField,
@@ -192,9 +135,10 @@ extension VerifyPhoneViewController: UITextFieldDelegate {
         print(validationService.format(phone: text, region: "RU"))
     }
 }
-
+*/
 // MARK: UIPopoverPresentationControllerDelegate
 extension VerifyPhoneViewController: UIPopoverPresentationControllerDelegate {
+
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }

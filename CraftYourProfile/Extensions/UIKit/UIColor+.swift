@@ -33,4 +33,8 @@ extension UIColor {
     static func grayText() -> UIColor {
         return #colorLiteral(red: 0.6862745098, green: 0.7176470588, blue: 0.7568627451, alpha: 1)
     }
+
+    static func blueButton() -> UIColor {
+        return #colorLiteral(red: 0.2078431373, green: 0.7254901961, blue: 0.9882352941, alpha: 1)
+    }
 }

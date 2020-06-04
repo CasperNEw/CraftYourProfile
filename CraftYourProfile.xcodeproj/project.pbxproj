@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4136B17576869716077DEF8A /* Pods_CraftYourProfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D087771FF999CF0C359E96AD /* Pods_CraftYourProfile.framework */; };
+		DA52EE1B24881CAE0062D174 /* ScrollViewWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE1A24881CAE0062D174 /* ScrollViewWithView.swift */; };
+		DA52EE4124893B480062D174 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE4024893B480062D174 /* UIView+.swift */; };
 		DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */; };
 		DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */; };
 		DA8AD236246FBF8F00876C69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD235246FBF8F00876C69 /* Assets.xcassets */; };
@@ -36,12 +38,16 @@
 		DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1024860F050079E6F5 /* NetworkService.swift */; };
 		DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */; };
 		DAAC5D1624869FEA0079E6F5 /* PhoneValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1524869FEA0079E6F5 /* PhoneValidationService.swift */; };
+		DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */; };
+		DACFC270248946E2009DE17E /* ViewWithScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACFC26F248946E2009DE17E /* ViewWithScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		98F3CBAFDA5598B141D1055C /* Pods-CraftYourProfile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftYourProfile.debug.xcconfig"; path = "Target Support Files/Pods-CraftYourProfile/Pods-CraftYourProfile.debug.xcconfig"; sourceTree = "<group>"; };
 		C6704E210622BDF80B137E98 /* Pods-CraftYourProfile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftYourProfile.release.xcconfig"; path = "Target Support Files/Pods-CraftYourProfile/Pods-CraftYourProfile.release.xcconfig"; sourceTree = "<group>"; };
 		D087771FF999CF0C359E96AD /* Pods_CraftYourProfile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CraftYourProfile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA52EE1A24881CAE0062D174 /* ScrollViewWithView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWithView.swift; sourceTree = "<group>"; };
+		DA52EE4024893B480062D174 /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		DA8AD229246FBF8A00876C69 /* CraftYourProfile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftYourProfile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +78,8 @@
 		DAAC5D1024860F050079E6F5 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFromServer.swift; sourceTree = "<group>"; };
 		DAAC5D1524869FEA0079E6F5 /* PhoneValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneValidationService.swift; sourceTree = "<group>"; };
+		DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneView.swift; sourceTree = "<group>"; };
+		DACFC26F248946E2009DE17E /* ViewWithScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +127,7 @@
 				DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */,
 				DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */,
 				DAAC5D0C247E91750079E6F5 /* ViewControllers */,
+				DAAC5D1724879D0B0079E6F5 /* Views */,
 				DAAC5D0F24860EE80079E6F5 /* Services */,
 				DAAC5D1224869D760079E6F5 /* Models */,
 				DA8AD260246FDA8700876C69 /* Extensions */,
@@ -166,6 +175,7 @@
 				DA8AD26E24701FC500876C69 /* UITextView+.swift */,
 				DA8AD27224707FC700876C69 /* UIImage+.swift */,
 				DA8AD2742472791F00876C69 /* UIControl+.swift */,
+				DA52EE4024893B480062D174 /* UIView+.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -195,6 +205,24 @@
 				DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		DAAC5D1724879D0B0079E6F5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DACFC26E248946C9009DE17E /* VerifyScreen */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DACFC26E248946C9009DE17E /* VerifyScreen */ = {
+			isa = PBXGroup;
+			children = (
+				DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */,
+				DACFC26F248946E2009DE17E /* ViewWithScrollView.swift */,
+				DA52EE1A24881CAE0062D174 /* ScrollViewWithView.swift */,
+			);
+			path = VerifyScreen;
 			sourceTree = "<group>";
 		};
 		FC795780290540DE90AE7B79 /* Frameworks */ = {
@@ -350,15 +378,19 @@
 				DA8AD267246FDF9100876C69 /* UILabel+.swift in Sources */,
 				DAAC5D0B247E916D0079E6F5 /* VerifyPhoneViewController.swift in Sources */,
 				DA8AD263246FDAA500876C69 /* UIFont+.swift in Sources */,
+				DA52EE4124893B480062D174 /* UIView+.swift in Sources */,
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
 				DAAC5D0E248148D30079E6F5 /* PopoverTableViewController.swift in Sources */,
 				DA8AD2752472792000876C69 /* UIControl+.swift in Sources */,
 				DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */,
+				DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */,
+				DA52EE1B24881CAE0062D174 /* ScrollViewWithView.swift in Sources */,
 				DAAC5D1624869FEA0079E6F5 /* PhoneValidationService.swift in Sources */,
 				DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */,
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,
 				DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */,
 				DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */,
+				DACFC270248946E2009DE17E /* ViewWithScrollView.swift in Sources */,
 				DA8AD2712470759A00876C69 /* String+.swift in Sources */,
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,
 				DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */,
