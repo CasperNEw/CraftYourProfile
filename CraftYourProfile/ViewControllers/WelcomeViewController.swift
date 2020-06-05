@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: clear VC, add UIView
 class WelcomeViewController: UIViewController {
 
 // MARK: Init
@@ -49,7 +50,7 @@ class WelcomeViewController: UIViewController {
     }
 
     @objc func letsGoButtonPressed() {
-        letsGoButton.clickAnimation()
+        letsGoButton.clickAnimation(with: 0.8)
         navigationController?.pushViewController(VerifyPhoneViewController(), animated: true)
     }
     @objc func circleButtonPressed() {

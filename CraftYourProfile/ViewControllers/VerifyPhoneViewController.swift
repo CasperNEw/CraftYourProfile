@@ -12,12 +12,9 @@ import libPhoneNumber_iOS
 class VerifyPhoneViewController: UIViewController {
 
 // MARK: Init
-
     var mainView: ViewWithScrollView? { return self.view as? ViewWithScrollView }
-    var popOver = PopoverTableViewController()
-
-    let validationService = PhoneValidationService()
-    let networkService = NetworkService()
+    var popOver = PopoverViewController()
+    let manager = PhoneManager()
 
 // MARK: loadView
     override func loadView() {
@@ -29,53 +26,8 @@ class VerifyPhoneViewController: UIViewController {
         view.backgroundColor = .white
         setupKeyboard()
         setupButtons()
-//        getCountryCodes()
-    }
 
-    private func setupButtons() {
-        guard let view = mainView?.scrollView?.view else { return }
-
-        view.crossButton.addTarget(self, action: #selector(crossButtonTapped), for: .touchUpInside)
-        view.codeButton.addTarget(self, action: #selector(codeButtonTapped), for: .touchUpInside)
-        view.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-    }
-
-    @objc func crossButtonTapped() {
-        guard let crossButton = mainView?.scrollView?.view?.crossButton else { return }
-        crossButton.clickAnimation()
-        perform(#selector(popViewController), with: nil, afterDelay: 0.5)
-    }
-
-    @objc func popViewController() {
-        navigationController?.popViewController(animated: true)
-    }
-
-    @objc func codeButtonTapped() {
-        popOver.modalPresentationStyle = .popover
-        guard let popOverVC = popOver.popoverPresentationController else { return }
-        popOverVC.delegate = self
-        popOverVC.sourceView = mainView?.scrollView?.view?.codeButton
-        guard let bounds = mainView?.scrollView?.view?.codeButton.bounds else { return }
-        popOverVC.sourceRect = CGRect(x: bounds.midX, y: bounds.maxY, width: 0, height: 0)
-        popOver.preferredContentSize = CGSize(width: 250, height: 250)
-        self.present(popOver, animated: true)
-    }
-
-    @objc func nextButtonTapped() {
-        guard let nextButton = mainView?.scrollView?.view?.crossButton else { return }
-        nextButton.clickAnimation()
-    }
-
-    func getCountryCodes() {
-        networkService.getCountriesInformation { result in
-            switch result {
-            case .success(let data):
-                print(data)
-                //TODO: CountryModel -> PopoverVC
-            case .failure(let error):
-                print(error.localizedDescription) //TODO: Error processing
-            }
-        }
+        mainView?.scrollView?.view?.phoneTextField.delegate = self
     }
 }
 
@@ -84,7 +36,6 @@ extension VerifyPhoneViewController {
 
     func setupKeyboard() {
 
-        // TODO: not work!
         let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(hideAction)
 
@@ -113,10 +64,72 @@ extension VerifyPhoneViewController {
     }
 
     @objc func hideKeyboard() {
-        view.endEditing(true)
+        mainView?.scrollView?.view?.phoneTextField.resignFirstResponder()
     }
 }
-/*
+
+// MARK: setupButtons
+extension VerifyPhoneViewController {
+
+    private func setupButtons() {
+        guard let view = mainView?.scrollView?.view else { return }
+
+        view.crossButton.addTarget(self, action: #selector(crossButtonTapped), for: .touchUpInside)
+        view.codeButton.addTarget(self, action: #selector(codeButtonTapped), for: .touchUpInside)
+        view.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+    }
+
+    @objc func crossButtonTapped() {
+        mainView?.scrollView?.view?.crossButton.clickAnimation()
+        perform(#selector(popViewController), with: nil, afterDelay: 0.5)
+    }
+
+    @objc func popViewController() {
+        navigationController?.popViewController(animated: true)
+    }
+
+    @objc func codeButtonTapped() {
+        setupAndPresentPopOverVC()
+    }
+
+    @objc func nextButtonTapped() {
+        mainView?.scrollView?.view?.nextButton.clickAnimation(with: 0.9)
+
+        guard let phone = mainView?.scrollView?.view?.phoneTextField.text else { return }
+        if manager.isValid(phone: phone) {
+            let alert = UIAlertController(title: "Success",
+                                          message: "A PIN code has been sent to your phone number",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+//                navigationController?.pushViewController(NewAmazingVC(), animated: true)
+                print("success, go to the next VC")
+            })
+            self.present(alert, animated: true)
+        } else {
+            let alert = UIAlertController(title: "Error",
+                                          message: "Unable to complete validation procedure",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
+    }
+
+// MARK: setupAndPresentPopOverVC
+    private func setupAndPresentPopOverVC() {
+        popOver.tableView?.dataSource = self
+        popOver.tableView?.delegate = self
+        popOver.searchController.searchResultsUpdater = self
+        popOver.modalPresentationStyle = .popover
+        guard let popOverPC = popOver.popoverPresentationController else { return }
+        popOverPC.delegate = self
+        popOverPC.sourceView = mainView?.scrollView?.view?.codeButton
+        guard let bounds = mainView?.scrollView?.view?.codeButton.bounds else { return }
+        popOverPC.sourceRect = CGRect(x: bounds.midX, y: bounds.midY, width: 0, height: 0)
+        popOver.preferredContentSize = CGSize(width: 250, height: 250)
+        self.present(popOver, animated: true)
+    }
+}
+
 // MARK: UITextFieldDelegate
 extension VerifyPhoneViewController: UITextFieldDelegate {
 
@@ -124,23 +137,77 @@ extension VerifyPhoneViewController: UITextFieldDelegate {
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
 
-        if validationService.isValid(phone: textField.text!, region: "RU"), (string != "") {
-            return false
+        if string == "" {
+            textField.text?.removeAll { $0 == "-" }
+            return true
         }
+        if Int(string) == nil { return false }
+        if manager.isValid(phone: textField.text) { return false }
         return true
     }
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        print(validationService.format(phone: text, region: "RU"))
+
+        if manager.isValid(phone: text) {
+            textField.text = manager.getFormattedPhoneNumber(phone: text)
+        }
+    }
+
+    func test(textField: UITextField) -> Int? {
+        if let selectedRange = textField.selectedTextRange {
+            let cursorPosition = textField.offset(from: textField.beginningOfDocument, to: selectedRange.start)
+            print("\(cursorPosition)")
+            return cursorPosition
+        }
+        return nil
     }
 }
-*/
+
 // MARK: UIPopoverPresentationControllerDelegate
 extension VerifyPhoneViewController: UIPopoverPresentationControllerDelegate {
 
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
+    }
+}
+
+// MARK: Pop UITableViewDataSource
+extension VerifyPhoneViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return manager.getCodesCount()
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = manager.getCodesDescription(at: indexPath.row)
+        return cell
+    }
+}
+// MARK: Pop UITableViewDelegate
+extension VerifyPhoneViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let codeTextField = mainView?.scrollView?.view?.codeTextField else { return }
+        codeTextField.text = manager.getTheSelectedCode(at: indexPath.row)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+// MARK: Pop UISearchResultsUpdating
+extension VerifyPhoneViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        filterContentForSearchText(text)
+    }
+
+    private func filterContentForSearchText(_ searchText: String) {
+        manager.filterCodes(searchText: searchText)
+        DispatchQueue.main.async {
+            self.popOver.tableView?.reloadData()
+        }
     }
 }
 

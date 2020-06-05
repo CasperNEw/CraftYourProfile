@@ -11,7 +11,7 @@ import UIKit
 class VerifyPhoneView: UIView {
 
 // MARK: Init
-    let crossButton = UIControl(image: UIImage(named: "cross"))
+    let crossButton = UIButton(image: UIImage(named: "cross"))
     let mainLabel = UILabel(text: "Let's verify your phone number 😘",
                             font: .compactRounded(style: .black, size: 32),
                             color: .mainBlackText(), lines: 2, alignment: .left)
@@ -21,12 +21,11 @@ class VerifyPhoneView: UIView {
 
     let phoneView = UIView()
     let phoneTextField = UITextField()
-    let countryCodeTextField = UITextField()
-//    let codeButton = UIButton(image: UIImage(named: "rexona"))
-    let codeButton = UIControl(image: UIImage(named: "rexona"))
+    let codeTextField = UITextField()
+    let codeButton = UIButton(image: UIImage(named: "rexona"))
     let lineView = UIView()
 
-    let nextButton = UIControl(title: "Next", titleColor: .white,
+    let nextButton = UIButton(title: "Next", titleColor: .white,
                                backgroundColor: .blueButton(),
                                font: .compactRounded(style: .semibold, size: 20),
                                cornerRadius: 20)
@@ -77,7 +76,7 @@ extension VerifyPhoneView {
     }
 
     private func setupPhoneView() {
-        countryCodeTextField.translatesAutoresizingMaskIntoConstraints = false
+        codeTextField.translatesAutoresizingMaskIntoConstraints = false
         codeButton.translatesAutoresizingMaskIntoConstraints = false
         lineView .translatesAutoresizingMaskIntoConstraints = false
         phoneTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -85,16 +84,19 @@ extension VerifyPhoneView {
         phoneView.backgroundColor = .backgroundGray()
         phoneView.layer.cornerRadius = 15
 
-        countryCodeTextField.backgroundColor = .clear
+        codeTextField.backgroundColor = .clear
         phoneTextField.backgroundColor = .clear
         lineView.backgroundColor = .grayText()
-        countryCodeTextField.font = .compactRounded(style: .semibold, size: 20)
-        countryCodeTextField.isUserInteractionEnabled = false
+        codeTextField.font = .compactRounded(style: .semibold, size: 20)
+        codeTextField.contentMode = .center
+        codeTextField.isUserInteractionEnabled = false
         phoneTextField.font = .compactRounded(style: .semibold, size: 20)
-        phoneTextField.textContentType = .telephoneNumber
         phoneTextField.keyboardType = .phonePad
 
-        phoneView.addSubview(countryCodeTextField)
+        codeTextField.adjustsFontSizeToFitWidth = true
+        phoneTextField.adjustsFontSizeToFitWidth = true
+
+        phoneView.addSubview(codeTextField)
         phoneView.addSubview(codeButton)
         phoneView.addSubview(lineView)
         phoneView.addSubview(phoneTextField)
@@ -110,11 +112,11 @@ extension VerifyPhoneView {
 
     private func setupPhoneViewConstraints() {
         NSLayoutConstraint.activate([
-            countryCodeTextField.leadingAnchor.constraint(equalTo: phoneView.leadingAnchor, constant: 12),
-            countryCodeTextField.centerYAnchor.constraint(equalTo: phoneView.centerYAnchor),
-            countryCodeTextField.widthAnchor.constraint(equalToConstant: bounds.width * 0.13),
+            codeTextField.leadingAnchor.constraint(equalTo: phoneView.leadingAnchor, constant: 12),
+            codeTextField.centerYAnchor.constraint(equalTo: phoneView.centerYAnchor),
+            codeTextField.widthAnchor.constraint(equalToConstant: bounds.width * 0.13),
 
-            codeButton.leadingAnchor.constraint(equalTo: countryCodeTextField.trailingAnchor, constant: 0),
+            codeButton.leadingAnchor.constraint(equalTo: codeTextField.trailingAnchor, constant: 0),
             codeButton.centerYAnchor.constraint(equalTo: phoneView.centerYAnchor),
             codeButton.heightAnchor.constraint(equalToConstant: 40),
             codeButton.widthAnchor.constraint(equalToConstant: 40),

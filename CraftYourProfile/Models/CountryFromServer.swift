@@ -7,6 +7,7 @@
 //
 
 struct CountryFromServer: Decodable {
+
     let alpha2Code: String
     let callingCodes: [String]
     let name: String

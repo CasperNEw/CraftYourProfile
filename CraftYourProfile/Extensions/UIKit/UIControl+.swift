@@ -68,8 +68,8 @@ extension UIControl {
         ])
     }
 
-    func clickAnimation() {
-        self.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+    func clickAnimation(with startScale: CGFloat = 0.7) {
+        self.transform = CGAffineTransform(scaleX: startScale, y: startScale)
 
         UIView.animate(withDuration: 1.5,
                        delay: 0,
