@@ -11,24 +11,26 @@ import UIKit
 class VerifyPhoneView: UIView {
 
 // MARK: Init
-    let crossButton = UIButton(image: UIImage(named: "cross"))
-    let mainLabel = UILabel(text: "Let's verify your phone number 😘",
+    private let crossButton = UIButton(image: UIImage(named: "cross"))
+    private let mainLabel = UILabel(text: "Let's verify your phone number 😘",
                             font: .compactRounded(style: .black, size: 32),
                             color: .mainBlackText(), lines: 2, alignment: .left)
-    let additionalLabel = UILabel(text: "PHONE NUMBER",
+    private let additionalLabel = UILabel(text: "PHONE NUMBER",
                                   font: .compactRounded(style: .semibold, size: 15),
                                   color: .gray, lines: 1, alignment: .left)
 
-    let phoneView = UIView()
-    let phoneTextField = UITextField()
-    let codeTextField = UITextField()
-    let codeButton = UIButton(image: UIImage(named: "rexona"))
-    let lineView = UIView()
+    private let phoneView = UIView()
+    private let phoneTextField = UITextField()
+    private let codeTextField = UITextField()
+    private let codeButton = UIButton(image: UIImage(named: "rexona"))
+    private let lineView = UIView()
 
-    let nextButton = UIButton(title: "Next", titleColor: .white,
+    private let nextButton = UIButton(title: "Next", titleColor: .white,
                                backgroundColor: .blueButton(),
                                font: .compactRounded(style: .semibold, size: 20),
                                cornerRadius: 20)
+
+    weak var updater: VerifyPhoneViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,22 +48,39 @@ class VerifyPhoneView: UIView {
         setupConstraints()
     }
 
-    func setupViews() {
+    private func setupViews() {
         setupPhoneView()
         setupNextButton()
         addSubviews()
+
+        crossButton.addTarget(self, action: #selector(crossButtonTapped), for: .touchUpInside)
+        codeButton.addTarget(self, action: #selector(codeButtonTapped), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
 
-    func setupConstraints() {
+    private func setupConstraints() {
         setupMainConstraints()
         setupPhoneViewConstraints()
+    }
+
+    @objc private func crossButtonTapped() {
+        crossButton.clickAnimation()
+        updater?.crossButtonTapped()
+    }
+    @objc private func codeButtonTapped() {
+        codeButton.clickAnimation()
+        updater?.codeButtonTapped(codeButton)
+    }
+    @objc private func nextButtonTapped() {
+        nextButton.clickAnimation(with: 0.9)
+        updater?.nextButtonTapped(string: phoneTextField.text)
     }
 }
 
 // MARK: Setup Views
 extension VerifyPhoneView {
 
-    func addSubviews() {
+    private func addSubviews() {
         crossButton.translatesAutoresizingMaskIntoConstraints = false
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         additionalLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -95,6 +114,7 @@ extension VerifyPhoneView {
 
         codeTextField.adjustsFontSizeToFitWidth = true
         phoneTextField.adjustsFontSizeToFitWidth = true
+        phoneTextField.delegate = self
 
         phoneView.addSubview(codeTextField)
         phoneView.addSubview(codeButton)
@@ -158,6 +178,29 @@ extension VerifyPhoneView {
             nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+}
+
+// MARK: UITextFieldDelegate
+extension VerifyPhoneView: UITextFieldDelegate {
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+
+        return updater?.shouldChangeCharactersIn(textField, string: string) ?? true
+    }
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        updater?.textFieldDidChangeSelection(textField)
+    }
+}
+
+// MARK: VerifyPhoneViewUpdater
+extension VerifyPhoneView: VerifyPhoneViewUpdater {
+
+    func setNewValue(string: String) {
+        DispatchQueue.main.async {
+            self.codeTextField.text = string
+        }
     }
 }
 

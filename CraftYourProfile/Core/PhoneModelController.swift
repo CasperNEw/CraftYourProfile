@@ -1,5 +1,5 @@
 //
-//  PhoneManager.swift
+//  PhoneModelController.swift
 //  CraftYourProfile
 //
 //  Created by Дмитрий Константинов on 05.06.2020.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-class PhoneManager {
+class PhoneModelController {
 
-    let networkService = NetworkService()
-    let validatingService = ValidationService()
+    private let networkService = NetworkService()
+    private let validatingService = ValidationService()
 
-    var sourceCodes: [CountryCode] = []
-    var countryCodes: [CountryCode] = []
-    var lastSelected: CountryCode?
+    private var sourceCodes: [CountryCode] = []
+    private var countryCodes: [CountryCode] = []
+    private var lastSelected: CountryCode?
 
     init() {
         networkService.getCountriesInformation { [weak self] (result) in
@@ -59,7 +59,7 @@ class PhoneManager {
     func filterCodes(searchText: String) {
 
         if !searchText.isEmpty {
-            countryCodes = sourceCodes.filter { $0.description.contains(searchText) }
+            countryCodes = sourceCodes.filter { $0.description.lowercased().contains(searchText.lowercased()) }
         } else {
             countryCodes = sourceCodes
         }
@@ -82,5 +82,11 @@ class PhoneManager {
         let prefix = code + "-"
         guard fullString.hasPrefix(prefix) else { return phone }
         return String(fullString.dropFirst(prefix.count))
+    }
+
+    func getCountryCodes(with filter: String?) -> [CountryCode] {
+        guard let filter = filter else { return countryCodes }
+        filterCodes(searchText: filter)
+        return countryCodes
     }
 }

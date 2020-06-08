@@ -14,3 +14,13 @@ struct CountryCode {
 
     var description: String { return code + " " + name }
 }
+
+extension CountryCode: Hashable {
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(description)
+    }
+    static func == (lhs: CountryCode, rhs: CountryCode) -> Bool {
+        return lhs.description == rhs.description
+    }
+}
