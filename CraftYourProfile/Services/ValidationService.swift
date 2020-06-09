@@ -12,29 +12,26 @@ struct ValidationService {
 
     private let phoneUtil = NBPhoneNumberUtil()
 
-    func isValid(phone: String, region: String) -> Bool {
+    func isValid(phone: String, region: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         do {
             let phoneNumber: NBPhoneNumber = try phoneUtil.parse(phone, defaultRegion: region)
-            return phoneUtil.isValidNumber(phoneNumber)
+            completion(.success(phoneUtil.isValidNumber(phoneNumber)))
         } catch let error as NSError {
-            print(error.localizedDescription)
-            return false
+            completion(.failure(error))
         }
     }
 
-    func format(phone: String, region: String) -> String {
+    func format(phone: String, region: String, completion: @escaping (Result<String, Error>) -> Void) {
         do {
             let phoneNumber: NBPhoneNumber = try phoneUtil.parse(phone, defaultRegion: region)
             do {
                 let formattedString: String = try phoneUtil.format(phoneNumber, numberFormat: .RFC3966)
-                return(phoneUtil.extractPossibleNumber(formattedString))
+                completion(.success(phoneUtil.extractPossibleNumber(formattedString)))
             } catch let error {
-                print(error.localizedDescription)
-                return "error" // TODO: it's not goot
+                completion(.failure(error))
             }
         } catch let error {
-            print(error.localizedDescription)
-            return "error" // TODO: it's not goot
+            completion(.failure(error))
         }
     }
 }

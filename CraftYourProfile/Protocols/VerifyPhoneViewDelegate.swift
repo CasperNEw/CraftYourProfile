@@ -16,5 +16,3 @@ protocol VerifyPhoneViewDelegate: AnyObject {
     func codeButtonTapped(_ view: UIView)
     func nextButtonTapped(string: String?)
 }
-
-

@@ -30,7 +30,7 @@ class VerifyPhoneView: UIView {
                                font: .compactRounded(style: .semibold, size: 20),
                                cornerRadius: 20)
 
-    weak var updater: VerifyPhoneViewDelegate?
+    weak var delegate: VerifyPhoneViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,15 +65,15 @@ class VerifyPhoneView: UIView {
 
     @objc private func crossButtonTapped() {
         crossButton.clickAnimation()
-        updater?.crossButtonTapped()
+        delegate?.crossButtonTapped()
     }
     @objc private func codeButtonTapped() {
         codeButton.clickAnimation()
-        updater?.codeButtonTapped(codeButton)
+        delegate?.codeButtonTapped(codeButton)
     }
     @objc private func nextButtonTapped() {
         nextButton.clickAnimation(with: 0.9)
-        updater?.nextButtonTapped(string: phoneTextField.text)
+        delegate?.nextButtonTapped(string: phoneTextField.text)
     }
 }
 
@@ -187,10 +187,10 @@ extension VerifyPhoneView: UITextFieldDelegate {
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
 
-        return updater?.shouldChangeCharactersIn(textField, string: string) ?? true
+        return delegate?.shouldChangeCharactersIn(textField, string: string) ?? true
     }
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        updater?.textFieldDidChangeSelection(textField)
+        delegate?.textFieldDidChangeSelection(textField)
     }
 }
 
@@ -198,9 +198,7 @@ extension VerifyPhoneView: UITextFieldDelegate {
 extension VerifyPhoneView: VerifyPhoneViewUpdater {
 
     func setNewValue(string: String) {
-        DispatchQueue.main.async {
-            self.codeTextField.text = string
-        }
+        codeTextField.text = string
     }
 }
 

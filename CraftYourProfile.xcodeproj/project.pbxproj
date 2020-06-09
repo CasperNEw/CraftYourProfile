@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4136B17576869716077DEF8A /* Pods_CraftYourProfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D087771FF999CF0C359E96AD /* Pods_CraftYourProfile.framework */; };
-		DA262DB3248A44A6007FB3EA /* PhoneModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB2248A44A6007FB3EA /* PhoneModelController.swift */; };
+		DA262DB3248A44A6007FB3EA /* VerifyPhoneModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB2248A44A6007FB3EA /* VerifyPhoneModelController.swift */; };
 		DA262DB5248A4D57007FB3EA /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB4248A4D57007FB3EA /* CountryCode.swift */; };
 		DA262DB7248E3507007FB3EA /* CountryCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */; };
 		DA262DB9248E3E05007FB3EA /* CountryCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB8248E3E05007FB3EA /* CountryCodeCell.swift */; };
@@ -16,7 +16,8 @@
 		DA262DC0248E7749007FB3EA /* CountryCodeDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DBF248E7749007FB3EA /* CountryCodeDataProviderProtocol.swift */; };
 		DA262DC2248E8817007FB3EA /* VerifyPhoneViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DC1248E8817007FB3EA /* VerifyPhoneViewDelegate.swift */; };
 		DA262DC4248EC156007FB3EA /* VerifyPhoneViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DC3248EC156007FB3EA /* VerifyPhoneViewUpdater.swift */; };
-		DA52EE1B24881CAE0062D174 /* ScrollViewWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE1A24881CAE0062D174 /* ScrollViewWithView.swift */; };
+		DA262DC8248F449C007FB3EA /* ScrollViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */; };
+		DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DCB248F6390007FB3EA /* UIScrollView+.swift */; };
 		DA52EE4124893B480062D174 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE4024893B480062D174 /* UIView+.swift */; };
 		DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */; };
 		DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */; };
@@ -46,14 +47,13 @@
 		DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */; };
 		DAAC5D1624869FEA0079E6F5 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1524869FEA0079E6F5 /* ValidationService.swift */; };
 		DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */; };
-		DACFC270248946E2009DE17E /* ViewWithScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACFC26F248946E2009DE17E /* ViewWithScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		98F3CBAFDA5598B141D1055C /* Pods-CraftYourProfile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftYourProfile.debug.xcconfig"; path = "Target Support Files/Pods-CraftYourProfile/Pods-CraftYourProfile.debug.xcconfig"; sourceTree = "<group>"; };
 		C6704E210622BDF80B137E98 /* Pods-CraftYourProfile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftYourProfile.release.xcconfig"; path = "Target Support Files/Pods-CraftYourProfile/Pods-CraftYourProfile.release.xcconfig"; sourceTree = "<group>"; };
 		D087771FF999CF0C359E96AD /* Pods_CraftYourProfile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CraftYourProfile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA262DB2248A44A6007FB3EA /* PhoneModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneModelController.swift; sourceTree = "<group>"; };
+		DA262DB2248A44A6007FB3EA /* VerifyPhoneModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneModelController.swift; sourceTree = "<group>"; };
 		DA262DB4248A4D57007FB3EA /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeViewController.swift; sourceTree = "<group>"; };
 		DA262DB8248E3E05007FB3EA /* CountryCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeCell.swift; sourceTree = "<group>"; };
@@ -61,7 +61,8 @@
 		DA262DBF248E7749007FB3EA /* CountryCodeDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeDataProviderProtocol.swift; sourceTree = "<group>"; };
 		DA262DC1248E8817007FB3EA /* VerifyPhoneViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneViewDelegate.swift; sourceTree = "<group>"; };
 		DA262DC3248EC156007FB3EA /* VerifyPhoneViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneViewUpdater.swift; sourceTree = "<group>"; };
-		DA52EE1A24881CAE0062D174 /* ScrollViewWithView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWithView.swift; sourceTree = "<group>"; };
+		DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewContainer.swift; sourceTree = "<group>"; };
+		DA262DCB248F6390007FB3EA /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		DA52EE4024893B480062D174 /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		DA8AD229246FBF8A00876C69 /* CraftYourProfile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftYourProfile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,7 +94,6 @@
 		DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFromServer.swift; sourceTree = "<group>"; };
 		DAAC5D1524869FEA0079E6F5 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneView.swift; sourceTree = "<group>"; };
-		DACFC26F248946E2009DE17E /* ViewWithScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,14 +115,6 @@
 				C6704E210622BDF80B137E98 /* Pods-CraftYourProfile.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		DA262DB1248A4490007FB3EA /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				DA262DB2248A44A6007FB3EA /* PhoneModelController.swift */,
-			);
-			path = Core;
 			sourceTree = "<group>";
 		};
 		DA262DBA248E6612007FB3EA /* UI */ = {
@@ -153,6 +145,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		DA262DC5248F4351007FB3EA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DA262DB2248A44A6007FB3EA /* VerifyPhoneModelController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		DA8AD220246FBF8A00876C69 = {
 			isa = PBXGroup;
 			children = (
@@ -174,13 +174,12 @@
 		DA8AD22B246FBF8A00876C69 /* CraftYourProfile */ = {
 			isa = PBXGroup;
 			children = (
-				DA262DBE248E7114007FB3EA /* Protocols */,
 				DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */,
 				DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */,
 				DA262DBA248E6612007FB3EA /* UI */,
 				DAAC5D0F24860EE80079E6F5 /* Services */,
-				DA262DB1248A4490007FB3EA /* Core */,
 				DAAC5D1224869D760079E6F5 /* Models */,
+				DA262DBE248E7114007FB3EA /* Protocols */,
 				DA8AD260246FDA8700876C69 /* Extensions */,
 				DA8AD235246FBF8F00876C69 /* Assets.xcassets */,
 				DA8AD24D246FD29E00876C69 /* Fonts */,
@@ -228,6 +227,7 @@
 				DA8AD2742472791F00876C69 /* UIControl+.swift */,
 				DA52EE4024893B480062D174 /* UIView+.swift */,
 				DA262DBC248E67D0007FB3EA /* UIViewController+.swift */,
+				DA262DCB248F6390007FB3EA /* UIScrollView+.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -254,6 +254,7 @@
 		DAAC5D1224869D760079E6F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DA262DC5248F4351007FB3EA /* Controllers */,
 				DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */,
 				DA262DB4248A4D57007FB3EA /* CountryCode.swift */,
 			);
@@ -272,8 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */,
-				DACFC26F248946E2009DE17E /* ViewWithScrollView.swift */,
-				DA52EE1A24881CAE0062D174 /* ScrollViewWithView.swift */,
+				DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */,
 			);
 			path = VerifyScreen;
 			sourceTree = "<group>";
@@ -440,19 +440,19 @@
 				DA8AD2752472792000876C69 /* UIControl+.swift in Sources */,
 				DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */,
 				DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */,
+				DA262DC8248F449C007FB3EA /* ScrollViewContainer.swift in Sources */,
 				DA262DB7248E3507007FB3EA /* CountryCodeViewController.swift in Sources */,
-				DA52EE1B24881CAE0062D174 /* ScrollViewWithView.swift in Sources */,
 				DAAC5D1624869FEA0079E6F5 /* ValidationService.swift in Sources */,
 				DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */,
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,
 				DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */,
 				DA262DB9248E3E05007FB3EA /* CountryCodeCell.swift in Sources */,
 				DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */,
-				DACFC270248946E2009DE17E /* ViewWithScrollView.swift in Sources */,
 				DA262DBD248E67D0007FB3EA /* UIViewController+.swift in Sources */,
 				DA8AD2712470759A00876C69 /* String+.swift in Sources */,
-				DA262DB3248A44A6007FB3EA /* PhoneModelController.swift in Sources */,
+				DA262DB3248A44A6007FB3EA /* VerifyPhoneModelController.swift in Sources */,
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,
+				DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */,
 				DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */,
 				DA8AD26D24700EE900876C69 /* NSAttributedString+.swift in Sources */,
 			);

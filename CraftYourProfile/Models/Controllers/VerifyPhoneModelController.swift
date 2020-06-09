@@ -1,5 +1,5 @@
 //
-//  PhoneModelController.swift
+//  VerifyPhoneModelController.swift
 //  CraftYourProfile
 //
 //  Created by Дмитрий Константинов on 05.06.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PhoneModelController {
+class VerifyPhoneModelController {
 
     private let networkService = NetworkService()
     private let validatingService = ValidationService()
@@ -17,15 +17,32 @@ class PhoneModelController {
     private var countryCodes: [CountryCode] = []
     private var lastSelected: CountryCode?
 
+    private var statusError: Error?
+
     init() {
+        getNetworkData()
+    }
+
+    private func getNetworkData(completion: @escaping (Error?) -> Void = { _ in }) {
         networkService.getCountriesInformation { [weak self] (result) in
             switch result {
             case .success(let data):
+                self?.statusError = nil
+                completion(nil)
                 self?.makeCountryCodesFromNetworkData(data)
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.statusError = error
+                completion(error)
             }
         }
+    }
+
+    func networkErrorChecking(completion: (Error?) -> Void) {
+        completion(statusError)
+    }
+
+    func reloadData() {
+        getNetworkData()
     }
 
     private func makeCountryCodesFromNetworkData(_ source: [CountryFromServer]) {
@@ -65,22 +82,48 @@ class PhoneModelController {
         }
     }
 
-    func isValid(phone: String?) -> Bool {
-        guard let phone = phone else { return false }
-        guard let region = lastSelected?.shortName else { return false }
-        return validatingService.isValid(phone: phone, region: region)
+    func isValid(phone: String?, completion: @escaping (Error?) -> Void = { _ in }) -> Bool {
+        guard let phone = phone else { completion(nil); return false }
+        guard let region = lastSelected?.shortName else { completion(nil); return false }
+
+        var check: Bool = false
+        validatingService.isValid(phone: phone, region: region) { (result) in
+            switch result {
+            case .success(let isValid):
+                check = isValid
+                completion(nil)
+            case .failure(let error):
+                completion(error)
+            }
+        }
+        return check
     }
 
-    private func format(phone: String) -> String {
-        guard let region = lastSelected?.shortName else { return "RU" }
-        return validatingService.format(phone: phone, region: region)
+    private func format(phone: String, completion: @escaping (Error?) -> Void = { _ in }) -> String? {
+        guard let region = lastSelected?.shortName else { return nil }
+
+        var formattedString = ""
+        validatingService.format(phone: phone, region: region) { (result) in
+            switch result {
+            case .success(let format):
+                formattedString = format
+                completion(nil)
+            case .failure(let error):
+                completion(error)
+            }
+        }
+        return formattedString
     }
 
-    func getFormattedPhoneNumber(phone: String) -> String {
-        let fullString = self.format(phone: phone)
-        guard let code = lastSelected?.code else { return phone }
+    func getFormattedPhoneNumber(phone: String, completion: @escaping (Error?) -> Void = { _ in }) -> String {
+        guard let fullString = format(phone: phone, completion: { (error) in
+            guard let error = error else { return }
+            completion(error)
+        }) else { completion(nil); return phone }
+        guard let code = lastSelected?.code else { completion(nil); return phone }
         let prefix = code + "-"
-        guard fullString.hasPrefix(prefix) else { return phone }
+        guard fullString.hasPrefix(prefix) else { completion(nil); return phone }
+        completion(nil)
         return String(fullString.dropFirst(prefix.count))
     }
 
