@@ -56,8 +56,8 @@ class VerifyPhoneModelController {
         }
         countryCodes.sort { $0.name < $1.name }
 
-        self.sourceCodes = countryCodes
-        self.countryCodes = countryCodes
+        self.sourceCodes = countryCodes.removingDuplicates()
+        self.countryCodes = countryCodes.removingDuplicates()
     }
 
     func getCodesCount() -> Int {

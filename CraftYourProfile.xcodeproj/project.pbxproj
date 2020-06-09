@@ -19,6 +19,7 @@
 		DA262DC8248F449C007FB3EA /* ScrollViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */; };
 		DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DCB248F6390007FB3EA /* UIScrollView+.swift */; };
 		DA52EE4124893B480062D174 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE4024893B480062D174 /* UIView+.swift */; };
+		DA67A295248F9002004079AC /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A294248F9002004079AC /* Array+.swift */; };
 		DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */; };
 		DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */; };
 		DA8AD236246FBF8F00876C69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD235246FBF8F00876C69 /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 		DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewContainer.swift; sourceTree = "<group>"; };
 		DA262DCB248F6390007FB3EA /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		DA52EE4024893B480062D174 /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		DA67A294248F9002004079AC /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		DA8AD229246FBF8A00876C69 /* CraftYourProfile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftYourProfile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				DA8AD261246FDA9400876C69 /* UIKit */,
 				DA8AD26C24700EE900876C69 /* NSAttributedString+.swift */,
 				DA8AD2702470759A00876C69 /* String+.swift */,
+				DA67A294248F9002004079AC /* Array+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				DA8AD263246FDAA500876C69 /* UIFont+.swift in Sources */,
 				DA52EE4124893B480062D174 /* UIView+.swift in Sources */,
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
+				DA67A295248F9002004079AC /* Array+.swift in Sources */,
 				DA8AD2752472792000876C69 /* UIControl+.swift in Sources */,
 				DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */,
 				DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */,
