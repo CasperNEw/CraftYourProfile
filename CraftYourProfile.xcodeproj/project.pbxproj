@@ -20,6 +20,9 @@
 		DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DCB248F6390007FB3EA /* UIScrollView+.swift */; };
 		DA52EE4124893B480062D174 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE4024893B480062D174 /* UIView+.swift */; };
 		DA67A295248F9002004079AC /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A294248F9002004079AC /* Array+.swift */; };
+		DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A296248F94EC004079AC /* WelcomeView.swift */; };
+		DA67A299248FBCC5004079AC /* EmitterLayerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */; };
+		DA67A29B248FC086004079AC /* WelcomeViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A29A248FC086004079AC /* WelcomeViewDelegate.swift */; };
 		DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */; };
 		DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */; };
 		DA8AD236246FBF8F00876C69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA8AD235246FBF8F00876C69 /* Assets.xcassets */; };
@@ -66,6 +69,9 @@
 		DA262DCB248F6390007FB3EA /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		DA52EE4024893B480062D174 /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		DA67A294248F9002004079AC /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
+		DA67A296248F94EC004079AC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterLayerAnimator.swift; sourceTree = "<group>"; };
+		DA67A29A248FC086004079AC /* WelcomeViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewDelegate.swift; sourceTree = "<group>"; };
 		DA8AD229246FBF8A00876C69 /* CraftYourProfile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftYourProfile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +146,7 @@
 		DA262DBE248E7114007FB3EA /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				DA67A29A248FC086004079AC /* WelcomeViewDelegate.swift */,
 				DA262DBF248E7749007FB3EA /* CountryCodeDataProviderProtocol.swift */,
 				DA262DC1248E8817007FB3EA /* VerifyPhoneViewDelegate.swift */,
 				DA262DC3248EC156007FB3EA /* VerifyPhoneViewUpdater.swift */,
@@ -260,6 +267,7 @@
 				DA262DC5248F4351007FB3EA /* Controllers */,
 				DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */,
 				DA262DB4248A4D57007FB3EA /* CountryCode.swift */,
+				DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -267,18 +275,11 @@
 		DAAC5D1724879D0B0079E6F5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DACFC26E248946C9009DE17E /* VerifyScreen */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		DACFC26E248946C9009DE17E /* VerifyScreen */ = {
-			isa = PBXGroup;
-			children = (
+				DA67A296248F94EC004079AC /* WelcomeView.swift */,
 				DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */,
 				DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */,
 			);
-			path = VerifyScreen;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		FC795780290540DE90AE7B79 /* Frameworks */ = {
@@ -450,11 +451,14 @@
 				DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */,
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,
 				DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */,
+				DA67A299248FBCC5004079AC /* EmitterLayerAnimator.swift in Sources */,
 				DA262DB9248E3E05007FB3EA /* CountryCodeCell.swift in Sources */,
+				DA67A29B248FC086004079AC /* WelcomeViewDelegate.swift in Sources */,
 				DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */,
 				DA262DBD248E67D0007FB3EA /* UIViewController+.swift in Sources */,
 				DA8AD2712470759A00876C69 /* String+.swift in Sources */,
 				DA262DB3248A44A6007FB3EA /* VerifyPhoneModelController.swift in Sources */,
+				DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */,
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,
 				DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */,
 				DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */,

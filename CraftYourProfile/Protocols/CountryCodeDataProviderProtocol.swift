@@ -7,6 +7,7 @@
 //
 
 protocol CountryCodeDataProviderProtocol: AnyObject {
+
     func getCountryCodes(with filter: String?) -> [CountryCode]
     func didSelectItemAt(index: Int)
 }
