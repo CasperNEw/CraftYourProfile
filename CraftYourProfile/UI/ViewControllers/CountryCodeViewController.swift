@@ -24,6 +24,7 @@ class CountryCodeViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         performQuery(with: nil)
+        searchBar.becomeFirstResponder()
     }
 }
 
@@ -117,6 +118,7 @@ extension CountryCodeViewController: UICollectionViewDelegate {
         collectionView.deselectItem(at: indexPath, animated: true)
 
         self.dismiss(animated: true) {
+            self.searchBar.resignFirstResponder()
             self.delegate?.didSelectItemAt(index: indexPath.row)
         }
     }

@@ -181,23 +181,3 @@ extension WelcomeView {
         ])
     }
 }
-
-// MARK: SwiftUI
-import SwiftUI
-
-struct WelcomeViewProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-
-    struct ContainerView: UIViewControllerRepresentable {
-        let welcomeVC = WelcomeViewController()
-        // swiftlint:disable line_length
-        func makeUIViewController(context: UIViewControllerRepresentableContext<WelcomeViewProvider.ContainerView>) -> WelcomeViewController {
-            return welcomeVC
-        }
-        func updateUIViewController(_ uiViewController: WelcomeViewProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<WelcomeViewProvider.ContainerView>) {
-        }
-        // swiftlint:enable line_length
-    }
-}

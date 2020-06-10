@@ -13,25 +13,32 @@ class VerifyPhoneViewController: UIViewController {
 
 // MARK: Init
     private var mainView: ScrollViewContainer? { return self.view as? ScrollViewContainer }
-    private let popOver = CountryCodeViewController()
-    private let modelController = VerifyPhoneModelController()
-    private var destinationView: VerifyPhoneViewUpdater?
-    private var scrollView: UIScrollView?
+    private var modelController: VerifyPhoneModelController
+    private var viewControllerFactory: ViewControllerFactory
 
-// MARK: loadView
+    init(_ factory: ViewControllerFactory) {
+
+        self.viewControllerFactory = factory
+        self.modelController = VerifyPhoneModelController()
+
+        super.init(nibName: nil, bundle: nil)
+        self.view.backgroundColor = .white
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+// MARK: lifeCycle
     override func loadView() {
         self.view = ScrollViewContainer(frame: UIScreen.main.bounds, type: VerifyPhoneView.self)
     }
 
-// MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        setupKeyboard()
 
         (mainView?.view as? VerifyPhoneView)?.delegate = self
-        destinationView = mainView?.view as? VerifyPhoneViewUpdater
-        scrollView = mainView?.scrollView
+        setupKeyboard()
     }
 }
 
@@ -56,15 +63,15 @@ extension VerifyPhoneViewController {
         guard let keyboardFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue else { return }
 
-        var contentInset = scrollView?.getContentInset()
+        var contentInset = mainView?.scrollView?.getContentInset()
         contentInset?.bottom = keyboardFrameSize.height - view.safeAreaInsets.bottom
-        scrollView?.setContentInset(contentInset)
+        mainView?.scrollView?.setContentInset(contentInset)
 
     }
 
     @objc func keyboardWillHide() {
         let contentInset: UIEdgeInsets = UIEdgeInsets.zero
-        scrollView?.setContentInset(contentInset)
+        mainView?.scrollView?.setContentInset(contentInset)
     }
 
     @objc func hideKeyboard() {
@@ -76,15 +83,16 @@ extension VerifyPhoneViewController {
 extension VerifyPhoneViewController {
 
     private func setupAndPresentPopOverVC(_ view: UIView) {
-        popOver.delegate = self
+
+        let popOver = viewControllerFactory.makeCountryCodeViewController(self)
         popOver.modalPresentationStyle = .popover
         guard let popOverPC = popOver.popoverPresentationController else { return }
         popOverPC.delegate = self
         popOverPC.sourceView = view
-        let bounds = view.bounds
-        popOverPC.sourceRect = CGRect(x: bounds.midX, y: bounds.midY, width: 0, height: 0)
-        popOver.preferredContentSize = CGSize(width: UIScreen.main.bounds.width * 3/4,
-                                              height: UIScreen.main.bounds.height * 1/3)
+        popOverPC.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY,
+                                      width: 0, height: 0)
+        popOver.preferredContentSize = CGSize(width: self.view.bounds.width * 3/4,
+                                              height: self.view.bounds.height * 1/3)
         self.present(popOver, animated: true)
     }
 }
@@ -142,8 +150,10 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
             guard let error = error else { return }
             self?.showAlert(with: "Validation Error", and: error.localizedDescription)
         }) {
-            showAlert(with: "Success", and: "A PIN code has been sent to your phone number")
-            print("success, go to the next VC")
+            showAlert(with: "Success", and: "A PIN code has been sent to your phone number") {
+                let viewController = self.viewControllerFactory.makeVerifyPinCodeViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
         } else {
             showAlert(with: "Error", and: "Unable to complete validation procedure")
         }
@@ -159,7 +169,7 @@ extension VerifyPhoneViewController: CountryCodeDataProviderProtocol {
 
     func didSelectItemAt(index: Int) {
         let code = modelController.getTheSelectedCode(at: index)
-        destinationView?.setNewValue(string: code)
+        (mainView?.view as? VerifyPhoneView)?.setNewValue(string: code)
     }
 }
 
@@ -168,25 +178,5 @@ extension VerifyPhoneViewController: UIPopoverPresentationControllerDelegate {
 
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
-    }
-}
-
-// MARK: SwiftUI
-import SwiftUI
-
-struct VerifyPhoneVCProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-
-    struct ContainerView: UIViewControllerRepresentable {
-        let verifyPhoneVC = VerifyPhoneViewController()
-        // swiftlint:disable line_length
-        func makeUIViewController(context: UIViewControllerRepresentableContext<VerifyPhoneVCProvider.ContainerView>) -> VerifyPhoneViewController {
-            return verifyPhoneVC
-        }
-        func updateUIViewController(_ uiViewController: VerifyPhoneVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<VerifyPhoneVCProvider.ContainerView>) {
-        }
-        // swiftlint:enable line_length
     }
 }

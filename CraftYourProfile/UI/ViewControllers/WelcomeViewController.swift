@@ -11,19 +11,32 @@ import UIKit
 class WelcomeViewController: UIViewController {
 
 // MARK: Init
-    private var mainView: WelcomeView? { return self.view as? WelcomeView }
+    private var viewControllerFactory: ViewControllerFactory
 
-// MARK: loadView
+    init(_ factory: ViewControllerFactory) {
+
+        self.viewControllerFactory = factory
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+// MARK: lifeCycle
     override func loadView() {
         self.view = WelcomeView()
     }
 
-// MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mainView?.delegate = self
+        (view as? WelcomeView)?.delegate = self
         setupNavigationBar()
+    }
+
+    private func setupNavigationBar() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 
@@ -31,38 +44,11 @@ class WelcomeViewController: UIViewController {
 extension WelcomeViewController: WelcomeViewDelegate {
 
     func letsGoButtonTapped() {
-        navigationController?.pushViewController(VerifyPhoneViewController(), animated: true)
+        let viewController = viewControllerFactory.makeVerifyPhoneViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 
     func circleButtonTapped() { print(#function) }
     func safariButtonTapped() { print(#function) }
     func homeButtonTapped() { print(#function) }
-}
-
-// MARK: setupNavigationBar
-extension WelcomeViewController {
-
-    func setupNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-}
-
-// MARK: SwiftUI
-import SwiftUI
-
-struct WelcomeVCProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-
-    struct ContainerView: UIViewControllerRepresentable {
-        let welcomeVC = WelcomeViewController()
-        // swiftlint:disable line_length
-        func makeUIViewController(context: UIViewControllerRepresentableContext<WelcomeVCProvider.ContainerView>) -> WelcomeViewController {
-            return welcomeVC
-        }
-        func updateUIViewController(_ uiViewController: WelcomeVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<WelcomeVCProvider.ContainerView>) {
-        }
-        // swiftlint:enable line_length
-    }
 }

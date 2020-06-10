@@ -201,23 +201,3 @@ extension VerifyPhoneView: VerifyPhoneViewUpdater {
         codeTextField.text = string
     }
 }
-
-// MARK: SwiftUI
-import SwiftUI
-
-struct VerifyPhoneViewProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-
-    struct ContainerView: UIViewControllerRepresentable {
-        let verifyPhoneVC = VerifyPhoneViewController()
-        // swiftlint:disable line_length
-        func makeUIViewController(context: UIViewControllerRepresentableContext<VerifyPhoneViewProvider.ContainerView>) -> VerifyPhoneViewController {
-            return verifyPhoneVC
-        }
-        func updateUIViewController(_ uiViewController: VerifyPhoneViewProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<VerifyPhoneViewProvider.ContainerView>) {
-        }
-        // swiftlint:enable line_length
-    }
-}
