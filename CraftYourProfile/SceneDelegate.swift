@@ -20,8 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         viewControllerFactory = ViewControllerFactory()
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let rootViewController = viewControllerFactory.makeRootViewController()
-        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+//        let rootViewController = viewControllerFactory.makeRootViewController()
+//        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+        window?.rootViewController = viewControllerFactory.makeVerifyPinCodeViewController()
         window?.makeKeyAndVisible()
     }
 }

@@ -128,8 +128,7 @@ class VerifyPhoneModelController {
     }
 
     func getCountryCodes(with filter: String?) -> [CountryCode] {
-        guard let filter = filter else { return countryCodes }
-        filterCodes(searchText: filter)
+        filterCodes(searchText: filter ?? "")
         return countryCodes
     }
 }

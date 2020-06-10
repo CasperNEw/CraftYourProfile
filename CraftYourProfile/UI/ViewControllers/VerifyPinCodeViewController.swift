@@ -10,10 +10,35 @@ import UIKit
 
 class VerifyPinCodeViewController: UIViewController {
 
+// MARK: Init
+    private var mainView: ScrollViewContainer? { return self.view as? ScrollViewContainer }
+    private var viewControllerFactory: ViewControllerFactory?
+
+    lazy var resizeScrollView: ResizeScrollViewService = {
+        let resizeScrollView = ResizeScrollViewService(view: self.view)
+        return resizeScrollView
+    }()
+
+    init(_ factory: ViewControllerFactory? = nil) {
+
+        self.viewControllerFactory = factory
+
+        super.init(nibName: nil, bundle: nil)
+        self.view.backgroundColor = .white
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+// MARK: lifeCycle
+    override func loadView() {
+        self.view = ScrollViewContainer(frame: UIScreen.main.bounds, type: VerifyPinCodeView.self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .cyan
+        resizeScrollView.setupKeyboard()
     }
 }
 

@@ -66,7 +66,6 @@ extension VerifyPhoneViewController {
         var contentInset = mainView?.scrollView?.getContentInset()
         contentInset?.bottom = keyboardFrameSize.height - view.safeAreaInsets.bottom
         mainView?.scrollView?.setContentInset(contentInset)
-
     }
 
     @objc func keyboardWillHide() {
