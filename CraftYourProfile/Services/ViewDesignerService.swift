@@ -16,7 +16,7 @@ struct ViewDesignerService {
         self.view = view
     }
 
-    func backButtonPlacement(_ button: UIControl) {
+    func backButtonPlacement(_ button: UIView) {
 
         NSLayoutConstraint.activate([
             button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
@@ -54,6 +54,19 @@ struct ViewDesignerService {
             textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             textField.heightAnchor.constraint(equalToConstant: textFieldHeight)
+        ])
+    }
+
+    func nextButtonPlacement(_ nextButton: UIView, _ topElement: UIView, _ isButton: Bool = true) {
+
+        var topSpacing: CGFloat = 170
+        if !isButton { topSpacing += 16 }
+
+        NSLayoutConstraint.activate([
+            nextButton.topAnchor.constraint(equalTo: topElement.bottomAnchor, constant: topSpacing),
+            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }

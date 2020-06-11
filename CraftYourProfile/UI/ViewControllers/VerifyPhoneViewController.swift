@@ -15,6 +15,7 @@ class VerifyPhoneViewController: UIViewController {
     private var mainView: ScrollViewContainer? { return self.view as? ScrollViewContainer }
     private var modelController: VerifyPhoneModelController
     private var viewControllerFactory: ViewControllerFactory
+    private var updater: VerifyPhoneViewUpdater?
 
     init(_ factory: ViewControllerFactory) {
 
@@ -22,6 +23,7 @@ class VerifyPhoneViewController: UIViewController {
         self.modelController = VerifyPhoneModelController()
 
         super.init(nibName: nil, bundle: nil)
+        self.updater = mainView?.view as? VerifyPhoneViewUpdater
         self.view.backgroundColor = .white
     }
 
@@ -149,7 +151,14 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
             guard let error = error else { return }
             self?.showAlert(with: "Validation Error", and: error.localizedDescription)
         }) {
-            showAlert(with: "Success", and: "A PIN code has been sent to your phone number") {
+            let pinCode = AuthorizationService.shared.generationPinCode(with: 6)
+            do {
+                try AuthorizationService.shared.signIn(account: string, pinCode: pinCode)
+            } catch let error {
+                showAlert(with: "Keychain Error", and: error.localizedDescription)
+                return
+            }
+            showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number") {
                 let viewController = self.viewControllerFactory.makeVerifyPinCodeViewController()
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
@@ -168,7 +177,7 @@ extension VerifyPhoneViewController: CountryCodeDataProviderProtocol {
 
     func didSelectItemAt(index: Int) {
         let code = modelController.getTheSelectedCode(at: index)
-        (mainView?.view as? VerifyPhoneView)?.setNewValue(string: code)
+        updater?.setNewValue(string: code)
     }
 }
 

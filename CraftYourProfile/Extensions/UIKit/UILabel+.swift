@@ -19,5 +19,6 @@ extension UILabel {
         self.font = font
         self.adjustsFontSizeToFitWidth = true
         self.numberOfLines = lines
+        self.textAlignment = alignment
     }
 }

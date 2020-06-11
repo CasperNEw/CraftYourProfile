@@ -10,8 +10,8 @@ import UIKit
 
 class VerifyPinCodeView: UIView {
 
-    lazy var designer: ViewDesignerService = { return ViewDesignerService(self) }()
-    private let backButton = UIButton(image: UIImage(named: "cross"))
+    lazy private var designer: ViewDesignerService = { return ViewDesignerService(self) }()
+    private let backButton = UIButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Next, enter the code we sent 😍",
                             font: .compactRounded(style: .black, size: 32),
                             color: .mainBlackText(), lines: 2, alignment: .left)
@@ -21,6 +21,16 @@ class VerifyPinCodeView: UIView {
                                           color: .gray, lines: 1, alignment: .left)
 
     private let pinCodeView = PinCodeView()
+    private let resendCodeLabel = UILabel(text: "Resend code in 5:44",
+                                     font: .compactRounded(style: .medium, size: 16),
+                                     color: .gray, lines: 1, alignment: .center)
+
+    private let resendCodeButton = UIButton(title: "Resend code", titleColor: .white,
+                                      backgroundColor: .blueButton(),
+                                      font: .compactRounded(style: .semibold, size: 20),
+                                      cornerRadius: 20)
+
+    weak var delegate: VerifyPinCodeViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,11 +50,12 @@ class VerifyPinCodeView: UIView {
 
     private func setupViews() {
         addSubviews()
-        pinCodeView.didFinishedEnterCode = { code in
-            print("code is ", code)
+        pinCodeView.didFinishedEnterCode = { [weak self] code in
+            self?.delegate?.didFinishedEnterCode(code)
         }
-        
+
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        resendCodeButton.addTarget(self, action: #selector(resendCodeButtonTapped), for: .touchUpInside)
     }
 
     private func setupConstraints() {
@@ -52,10 +63,18 @@ class VerifyPinCodeView: UIView {
         designer.mainLabelPlacement(mainLabel, backButton)
         designer.additionalLabelPlacement(additionalLabel, mainLabel)
         designer.mainTextFieldPlacement(pinCodeView, additionalLabel, true)
+        designer.nextButtonPlacement(resendCodeLabel, pinCodeView, false)
+        designer.nextButtonPlacement(resendCodeButton, pinCodeView)
     }
 
     @objc func backButtonTapped() {
         backButton.clickAnimation()
+        delegate?.backButtonTapped()
+    }
+
+    @objc func resendCodeButtonTapped() {
+        resendCodeButton.clickAnimation(with: 0.9)
+        delegate?.resendCodeButtonTapped()
     }
 }
 
@@ -66,11 +85,16 @@ extension VerifyPinCodeView {
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         additionalLabel.translatesAutoresizingMaskIntoConstraints = false
         pinCodeView.translatesAutoresizingMaskIntoConstraints = false
+        resendCodeLabel.translatesAutoresizingMaskIntoConstraints = false
+        resendCodeButton.translatesAutoresizingMaskIntoConstraints = false
+        resendCodeButton.alpha = 0
 
         addSubview(backButton)
         addSubview(mainLabel)
         addSubview(additionalLabel)
         addSubview(pinCodeView)
+        addSubview(resendCodeLabel)
+        addSubview(resendCodeButton)
     }
 }
 
@@ -79,22 +103,63 @@ extension VerifyPinCodeView {
 
 }
 
-// MARK: SwiftUI
-import SwiftUI
+// MARK: VerifyPinCodeViewUpdater
+extension VerifyPinCodeView: VerifyPinCodeViewUpdater {
 
-struct VerifyPinCodeViewProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
+    func updateResendCodeLabel(with text: String) {
+        resendCodeLabel.text = text
     }
 
-    struct ContainerView: UIViewControllerRepresentable {
-        let verifyPinCodeVC = VerifyPinCodeViewController()
-        // swiftlint:disable line_length
-        func makeUIViewController(context: UIViewControllerRepresentableContext<VerifyPinCodeViewProvider.ContainerView>) -> VerifyPinCodeViewController {
-            return verifyPinCodeVC
-        }
-        func updateUIViewController(_ uiViewController: VerifyPinCodeViewProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<VerifyPinCodeViewProvider.ContainerView>) {
-        }
-        // swiftlint:enable line_length
+    func hideResendCodeLabel() {
+
+        UIView.animate(withDuration: 1,
+                       animations: { self.resendCodeLabel.alpha = 0 },
+                       completion: { _ in self.showResendCodeButton() })
+    }
+
+    private func showResendCodeButton() {
+
+        resendCodeButton.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+
+        UIView.animate(withDuration: 1.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 0.6,
+                       options: .allowUserInteraction,
+                       animations: {
+                        self.resendCodeButton.transform = CGAffineTransform.identity
+                        self.resendCodeButton.alpha = 1
+        })
+    }
+
+    func hideResendCodeButton() {
+
+        UIView.animate(withDuration: 1,
+                       animations: { self.resendCodeButton.alpha = 0 },
+                       completion: { _ in self.showResendCodeLabel() })
+    }
+
+    private func showResendCodeLabel() {
+
+        resendCodeLabel.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+
+        UIView.animate(withDuration: 1.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 0.6,
+                       options: .allowUserInteraction,
+                       animations: {
+                        self.resendCodeLabel.transform = CGAffineTransform.identity
+                        self.resendCodeLabel.alpha = 1
+        })
+    }
+
+    func shakePinCodeView() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = 0.6
+        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
+        pinCodeView.layer.add(animation, forKey: "shake")
+        pinCodeView.eraseView()
     }
 }

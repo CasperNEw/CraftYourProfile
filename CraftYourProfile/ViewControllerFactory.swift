@@ -27,7 +27,12 @@ class ViewControllerFactory {
     }
 
     func makeVerifyPinCodeViewController() -> UIViewController {
-        let viewController = VerifyPinCodeViewController()
+        let viewController = VerifyPinCodeViewController(self)
+        return viewController
+    }
+
+    func makeIntroduceYourselfViewController() -> UIViewController {
+        let viewController = IntroduceYourselfViewController()
         return viewController
     }
 }

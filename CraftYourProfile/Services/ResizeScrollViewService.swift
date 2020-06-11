@@ -37,13 +37,11 @@ class ResizeScrollViewService {
         var contentInset = (view as? ScrollViewContainer)?.scrollView?.getContentInset()
         contentInset?.bottom = keyboardFrameSize.height - view.safeAreaInsets.bottom
         (view as? ScrollViewContainer)?.scrollView?.setContentInset(contentInset)
-        print("show")
     }
 
     @objc func keyboardWillHide() {
         let contentInset: UIEdgeInsets = UIEdgeInsets.zero
         (view as? ScrollViewContainer)?.scrollView?.setContentInset(contentInset)
-        print("hide")
     }
 
     @objc func hideKeyboard() {

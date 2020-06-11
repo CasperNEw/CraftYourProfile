@@ -12,18 +12,20 @@ class VerifyPinCodeViewController: UIViewController {
 
 // MARK: Init
     private var mainView: ScrollViewContainer? { return self.view as? ScrollViewContainer }
-    private var viewControllerFactory: ViewControllerFactory?
+    private var viewControllerFactory: ViewControllerFactory
+    private var updater: VerifyPinCodeViewUpdater?
 
-    lazy var resizeScrollView: ResizeScrollViewService = {
+    lazy var resizeScrollViewService: ResizeScrollViewService = {
         let resizeScrollView = ResizeScrollViewService(view: self.view)
         return resizeScrollView
     }()
 
-    init(_ factory: ViewControllerFactory? = nil) {
+    init(_ factory: ViewControllerFactory) {
 
         self.viewControllerFactory = factory
 
         super.init(nibName: nil, bundle: nil)
+        self.updater = mainView?.view as? VerifyPinCodeViewUpdater
         self.view.backgroundColor = .white
     }
 
@@ -38,26 +40,54 @@ class VerifyPinCodeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        resizeScrollView.setupKeyboard()
+
+        (mainView?.view as? VerifyPinCodeView)?.delegate = self
+        resizeScrollViewService.setupKeyboard()
     }
 }
 
-// MARK: SwiftUI
-import SwiftUI
+// MARK: VerifyPinCodeViewDelegate
+extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
 
-struct VerifyPinCodeVCProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
+    func backButtonTapped() {
+        perform(#selector(popViewController), with: nil, afterDelay: 0.5)
     }
 
-    struct ContainerView: UIViewControllerRepresentable {
-        let verifyPinCodeVC = VerifyPinCodeViewController()
-        // swiftlint:disable line_length
-        func makeUIViewController(context: UIViewControllerRepresentableContext<VerifyPinCodeVCProvider.ContainerView>) -> VerifyPinCodeViewController {
-            return verifyPinCodeVC
+    @objc func popViewController() {
+        navigationController?.popViewController(animated: true)
+    }
+
+    func resendCodeButtonTapped() {
+
+        do {
+            let newPinCode = try AuthorizationService.shared.updatePinCode(with: 6)
+            showAlert(with: "Success", and: "A PIN code \(newPinCode) has been sent to your phone number") {
+                self.updater?.shakePinCodeView()
+                self.updater?.hideResendCodeButton()
+            }
+            updater?.hideResendCodeButton()
+        } catch let error {
+            showAlert(with: "Keychain Error", and: error.localizedDescription)
         }
-        func updateUIViewController(_ uiViewController: VerifyPinCodeVCProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<VerifyPinCodeVCProvider.ContainerView>) {
+
+//        updater?.hideResendCodeLabel() //TODO: add timer logic and swith button with label
+
+    }
+
+    func didFinishedEnterCode(_ code: String) {
+
+        do {
+            let pinCode = try AuthorizationService.shared.getExpectedPinCode()
+            if pinCode != code {
+                updater?.shakePinCodeView()
+            } else {
+                showAlert(with: "Success", and: "Go to Create Your Profile! 😍") {
+                    let viewController = self.viewControllerFactory.makeIntroduceYourselfViewController()
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
+            }
+        } catch let error {
+            showAlert(with: "Keychain Error", and: error.localizedDescription)
         }
-        // swiftlint:enable line_length
     }
 }

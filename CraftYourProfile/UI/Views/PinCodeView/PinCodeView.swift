@@ -82,6 +82,10 @@ class PinCodeView: UIView, UITextInputTraits {
         (pin.pin.isHidden, pin.number.isHidden) = (true, false)
         return pin
     }
+
+    func eraseView() {
+        self.pinCode = ""
+    }
 }
 
 // MARK: Setup Keyboard
