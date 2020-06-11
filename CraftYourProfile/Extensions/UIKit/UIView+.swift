@@ -34,4 +34,16 @@ extension UIView {
             view.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+
+    func setGradientBackground(colorTop: UIColor, colorBottom: UIColor, startPoint: CGPoint,
+                               endPoint: CGPoint, locations: [NSNumber]?) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorBottom.cgColor, colorTop.cgColor]
+        gradientLayer.startPoint = startPoint
+        gradientLayer.endPoint = endPoint
+        gradientLayer.locations = locations
+        gradientLayer.frame = bounds
+
+        layer.insertSublayer(gradientLayer, at: 0)
+    }
 }

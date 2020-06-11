@@ -21,7 +21,7 @@ class VerifyPinCodeView: UIView {
                                           color: .gray, lines: 1, alignment: .left)
 
     private let pinCodeView = PinCodeView()
-    private let resendCodeLabel = UILabel(text: "Resend code in 5:44",
+    private let resendCodeLabel = UILabel(text: "Resend code after 20 sec",
                                      font: .compactRounded(style: .medium, size: 16),
                                      color: .gray, lines: 1, alignment: .center)
 
@@ -105,6 +105,11 @@ extension VerifyPinCodeView {
 
 // MARK: VerifyPinCodeViewUpdater
 extension VerifyPinCodeView: VerifyPinCodeViewUpdater {
+
+    func updateResendCodeLabel(with timer: Int) {
+        let text = "Resend code after \(timer) sec"
+        resendCodeLabel.text = text
+    }
 
     func updateResendCodeLabel(with text: String) {
         resendCodeLabel.text = text

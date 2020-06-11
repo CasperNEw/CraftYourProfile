@@ -107,10 +107,13 @@ extension VerifyPhoneView {
         phoneTextField.backgroundColor = .clear
         lineView.backgroundColor = .grayText()
         codeTextField.font = .compactRounded(style: .semibold, size: 20)
-        codeTextField.contentMode = .center
+        codeTextField.textAlignment = .right
         codeTextField.isUserInteractionEnabled = false
         phoneTextField.font = .compactRounded(style: .semibold, size: 20)
         phoneTextField.keyboardType = .phonePad
+
+        codeTextField.minimumFontSize = 16
+        phoneTextField.minimumFontSize = 16
 
         codeTextField.adjustsFontSizeToFitWidth = true
         phoneTextField.adjustsFontSizeToFitWidth = true
@@ -132,9 +135,9 @@ extension VerifyPhoneView {
 
     private func setupPhoneViewConstraints() {
         NSLayoutConstraint.activate([
-            codeTextField.leadingAnchor.constraint(equalTo: phoneView.leadingAnchor, constant: 12),
+            codeTextField.leadingAnchor.constraint(equalTo: phoneView.leadingAnchor, constant: 8),
             codeTextField.centerYAnchor.constraint(equalTo: phoneView.centerYAnchor),
-            codeTextField.widthAnchor.constraint(equalToConstant: bounds.width * 0.13),
+            codeTextField.widthAnchor.constraint(equalToConstant: bounds.width * 0.14),
 
             codeButton.leadingAnchor.constraint(equalTo: codeTextField.trailingAnchor, constant: 0),
             codeButton.centerYAnchor.constraint(equalTo: phoneView.centerYAnchor),

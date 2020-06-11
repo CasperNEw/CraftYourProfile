@@ -16,3 +16,23 @@ class IntroduceYourselfViewController: UIViewController {
         view.backgroundColor = .cyan
     }
 }
+
+// MARK: SwiftUI
+import SwiftUI
+
+struct IntroduceYourselfVCProvider: PreviewProvider {
+    static var previews: some View {
+        ContainerView().edgesIgnoringSafeArea(.all)
+    }
+
+    struct ContainerView: UIViewControllerRepresentable {
+        let viewController = IntroduceYourselfViewController()
+        // swiftlint:disable line_length
+        func makeUIViewController(context: UIViewControllerRepresentableContext<IntroduceYourselfVCProvider.ContainerView>) -> IntroduceYourselfViewController {
+            return viewController
+        }
+        func updateUIViewController(_ uiViewController: IntroduceYourselfViewController, context: UIViewControllerRepresentableContext<IntroduceYourselfVCProvider.ContainerView>) {
+        }
+        // swiftlint:enable line_length
+    }
+}

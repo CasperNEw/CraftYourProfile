@@ -15,6 +15,13 @@ class VerifyPinCodeViewController: UIViewController {
     private var viewControllerFactory: ViewControllerFactory
     private var updater: VerifyPinCodeViewUpdater?
 
+    lazy private var timer: Timer = {
+        let timer = Timer(timeInterval: 1, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        timer.tolerance = 0.1
+        return timer
+    }()
+    private var repeatTimerInterval = 20
+
     lazy var resizeScrollViewService: ResizeScrollViewService = {
         let resizeScrollView = ResizeScrollViewService(view: self.view)
         return resizeScrollView
@@ -44,6 +51,12 @@ class VerifyPinCodeViewController: UIViewController {
         (mainView?.view as? VerifyPinCodeView)?.delegate = self
         resizeScrollViewService.setupKeyboard()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        startTimer()
+    }
 }
 
 // MARK: VerifyPinCodeViewDelegate
@@ -64,14 +77,28 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
             showAlert(with: "Success", and: "A PIN code \(newPinCode) has been sent to your phone number") {
                 self.updater?.shakePinCodeView()
                 self.updater?.hideResendCodeButton()
+                self.startTimer()
             }
-            updater?.hideResendCodeButton()
         } catch let error {
             showAlert(with: "Keychain Error", and: error.localizedDescription)
         }
+    }
 
-//        updater?.hideResendCodeLabel() //TODO: add timer logic and swith button with label
+    private func startTimer() {
+        timer = Timer(timeInterval: 1, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        timer.tolerance = 0.1
+        RunLoop.current.add(timer, forMode: .common)
+    }
 
+    @objc func fireTimer() {
+        repeatTimerInterval -= 1
+        updater?.updateResendCodeLabel(with: repeatTimerInterval)
+
+        if repeatTimerInterval == 0 {
+            timer.invalidate()
+            repeatTimerInterval = 20
+            updater?.hideResendCodeLabel()
+        }
     }
 
     func didFinishedEnterCode(_ code: String) {
@@ -85,6 +112,8 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
                     let viewController = self.viewControllerFactory.makeIntroduceYourselfViewController()
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
+                timer.invalidate()
+                updater?.updateResendCodeLabel(with: "Perfect 😌")
             }
         } catch let error {
             showAlert(with: "Keychain Error", and: error.localizedDescription)

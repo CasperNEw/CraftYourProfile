@@ -7,6 +7,7 @@
 //
 
 protocol VerifyPinCodeViewUpdater {
+    func updateResendCodeLabel(with timer: Int)
     func updateResendCodeLabel(with text: String)
     func hideResendCodeLabel()
     func hideResendCodeButton()

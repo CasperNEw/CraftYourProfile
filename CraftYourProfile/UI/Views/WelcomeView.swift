@@ -50,6 +50,10 @@ class WelcomeView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         setupConstraints()
+        setGradientBackground(colorTop: .mainBlue(), colorBottom: .black,
+                               startPoint: CGPoint(x: 0.5, y: 1.3  ),
+                               endPoint: CGPoint(x: 0.5, y: 0.8),
+                               locations: [0, 1])
     }
 
     private func setupViews() {

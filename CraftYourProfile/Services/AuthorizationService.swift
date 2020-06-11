@@ -40,7 +40,7 @@ class AuthorizationService {
         }
 
         currentAccount = account
-        print("[Keychain] Create account - Complete")
+        print("[Keychain] Create account - Complete. Your PIN Code - \(pinCode)")
     }
 
     func updatePinCode(with pinCount: Int) throws -> String {
@@ -65,7 +65,7 @@ class AuthorizationService {
         guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
 
         currentAccount = account
-        print("[Keychain] Update account - Complete")
+        print("[Keychain] Update account - Complete. Your PIN Code - \(pinCode)")
     }
 
     private func deleteAccount() throws {
