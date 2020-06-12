@@ -6,7 +6,7 @@
 //  Copyright © 2020 Дмитрий Константинов. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class AuthorizationService {
 
@@ -109,6 +109,14 @@ extension AuthorizationService {
     func createUserData(name: String, birthday: Date) {
         print("Name -", name)
         print("Birthday -", birthday)
+    }
+
+    func updateUserPhoto(image: UIImage?) {
+        guard image != nil else {
+            print("False", #function)
+            return
+        }
+        print("Success", #function)
     }
 }
 

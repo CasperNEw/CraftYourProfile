@@ -22,6 +22,7 @@
 		DA2086692493932B0017F0E8 /* AddProfilePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2086682493932B0017F0E8 /* AddProfilePhotoViewController.swift */; };
 		DA20866B2493B0130017F0E8 /* IntroduceYourselfViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20866A2493B0130017F0E8 /* IntroduceYourselfViewDelegate.swift */; };
 		DA20866D2493B03D0017F0E8 /* IntroduceYourselfViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20866C2493B03D0017F0E8 /* IntroduceYourselfViewUpdater.swift */; };
+		DA20866F2493B1CD0017F0E8 /* AddProfilePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */; };
 		DA262DB3248A44A6007FB3EA /* VerifyPhoneModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB2248A44A6007FB3EA /* VerifyPhoneModelController.swift */; };
 		DA262DB5248A4D57007FB3EA /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB4248A4D57007FB3EA /* CountryCode.swift */; };
 		DA262DB7248E3507007FB3EA /* CountryCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */; };
@@ -88,6 +89,7 @@
 		DA2086682493932B0017F0E8 /* AddProfilePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfilePhotoViewController.swift; sourceTree = "<group>"; };
 		DA20866A2493B0130017F0E8 /* IntroduceYourselfViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceYourselfViewDelegate.swift; sourceTree = "<group>"; };
 		DA20866C2493B03D0017F0E8 /* IntroduceYourselfViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceYourselfViewUpdater.swift; sourceTree = "<group>"; };
+		DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfilePhotoView.swift; sourceTree = "<group>"; };
 		DA262DB2248A44A6007FB3EA /* VerifyPhoneModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneModelController.swift; sourceTree = "<group>"; };
 		DA262DB4248A4D57007FB3EA /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeViewController.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */,
 				DA1D9A1C2491050B00913A22 /* VerifyPinCodeView.swift */,
 				DA1D9A3324935C8700913A22 /* IntroduceYourselfView.swift */,
+				DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */,
 				DA1D9A202491354900913A22 /* PinCodeView */,
 			);
 			path = Views;
@@ -549,6 +552,7 @@
 				DA1D9A1D2491050B00913A22 /* VerifyPinCodeView.swift in Sources */,
 				DA8AD2712470759A00876C69 /* String+.swift in Sources */,
 				DA262DB3248A44A6007FB3EA /* VerifyPhoneModelController.swift in Sources */,
+				DA20866F2493B1CD0017F0E8 /* AddProfilePhotoView.swift in Sources */,
 				DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */,
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,
 				DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */,
