@@ -32,7 +32,12 @@ class ViewControllerFactory {
     }
 
     func makeIntroduceYourselfViewController() -> UIViewController {
-        let viewController = IntroduceYourselfViewController()
+        let viewController = IntroduceYourselfViewController(self)
+        return viewController
+    }
+
+    func makeAddProfilePhotoViewController() -> UIViewController {
+        let viewController = AddProfilePhotoViewController()
         return viewController
     }
 }

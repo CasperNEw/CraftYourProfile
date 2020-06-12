@@ -16,7 +16,7 @@ struct ViewDesignerService {
         self.view = view
     }
 
-    func backButtonPlacement(_ button: UIView) {
+    func setBackButton(_ button: UIView) {
 
         NSLayoutConstraint.activate([
             button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
@@ -26,47 +26,47 @@ struct ViewDesignerService {
         ])
     }
 
-    func mainLabelPlacement(_ mainLabel: UIView, _ topElement: UIView) {
+    func setView(_ view: UIView, with topView: UIView, trailingIsShort: Bool = true,
+                 withHeight: Bool = false, specialHeight: Bool = false) {
+
+        var trailingAnchor: CGFloat = -48
+        if !trailingIsShort { trailingAnchor = -24 }
 
         NSLayoutConstraint.activate([
-            mainLabel.topAnchor.constraint(equalTo: topElement.bottomAnchor, constant: 24),
-            mainLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24),
-            mainLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -48)
+            view.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 24),
+            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: trailingAnchor)
         ])
+
+        if withHeight {
+            var height: CGFloat = 50
+            if specialHeight { height = (self.view.bounds.width - 48 - 30) / 6 }
+            view.heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
     }
 
-    func additionalLabelPlacement(_ additionalLabel: UIView, _ topElement: UIView) {
-
-        NSLayoutConstraint.activate([
-            additionalLabel.topAnchor.constraint(equalTo: topElement.bottomAnchor, constant: 24),
-            additionalLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            additionalLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48)
-        ])
-    }
-
-    func mainTextFieldPlacement(_ textField: UIView, _ topElement: UIView, _ specialHeight: Bool = false) {
-
-        var textFieldHeight: CGFloat = 50
-        if specialHeight { textFieldHeight = (view.bounds.width - 48 - 30) / 6 }
-
-        NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: topElement.bottomAnchor, constant: 24),
-            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            textField.heightAnchor.constraint(equalToConstant: textFieldHeight)
-        ])
-    }
-
-    func nextButtonPlacement(_ nextButton: UIView, _ topElement: UIView, _ isButton: Bool = true) {
+    func setBottomView(_ view: UIView, with topView: UIView, specialSpacing: Bool = false, userInput: Bool = true) {
 
         var topSpacing: CGFloat = 170
-        if !isButton { topSpacing += 16 }
+        if specialSpacing { topSpacing += 16 }
 
         NSLayoutConstraint.activate([
-            nextButton.topAnchor.constraint(equalTo: topElement.bottomAnchor, constant: topSpacing),
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            nextButton.heightAnchor.constraint(equalToConstant: 50)
+            view.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: topSpacing),
+            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
+            view.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+
+    func setBottomView(_ view: UIView, with topView: UIView, multiplier: Int, constant: CGFloat) {
+
+        let topSpacing: CGFloat = 24 * CGFloat(multiplier) + constant
+
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: topSpacing),
+            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
+            view.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }

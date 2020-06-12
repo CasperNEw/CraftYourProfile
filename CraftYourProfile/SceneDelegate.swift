@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         let rootViewController = viewControllerFactory.makeRootViewController()
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+//        window?.rootViewController = viewControllerFactory.makeIntroduceYourselfViewController()
         window?.makeKeyAndVisible()
     }
 }

@@ -103,6 +103,15 @@ class AuthorizationService {
     }
 }
 
+// MARK: fake methods
+extension AuthorizationService {
+
+    func createUserData(name: String, birthday: Date) {
+        print("Name -", name)
+        print("Birthday -", birthday)
+    }
+}
+
 extension AuthorizationService: NSCopying {
 
     func copy(with zone: NSZone? = nil) -> Any {

@@ -59,12 +59,13 @@ class VerifyPinCodeView: UIView {
     }
 
     private func setupConstraints() {
-        designer.backButtonPlacement(backButton)
-        designer.mainLabelPlacement(mainLabel, backButton)
-        designer.additionalLabelPlacement(additionalLabel, mainLabel)
-        designer.mainTextFieldPlacement(pinCodeView, additionalLabel, true)
-        designer.nextButtonPlacement(resendCodeLabel, pinCodeView, false)
-        designer.nextButtonPlacement(resendCodeButton, pinCodeView)
+        designer.setBackButton(backButton)
+        designer.setView(mainLabel, with: backButton)
+        designer.setView(additionalLabel, with: mainLabel)
+        designer.setView(pinCodeView, with: additionalLabel, trailingIsShort: false,
+                         withHeight: true, specialHeight: true)
+        designer.setBottomView(resendCodeLabel, with: pinCodeView, specialSpacing: true)
+        designer.setBottomView(resendCodeButton, with: pinCodeView)
     }
 
     @objc func backButtonTapped() {
@@ -96,11 +97,6 @@ extension VerifyPinCodeView {
         addSubview(resendCodeLabel)
         addSubview(resendCodeButton)
     }
-}
-
-// MARK: Setup Constraints
-extension VerifyPinCodeView {
-
 }
 
 // MARK: VerifyPinCodeViewUpdater
