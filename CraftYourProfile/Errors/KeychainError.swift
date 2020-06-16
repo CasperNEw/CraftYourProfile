@@ -11,6 +11,7 @@ import Foundation
 enum KeychainError: Error {
     case accountSearchError
     case pinCodeDataError
+    case duplicateError
     case unhandledError(status: OSStatus)
 }
 
@@ -21,6 +22,8 @@ extension KeychainError: LocalizedError {
             return "Error accessing user data. If reappeared, contact software developer"
         case .pinCodeDataError:
             return "Pin code encoding / decoding error. If reappeared, contact software developer"
+        case .duplicateError:
+            return "Keychain internal Error. Retry login"
         case .unhandledError(let status):
             return "Unknown internal error, OSStatus - \(status)"
         }

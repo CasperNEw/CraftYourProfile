@@ -23,6 +23,8 @@
 		DA20866B2493B0130017F0E8 /* IntroduceYourselfViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20866A2493B0130017F0E8 /* IntroduceYourselfViewDelegate.swift */; };
 		DA20866D2493B03D0017F0E8 /* IntroduceYourselfViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20866C2493B03D0017F0E8 /* IntroduceYourselfViewUpdater.swift */; };
 		DA20866F2493B1CD0017F0E8 /* AddProfilePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */; };
+		DA2086732498DACF0017F0E8 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2086722498DACF0017F0E8 /* AddPhotoView.swift */; };
+		DA20867524991F9C0017F0E8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20867424991F9C0017F0E8 /* ImagePicker.swift */; };
 		DA262DB3248A44A6007FB3EA /* VerifyPhoneModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB2248A44A6007FB3EA /* VerifyPhoneModelController.swift */; };
 		DA262DB5248A4D57007FB3EA /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB4248A4D57007FB3EA /* CountryCode.swift */; };
 		DA262DB7248E3507007FB3EA /* CountryCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */; };
@@ -90,6 +92,8 @@
 		DA20866A2493B0130017F0E8 /* IntroduceYourselfViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceYourselfViewDelegate.swift; sourceTree = "<group>"; };
 		DA20866C2493B03D0017F0E8 /* IntroduceYourselfViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceYourselfViewUpdater.swift; sourceTree = "<group>"; };
 		DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfilePhotoView.swift; sourceTree = "<group>"; };
+		DA2086722498DACF0017F0E8 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
+		DA20867424991F9C0017F0E8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DA262DB2248A44A6007FB3EA /* VerifyPhoneModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneModelController.swift; sourceTree = "<group>"; };
 		DA262DB4248A4D57007FB3EA /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeViewController.swift; sourceTree = "<group>"; };
@@ -356,6 +360,8 @@
 				DA1D9A3324935C8700913A22 /* IntroduceYourselfView.swift */,
 				DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */,
 				DA1D9A202491354900913A22 /* PinCodeView */,
+				DA2086722498DACF0017F0E8 /* AddPhotoView.swift */,
+				DA20867424991F9C0017F0E8 /* ImagePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -522,6 +528,7 @@
 				DA20866B2493B0130017F0E8 /* IntroduceYourselfViewDelegate.swift in Sources */,
 				DA2086692493932B0017F0E8 /* AddProfilePhotoViewController.swift in Sources */,
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
+				DA20867524991F9C0017F0E8 /* ImagePicker.swift in Sources */,
 				DA67A295248F9002004079AC /* Array+.swift in Sources */,
 				DA8AD2752472792000876C69 /* UIControl+.swift in Sources */,
 				DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */,
@@ -534,6 +541,7 @@
 				DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */,
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,
 				DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */,
+				DA2086732498DACF0017F0E8 /* AddPhotoView.swift in Sources */,
 				DA67A299248FBCC5004079AC /* EmitterLayerAnimator.swift in Sources */,
 				DA1D9A2C2492390B00913A22 /* KeychainError.swift in Sources */,
 				DA67A29D248FCC32004079AC /* ViewControllerFactory.swift in Sources */,

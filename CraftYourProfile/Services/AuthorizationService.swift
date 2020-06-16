@@ -62,6 +62,10 @@ class AuthorizationService {
         let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
 
         guard status != errSecItemNotFound else { throw KeychainError.accountSearchError }
+        guard status != errSecDuplicateItem else {
+            try deleteAccount()
+            throw KeychainError.duplicateError
+        }
         guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
 
         currentAccount = account

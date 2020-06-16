@@ -29,12 +29,7 @@ class AddProfilePhotoView: UIView {
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 1, alignment: .left)
 
-    private let photoView = UIImageView(image: UIImage(named: "addPhoto"))
-    private let editButton = UIButton(title: "Edit", titleColor: .white,
-                                      backgroundColor: .black,
-                                      font: .compactRounded(style: .semibold, size: 18),
-                                      cornerRadius: 20)
-
+    private let photoView = AddPhotoView()
     private let skipButton = UIButton(title: "Skip for now", titleColor: .gray,
                                       backgroundColor: .clear,
                                       font: .compactRounded(style: .medium, size: 16),
@@ -46,6 +41,11 @@ class AddProfilePhotoView: UIView {
                                       cornerRadius: 20)
 
     weak var delegate: AddProfilePhotoViewDelegate?
+
+    init(delegate: AddProfilePhotoViewDelegate) {
+        self.init()
+        self.delegate = delegate
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,7 +68,7 @@ class AddProfilePhotoView: UIView {
 
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
-        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        photoView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
     }
 
@@ -81,12 +81,6 @@ class AddProfilePhotoView: UIView {
             photoView.widthAnchor.constraint(equalToConstant: bounds.width / 2),
             photoView.centerYAnchor.constraint(equalTo: centerYAnchor),
             photoView.centerXAnchor.constraint(equalTo: centerXAnchor),
-
-            editButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            editButton.widthAnchor.constraint(equalToConstant: bounds.width / 5),
-            editButton.heightAnchor.constraint(equalToConstant: 44),
-            editButton.bottomAnchor.constraint(equalTo: photoView.bottomAnchor,
-                                               constant: -22),
 
             skipButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
             skipButton.centerXAnchor.constraint(equalTo: centerXAnchor)
@@ -106,13 +100,13 @@ class AddProfilePhotoView: UIView {
     }
 
     @objc func editButtonTapped() {
-        editButton.clickAnimation()
+        photoView.editButton.clickAnimation()
         delegate?.editButtonTapped()
     }
 
     @objc func addPhotoButtonTapped() {
         addPhotoButton.clickAnimation(with: 0.9)
-        delegate?.addPhotoButtonTapped(image: photoView.image)
+        delegate?.addPhotoButtonTapped(image: photoView.imageView.image)
     }
 }
 
@@ -122,18 +116,12 @@ extension AddProfilePhotoView {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         photoView.translatesAutoresizingMaskIntoConstraints = false
-        editButton.translatesAutoresizingMaskIntoConstraints = false
         skipButton.translatesAutoresizingMaskIntoConstraints = false
         addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
-
-        addPhotoButton.layer.masksToBounds = true
-        photoView.contentMode = .scaleAspectFill
-        editButton.alpha = 0
 
         addSubview(backButton)
         addSubview(mainLabel)
         addSubview(photoView)
-        addSubview(editButton)
         addSubview(skipButton)
         addSubview(addPhotoButton)
     }
@@ -142,26 +130,17 @@ extension AddProfilePhotoView {
 // MARK: AddProfilePhotoViewUpdater
 extension AddProfilePhotoView: AddProfilePhotoViewUpdater {
     func showEditButton() {
-
-        editButton.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-
-        UIView.animate(withDuration: 1.5,
-                       delay: 0,
-                       usingSpringWithDamping: 0.7,
-                       initialSpringVelocity: 0.6,
-                       options: .allowUserInteraction,
-                       animations: {
-                        self.editButton.transform = CGAffineTransform.identity
-                        self.editButton.alpha = 0.2
-        })
+        photoView.showButton()
     }
 
     func editAddPhotoButton() {
-        addPhotoButton.titleLabel?.text = "Done"
+        for view in addPhotoButton.subviews {
+            (view as? UILabel)?.text = "Done"
+        }
     }
 
     func updatePhotoView(image: UIImage) {
-        photoView.image = image
+        photoView.imageView.image = image
     }
 }
 

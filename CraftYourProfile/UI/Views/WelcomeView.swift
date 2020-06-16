@@ -27,7 +27,7 @@ class WelcomeView: UIView {
                                 couples: [("Terms", "https://developer.apple.com/terms/"),
                                           ("Privacy Policy", "https://www.apple.com/legal/privacy/en-ww/")],
                                 font: .compactRounded(style: .medium, size: 16),
-                                textColor: .mainGrayText(), backgroundColor: .mainBlue(), tintColor: .white)
+                                textColor: .mainGrayText(), backgroundColor: .clear, tintColor: .white)
 
     private let circleButton = UIControl(image: UIImage(named: "circle"))
     private let safariButton = UIControl(image: UIImage(named: "safari"))

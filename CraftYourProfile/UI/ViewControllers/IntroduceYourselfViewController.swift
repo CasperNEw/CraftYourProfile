@@ -73,7 +73,7 @@ extension IntroduceYourselfViewController: IntroduceYourselfViewDelegate {
 
         if check {
             AuthorizationService.shared.createUserData(name: name, birthday: date)
-            let viewController = viewControllerFactory.makeIntroduceYourselfViewController()
+            let viewController = viewControllerFactory.makeAddProfilePhotoViewController()
             navigationController?.pushViewController(viewController, animated: true)
         }
     }

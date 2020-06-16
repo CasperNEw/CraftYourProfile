@@ -11,27 +11,21 @@ import UIKit
 class AddProfilePhotoViewController: UIViewController {
 
     // MARK: Init
-//    private var viewControllerFactory: ViewControllerFactory
     private var updater: AddProfilePhotoViewUpdater?
 
-    lazy var resizeScrollViewService: ResizeScrollViewService = {
+    lazy private var resizeScrollViewService: ResizeScrollViewService = {
         let resizeScrollView = ResizeScrollViewService(view: self.view)
         return resizeScrollView
     }()
 
-    lazy var imagePickerController: UIImagePickerController = {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .photoLibrary
-        return picker
+    lazy private var imagePicker: ImagePicker = {
+        let imagePicker = ImagePicker(presentationController: self, delegate: self)
+        return imagePicker
     }()
 
-    var photoIsEmpty = true
+    private var photoIsEmpty = true
 
-    init(/*_ factory: ViewControllerFactory*/) {
-
-//        self.viewControllerFactory = factory
-
+    init() {
         super.init(nibName: nil, bundle: nil)
         self.updater = view as? AddProfilePhotoViewUpdater
         self.view.backgroundColor = .white
@@ -43,13 +37,12 @@ class AddProfilePhotoViewController: UIViewController {
 
     // MARK: lifeCycle
     override func loadView() {
-        self.view = AddProfilePhotoView()
+        self.view = AddProfilePhotoView(delegate: self)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        (view as? AddProfilePhotoView)?.delegate = self
         resizeScrollViewService.setupKeyboard()
     }
 }
@@ -66,7 +59,7 @@ extension AddProfilePhotoViewController: AddProfilePhotoViewDelegate {
     }
 
     func editButtonTapped() {
-        present(imagePickerController, animated: true)
+        imagePicker.present()
     }
 
     func skipButtonTapped() {
@@ -75,8 +68,7 @@ extension AddProfilePhotoViewController: AddProfilePhotoViewDelegate {
 
     func addPhotoButtonTapped(image: UIImage?) {
         if photoIsEmpty {
-            present(imagePickerController, animated: true)
-            updater?.editAddPhotoButton()
+            imagePicker.present()
             return
         }
         AuthorizationService.shared.updateUserPhoto(image: image)
@@ -85,19 +77,18 @@ extension AddProfilePhotoViewController: AddProfilePhotoViewDelegate {
 
     private func finish() {
         showAlert(with: "Success", and: "You did it! 🙃") {
-            print("Congratulation!")
+            print("Congratulation!", #function)
         }
     }
 }
 
-// MARK: UIImagePickerControllerDelegate & UINavigationControllerDelegate
-extension AddProfilePhotoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+// MARK: ImagePickerDelegate
+extension AddProfilePhotoViewController: ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
 
-        picker.dismiss(animated: true, completion: nil)
-        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        guard let image = image else { return }
         updater?.updatePhotoView(image: image)
+        updater?.editAddPhotoButton()
         updater?.showEditButton()
         photoIsEmpty = false
     }

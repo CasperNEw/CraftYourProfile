@@ -162,5 +162,9 @@ extension VerifyPinCodeView: VerifyPinCodeViewUpdater {
         animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
         pinCodeView.layer.add(animation, forKey: "shake")
         pinCodeView.eraseView()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.pinCodeView.becomeFirstResponder()
+        }
     }
 }

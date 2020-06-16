@@ -20,6 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app wants to take pictures</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app wants to use your photos</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-Compact-Rounded-Black.otf</string>
