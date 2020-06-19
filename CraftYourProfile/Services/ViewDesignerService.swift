@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ViewDesignerService {
+class ViewDesignerService {
 
     let view: UIView
 
@@ -45,7 +45,7 @@ struct ViewDesignerService {
         }
     }
 
-    func setBottomView(_ view: UIView, with topView: UIView, specialSpacing: Bool = false, userInput: Bool = true) {
+    func setBottomView(_ view: UIView, with topView: UIView, specialSpacing: Bool = false) {
 
         var topSpacing: CGFloat = 170
         if specialSpacing { topSpacing += 16 }

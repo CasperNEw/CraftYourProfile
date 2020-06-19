@@ -10,8 +10,8 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
 
-// MARK: Init
-    private var viewControllerFactory: ViewControllerFactory
+    // MARK: Init
+    private let viewControllerFactory: ViewControllerFactory
 
     init(_ factory: ViewControllerFactory) {
 
@@ -23,15 +23,13 @@ class WelcomeViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-// MARK: lifeCycle
+    // MARK: lifeCycle
     override func loadView() {
-        self.view = WelcomeView()
+        self.view = WelcomeView(delegate: self)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        (view as? WelcomeView)?.delegate = self
         setupNavigationBar()
     }
 

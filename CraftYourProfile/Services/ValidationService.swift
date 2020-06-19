@@ -8,7 +8,7 @@
 
 import libPhoneNumber_iOS
 
-struct ValidationService {
+class ValidationService {
 
     private let phoneUtil = NBPhoneNumberUtil()
 

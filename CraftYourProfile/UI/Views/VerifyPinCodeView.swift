@@ -8,13 +8,28 @@
 
 import UIKit
 
+protocol VerifyPinCodeViewDelegate: AnyObject {
+
+    func backButtonTapped()
+    func resendCodeButtonTapped()
+    func didFinishedEnterCode(_ code: String)
+}
+
+protocol VerifyPinCodeViewUpdater {
+
+    func updateResendCodeLabel(with timer: Int)
+    func updateResendCodeLabel(with text: String)
+    func hideResendCodeLabel()
+    func hideResendCodeButton()
+    func shakePinCodeView()
+}
+
 class VerifyPinCodeView: UIView {
 
-    lazy private var designer: ViewDesignerService = { return ViewDesignerService(self) }()
     private let backButton = UIButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Next, enter the code we sent 😍",
-                            font: .compactRounded(style: .black, size: 32),
-                            color: .mainBlackText(), lines: 2, alignment: .left)
+                                    font: .compactRounded(style: .black, size: 32),
+                                    color: .mainBlackText(), lines: 2, alignment: .left)
 
     private let additionalLabel = UILabel(text: "VERIFICATION CODE",
                                           font: .compactRounded(style: .semibold, size: 15),
@@ -22,15 +37,23 @@ class VerifyPinCodeView: UIView {
 
     private let pinCodeView = PinCodeView()
     private let resendCodeLabel = UILabel(text: "Resend code after 20 sec",
-                                     font: .compactRounded(style: .medium, size: 16),
-                                     color: .gray, lines: 1, alignment: .center)
+                                          font: .compactRounded(style: .medium, size: 16),
+                                          color: .gray, lines: 1, alignment: .center)
 
     private let resendCodeButton = UIButton(title: "Resend code", titleColor: .white,
-                                      backgroundColor: .blueButton(),
-                                      font: .compactRounded(style: .semibold, size: 20),
-                                      cornerRadius: 20)
+                                            backgroundColor: .blueButton(),
+                                            font: .compactRounded(style: .semibold, size: 20),
+                                            cornerRadius: 20)
 
-    weak var delegate: VerifyPinCodeViewDelegate?
+    weak private var delegate: VerifyPinCodeViewDelegate?
+    lazy private var designer: ViewDesignerService = {
+        return ViewDesignerService(self)
+    }()
+
+    convenience init(delegate: VerifyPinCodeViewDelegate) {
+        self.init(frame: CGRect.zero)
+        self.delegate = delegate
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,7 +102,7 @@ class VerifyPinCodeView: UIView {
     }
 }
 
-// MARK: Setup Views
+// MARK: setupViews
 extension VerifyPinCodeView {
     private func addSubviews() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -115,34 +138,19 @@ extension VerifyPinCodeView: VerifyPinCodeViewUpdater {
 
         UIView.animate(withDuration: 1,
                        animations: { self.resendCodeLabel.alpha = 0 },
-                       completion: { _ in self.showResendCodeButton() })
-    }
-
-    private func showResendCodeButton() {
-
-        resendCodeButton.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-
-        UIView.animate(withDuration: 1.5,
-                       delay: 0,
-                       usingSpringWithDamping: 0.7,
-                       initialSpringVelocity: 0.6,
-                       options: .allowUserInteraction,
-                       animations: {
-                        self.resendCodeButton.transform = CGAffineTransform.identity
-                        self.resendCodeButton.alpha = 1
-        })
+                       completion: { _ in self.showView(self.resendCodeButton) })
     }
 
     func hideResendCodeButton() {
 
         UIView.animate(withDuration: 1,
                        animations: { self.resendCodeButton.alpha = 0 },
-                       completion: { _ in self.showResendCodeLabel() })
+                       completion: { _ in self.showView(self.resendCodeLabel) })
     }
 
-    private func showResendCodeLabel() {
+    private func showView(_ view: UIView) {
 
-        resendCodeLabel.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+        view.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
 
         UIView.animate(withDuration: 1.5,
                        delay: 0,
@@ -150,19 +158,15 @@ extension VerifyPinCodeView: VerifyPinCodeViewUpdater {
                        initialSpringVelocity: 0.6,
                        options: .allowUserInteraction,
                        animations: {
-                        self.resendCodeLabel.transform = CGAffineTransform.identity
-                        self.resendCodeLabel.alpha = 1
+                        view.transform = CGAffineTransform.identity
+                        view.alpha = 1
         })
     }
 
     func shakePinCodeView() {
-        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        animation.duration = 0.6
-        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
-        pinCodeView.layer.add(animation, forKey: "shake")
-        pinCodeView.eraseView()
 
+        pinCodeView.shakeAnimation()
+        pinCodeView.eraseView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.pinCodeView.becomeFirstResponder()
         }

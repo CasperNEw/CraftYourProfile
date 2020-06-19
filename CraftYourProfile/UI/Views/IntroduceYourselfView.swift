@@ -8,43 +8,62 @@
 
 import UIKit
 
+protocol IntroduceYourselfViewDelegate: AnyObject {
+
+    func backButtonTapped()
+    func nextButtonTapped(_ nameTextField: UITextField, _ birthdayTextField: UITextField, _ date: Date)
+}
+
+protocol IntroduceYourselfViewUpdater {
+
+    func shakeTextFieldView(_ textField: UITextField)
+}
+
 class IntroduceYourselfView: UIView {
 
-    lazy private var designer: ViewDesignerService = { return ViewDesignerService(self) }()
     private let backButton = UIButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Let's introduce yourself 🤪",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 2, alignment: .left)
 
     private let nameLabel = UILabel(text: "NAME",
-                                          font: .compactRounded(style: .semibold, size: 15),
-                                          color: .gray, lines: 1, alignment: .left)
+                                    font: .compactRounded(style: .semibold, size: 15),
+                                    color: .gray, lines: 1, alignment: .left)
 
     private let nameTextField = UITextField(font: .compactRounded(style: .semibold, size: 20),
-                                             textColor: .black, backgroundColor: .backgroundGray(),
-                                             cornerRadius: 15)
+                                            textColor: .black, backgroundColor: .backgroundGray(),
+                                            cornerRadius: 15)
 
     private let birthdayLabel = UILabel(text: "BIRTHDAY",
-                                          font: .compactRounded(style: .semibold, size: 15),
-                                          color: .gray, lines: 1, alignment: .left)
+                                        font: .compactRounded(style: .semibold, size: 15),
+                                        color: .gray, lines: 1, alignment: .left)
 
     private let birthdayTextField = UITextField(font: .compactRounded(style: .semibold, size: 20),
-                                             textColor: .black, backgroundColor: .backgroundGray(),
-                                             cornerRadius: 15)
+                                                textColor: .black, backgroundColor: .backgroundGray(),
+                                                cornerRadius: 15)
     private let datePicker = UIDatePicker()
     private let dateButton = UIButton(image: UIImage(named: "rexona"))
+
+    private let nextButton = UIButton(title: "Next", titleColor: .white,
+                                      backgroundColor: .blueButton(),
+                                      font: .compactRounded(style: .semibold, size: 20),
+                                      cornerRadius: 20)
+
     lazy private var formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter
     }()
 
-    private let nextButton = UIButton(title: "Next", titleColor: .white,
-                               backgroundColor: .blueButton(),
-                               font: .compactRounded(style: .semibold, size: 20),
-                               cornerRadius: 20)
+    weak private var delegate: IntroduceYourselfViewDelegate?
+    lazy private var designer: ViewDesignerService = {
+        return ViewDesignerService(self)
+    }()
 
-    weak var delegate: IntroduceYourselfViewDelegate?
+    convenience init(delegate: IntroduceYourselfViewDelegate) {
+        self.init(frame: CGRect.zero)
+        self.delegate = delegate
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,7 +126,7 @@ class IntroduceYourselfView: UIView {
     }
 }
 
-// MARK: Setup Views
+// MARK: setupViews
 extension IntroduceYourselfView {
     private func addSubviews() {
         backButton.translatesAutoresizingMaskIntoConstraints = false

@@ -8,16 +8,31 @@
 
 import UIKit
 
+protocol VerifyPhoneViewDelegate: AnyObject {
+
+    func shouldChangeCharactersIn(_ textField: UITextField, string: String) -> Bool
+    func textFieldDidChangeSelection(_ textField: UITextField)
+
+    func crossButtonTapped()
+    func codeButtonTapped(_ view: UIView)
+    func nextButtonTapped(string: String?)
+}
+
+protocol VerifyPhoneViewUpdater {
+
+    func setNewValue(string: String)
+}
+
 class VerifyPhoneView: UIView {
 
-// MARK: Init
+    // MARK: Init
     private let crossButton = UIButton(image: UIImage(named: "cross"))
     private let mainLabel = UILabel(text: "Let's verify your phone number 😘",
-                            font: .compactRounded(style: .black, size: 32),
-                            color: .mainBlackText(), lines: 2, alignment: .left)
+                                    font: .compactRounded(style: .black, size: 32),
+                                    color: .mainBlackText(), lines: 2, alignment: .left)
     private let additionalLabel = UILabel(text: "PHONE NUMBER",
-                                  font: .compactRounded(style: .semibold, size: 15),
-                                  color: .gray, lines: 1, alignment: .left)
+                                          font: .compactRounded(style: .semibold, size: 15),
+                                          color: .gray, lines: 1, alignment: .left)
 
     private let phoneView = UIView()
     private let phoneTextField = UITextField()
@@ -26,11 +41,19 @@ class VerifyPhoneView: UIView {
     private let lineView = UIView()
 
     private let nextButton = UIButton(title: "Next", titleColor: .white,
-                               backgroundColor: .blueButton(),
-                               font: .compactRounded(style: .semibold, size: 20),
-                               cornerRadius: 20)
+                                      backgroundColor: .blueButton(),
+                                      font: .compactRounded(style: .semibold, size: 20),
+                                      cornerRadius: 20)
 
-    weak var delegate: VerifyPhoneViewDelegate?
+    weak private var delegate: VerifyPhoneViewDelegate?
+    lazy private var designer: ViewDesignerService = {
+        return ViewDesignerService(self)
+    }()
+
+    convenience init(delegate: VerifyPhoneViewDelegate) {
+        self.init(frame: CGRect.zero)
+        self.delegate = delegate
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,7 +100,7 @@ class VerifyPhoneView: UIView {
     }
 }
 
-// MARK: Setup Views
+// MARK: setupViews
 extension VerifyPhoneView {
 
     private func addSubviews() {
@@ -130,7 +153,7 @@ extension VerifyPhoneView {
     }
 }
 
-// MARK: Setup Constraints
+// MARK: setupConstraints
 extension VerifyPhoneView {
 
     private func setupPhoneViewConstraints() {
@@ -157,30 +180,12 @@ extension VerifyPhoneView {
 
     private func setupMainConstraints() {
 
-        NSLayoutConstraint.activate([
-            crossButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 12),
-            crossButton.heightAnchor.constraint(equalToConstant: 44),
-            crossButton.widthAnchor.constraint(equalToConstant: 44),
-            crossButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 18),
-
-            mainLabel.topAnchor.constraint(equalTo: crossButton.bottomAnchor, constant: 24),
-            mainLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 24),
-            mainLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -48),
-
-            additionalLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 24),
-            additionalLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            additionalLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -48),
-
-            phoneView.topAnchor.constraint(equalTo: additionalLabel.bottomAnchor, constant: 24),
-            phoneView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            phoneView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            phoneView.heightAnchor.constraint(equalToConstant: 50),
-
-            nextButton.topAnchor.constraint(equalTo: phoneView.bottomAnchor, constant: 170),
-            nextButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            nextButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        designer.setBackButton(crossButton)
+        designer.setView(mainLabel, with: crossButton)
+        designer.setView(additionalLabel, with: mainLabel)
+        designer.setView(phoneView, with: additionalLabel, trailingIsShort: false,
+                         withHeight: true, specialHeight: false)
+        designer.setBottomView(nextButton, with: phoneView)
     }
 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NetworkService {
+class NetworkService {
 
     func getCountriesInformation(completion: @escaping (Result<[CountryFromServer], Error>) -> Void) {
 

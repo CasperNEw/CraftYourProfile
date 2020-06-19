@@ -10,10 +10,9 @@ import UIKit
 
 class VerifyPinCodeViewController: UIViewController {
 
-// MARK: Init
-    private var mainView: ScrollViewContainer? { return self.view as? ScrollViewContainer }
+    // MARK: Init
     private var viewControllerFactory: ViewControllerFactory
-    private var updater: VerifyPinCodeViewUpdater?
+    private var viewUpdater: VerifyPinCodeViewUpdater?
 
     lazy private var timer: Timer = {
         let timer = Timer(timeInterval: 1, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
@@ -22,9 +21,14 @@ class VerifyPinCodeViewController: UIViewController {
     }()
     private var repeatTimerInterval = 20
 
-    lazy var resizeScrollViewService: ResizeScrollViewService = {
+    lazy private var resizeScrollViewService: ResizeScrollViewService = {
         let resizeScrollView = ResizeScrollViewService(view: self.view)
         return resizeScrollView
+    }()
+
+    lazy private var verifyPinCodeView: VerifyPinCodeView = {
+        let view = VerifyPinCodeView(delegate: self)
+        return view
     }()
 
     init(_ factory: ViewControllerFactory) {
@@ -32,7 +36,7 @@ class VerifyPinCodeViewController: UIViewController {
         self.viewControllerFactory = factory
 
         super.init(nibName: nil, bundle: nil)
-        self.updater = mainView?.view as? VerifyPinCodeViewUpdater
+        self.viewUpdater = verifyPinCodeView
         self.view.backgroundColor = .white
     }
 
@@ -40,15 +44,14 @@ class VerifyPinCodeViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-// MARK: lifeCycle
+    // MARK: lifeCycle
     override func loadView() {
-        self.view = ScrollViewContainer(frame: UIScreen.main.bounds, type: VerifyPinCodeView.self)
+        self.view = ScrollViewContainer(with: verifyPinCodeView)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        (mainView?.view as? VerifyPinCodeView)?.delegate = self
         resizeScrollViewService.setupKeyboard()
     }
 
@@ -75,8 +78,8 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
         do {
             let newPinCode = try AuthorizationService.shared.updatePinCode(with: 6)
             showAlert(with: "Success", and: "A PIN code \(newPinCode) has been sent to your phone number") {
-                self.updater?.shakePinCodeView()
-                self.updater?.hideResendCodeButton()
+                self.viewUpdater?.shakePinCodeView()
+                self.viewUpdater?.hideResendCodeButton()
                 self.startTimer()
             }
         } catch let error {
@@ -92,12 +95,12 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
 
     @objc func fireTimer() {
         repeatTimerInterval -= 1
-        updater?.updateResendCodeLabel(with: repeatTimerInterval)
+        viewUpdater?.updateResendCodeLabel(with: repeatTimerInterval)
 
         if repeatTimerInterval == 0 {
             timer.invalidate()
             repeatTimerInterval = 20
-            updater?.hideResendCodeLabel()
+            viewUpdater?.hideResendCodeLabel()
         }
     }
 
@@ -106,14 +109,14 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
         do {
             let pinCode = try AuthorizationService.shared.getExpectedPinCode()
             if pinCode != code {
-                updater?.shakePinCodeView()
+                viewUpdater?.shakePinCodeView()
             } else {
                 showAlert(with: "Success", and: "Go to Create Your Profile! 😍") {
                     let viewController = self.viewControllerFactory.makeIntroduceYourselfViewController()
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
                 timer.invalidate()
-                updater?.updateResendCodeLabel(with: "Perfect 😌")
+                viewUpdater?.updateResendCodeLabel(with: "Perfect 😌")
             }
         } catch let error {
             showAlert(with: "Keychain Error", and: error.localizedDescription)

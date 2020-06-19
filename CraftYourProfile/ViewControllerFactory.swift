@@ -20,9 +20,8 @@ class ViewControllerFactory {
         return viewConroller
     }
 
-    func makeCountryCodeViewController(_ delegate: CountryCodeDataProviderProtocol) -> UIViewController {
-        let viewController = CountryCodeViewController()
-        viewController.delegate = delegate
+    func makeCountryCodeViewController(_ delegate: CountryCodeViewControllerDelegate) -> UIViewController {
+        let viewController = CountryCodeViewController(delegate: delegate)
         return viewController
     }
 

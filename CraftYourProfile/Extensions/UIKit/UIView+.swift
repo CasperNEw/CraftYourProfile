@@ -26,6 +26,7 @@ extension UIView {
     func addMainSubview(_ view: UIView?) {
         guard let view = view else { return }
         addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: self.topAnchor),

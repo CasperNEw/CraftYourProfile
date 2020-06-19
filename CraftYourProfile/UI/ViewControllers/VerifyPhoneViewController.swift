@@ -7,15 +7,24 @@
 //
 
 import UIKit
-import libPhoneNumber_iOS
 
 class VerifyPhoneViewController: UIViewController {
 
-// MARK: Init
-    private var mainView: ScrollViewContainer? { return self.view as? ScrollViewContainer }
-    private var modelController: VerifyPhoneModelController
+    // MARK: Init
     private var viewControllerFactory: ViewControllerFactory
-    private var updater: VerifyPhoneViewUpdater?
+    private var modelController: VerifyPhoneModelController
+    private var viewUpdater: VerifyPhoneViewUpdater?
+    private var popOver: UIViewController?
+
+    lazy private var resizeScrollViewService: ResizeScrollViewService = {
+        let resizeScrollView = ResizeScrollViewService(view: self.view)
+        return resizeScrollView
+    }()
+
+    lazy private var verifyPhoneView: VerifyPhoneView = {
+        let view = VerifyPhoneView(delegate: self)
+        return view
+    }()
 
     init(_ factory: ViewControllerFactory) {
 
@@ -23,7 +32,7 @@ class VerifyPhoneViewController: UIViewController {
         self.modelController = VerifyPhoneModelController()
 
         super.init(nibName: nil, bundle: nil)
-        self.updater = mainView?.view as? VerifyPhoneViewUpdater
+        self.viewUpdater = verifyPhoneView
         self.view.backgroundColor = .white
     }
 
@@ -31,61 +40,31 @@ class VerifyPhoneViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-// MARK: lifeCycle
+    // MARK: lifeCycle
     override func loadView() {
-        self.view = ScrollViewContainer(frame: UIScreen.main.bounds, type: VerifyPhoneView.self)
+        self.view = ScrollViewContainer(with: verifyPhoneView)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        (mainView?.view as? VerifyPhoneView)?.delegate = self
-        setupKeyboard()
-    }
-}
-
-// MARK: setupKeyboard
-extension VerifyPhoneViewController {
-
-    func setupKeyboard() {
-
-        let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        view.addGestureRecognizer(hideAction)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-
-    @objc func keyboardWillShow(_ notification: NSNotification) {
-        let userInfo = notification.userInfo
-        guard let keyboardFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
-            .cgRectValue else { return }
-
-        var contentInset = mainView?.scrollView?.getContentInset()
-        contentInset?.bottom = keyboardFrameSize.height - view.safeAreaInsets.bottom
-        mainView?.scrollView?.setContentInset(contentInset)
-    }
-
-    @objc func keyboardWillHide() {
-        let contentInset: UIEdgeInsets = UIEdgeInsets.zero
-        mainView?.scrollView?.setContentInset(contentInset)
-    }
-
-    @objc func hideKeyboard() {
-        view.endEditing(true)
+        loadPopOver()
+        resizeScrollViewService.setupKeyboard()
     }
 }
 
 // MARK: setupAndPresentPopOverVC
 extension VerifyPhoneViewController {
 
+    private func loadPopOver() {
+        DispatchQueue.main.async {
+            self.popOver = self.viewControllerFactory.makeCountryCodeViewController(self)
+        }
+    }
+
     private func setupAndPresentPopOverVC(_ view: UIView) {
 
-        let popOver = viewControllerFactory.makeCountryCodeViewController(self)
+        guard let popOver = popOver else { return }
         popOver.modalPresentationStyle = .popover
         guard let popOverPC = popOver.popoverPresentationController else { return }
         popOverPC.delegate = self
@@ -169,7 +148,7 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
 }
 
 // MARK: CountryCodeDataProviderProtocol
-extension VerifyPhoneViewController: CountryCodeDataProviderProtocol {
+extension VerifyPhoneViewController: CountryCodeViewControllerDelegate {
 
     func getCountryCodes(with filter: String?) -> [CountryCode] {
         return modelController.getCountryCodes(with: filter)
@@ -177,7 +156,7 @@ extension VerifyPhoneViewController: CountryCodeDataProviderProtocol {
 
     func didSelectItemAt(index: Int) {
         let code = modelController.getTheSelectedCode(at: index)
-        updater?.setNewValue(string: code)
+        viewUpdater?.setNewValue(string: code)
     }
 }
 

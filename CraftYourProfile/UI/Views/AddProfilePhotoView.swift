@@ -9,6 +9,7 @@
 import UIKit
 
 protocol AddProfilePhotoViewDelegate: AnyObject {
+
     func backButtonTapped()
     func editButtonTapped()
     func skipButtonTapped()
@@ -16,6 +17,7 @@ protocol AddProfilePhotoViewDelegate: AnyObject {
 }
 
 protocol AddProfilePhotoViewUpdater {
+
     func showEditButton()
     func editAddPhotoButton()
     func updatePhotoView(image: UIImage)
@@ -23,7 +25,6 @@ protocol AddProfilePhotoViewUpdater {
 
 class AddProfilePhotoView: UIView {
 
-    lazy private var designer: ViewDesignerService = { return ViewDesignerService(self) }()
     private let backButton = UIButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Add profile photo ❤️",
                                     font: .compactRounded(style: .black, size: 32),
@@ -40,10 +41,13 @@ class AddProfilePhotoView: UIView {
                                       font: .compactRounded(style: .semibold, size: 20),
                                       cornerRadius: 20)
 
-    weak var delegate: AddProfilePhotoViewDelegate?
+    weak private var delegate: AddProfilePhotoViewDelegate?
+    lazy private var designer: ViewDesignerService = {
+        return ViewDesignerService(self)
+    }()
 
-    init(delegate: AddProfilePhotoViewDelegate) {
-        self.init()
+    convenience init(delegate: AddProfilePhotoViewDelegate) {
+        self.init(frame: CGRect.zero)
         self.delegate = delegate
     }
 
@@ -110,7 +114,7 @@ class AddProfilePhotoView: UIView {
     }
 }
 
-// MARK: Setup Views
+// MARK: setupViews
 extension AddProfilePhotoView {
     private func addSubviews() {
         backButton.translatesAutoresizingMaskIntoConstraints = false

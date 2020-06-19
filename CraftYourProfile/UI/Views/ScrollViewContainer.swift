@@ -13,26 +13,32 @@ class ScrollViewContainer: UIView {
     var scrollView: UIScrollView?
     var view: UIView?
 
-    convenience init(frame: CGRect, type: UIView.Type) {
-        self.init(frame: frame)
-        configure(frame: frame, type: type)
+    convenience init(with view: UIView) {
+        self.init(frame: UIScreen.main.bounds)
+        self.view = view
+        configure(with: view)
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
 
-    private func configure(frame: CGRect, type: UIView.Type) {
+    private func configure(with view: UIView) {
 
-        scrollView = UIScrollView(frame: frame)
+        scrollView = UIScrollView()
         addMainSubviewInSafeArea(scrollView)
-        view = type.init(frame: frame)
         scrollView?.addMainSubview(view)
+
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor),
+            view.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor)
+        ])
+
         backgroundColor = .clear
         scrollView?.backgroundColor = .clear
         scrollView?.indicatorStyle = .white
         scrollView?.isScrollEnabled = true
-    }
+     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

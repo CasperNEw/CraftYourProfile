@@ -46,18 +46,25 @@ class VerifyPhoneModelController {
     }
 
     private func makeCountryCodesFromNetworkData(_ source: [CountryFromServer]) {
-        var countryCodes: [CountryCode] = []
-        for country in source {
-            for code in country.callingCodes {
-                countryCodes.append(CountryCode(code: "+" + code,
-                                                name: country.name,
-                                                shortName: country.alpha2Code))
-            }
-        }
-        countryCodes.sort { $0.name < $1.name }
 
-        self.sourceCodes = countryCodes.removingDuplicates()
-        self.countryCodes = countryCodes.removingDuplicates()
+        var countryCodes: [CountryCode] = []
+        let item = DispatchWorkItem {
+            for country in source {
+                for code in country.callingCodes {
+                    countryCodes.append(CountryCode(code: "+" + code,
+                                                    name: country.name,
+                                                    shortName: country.alpha2Code))
+                }
+            }
+            countryCodes.sort { $0.name < $1.name }
+        }
+
+        item.notify(queue: DispatchQueue.main) {
+            self.sourceCodes = countryCodes.removingDuplicates()
+            self.countryCodes = countryCodes.removingDuplicates()
+        }
+
+        DispatchQueue.global(qos: .userInitiated).async(execute: item)
     }
 
     func getCodesCount() -> Int {

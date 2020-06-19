@@ -13,24 +13,31 @@ class EmitterLayerAnimator {
     private let bounds = UIScreen.main.bounds
 
     func addAnimationOnView(_ view: UIView) {
-        let emitter = setupEmitterAnimation()
-        view.layer.addSublayer(emitter)
+        setupEmitterAnimation { [weak view] (emitter) in
+            view?.layer.addSublayer(emitter)
+        }
     }
 
-    private func setupEmitterAnimation() -> CAEmitterLayer {
+    private func setupEmitterAnimation(completion: @escaping (CAEmitterLayer) -> Void) {
 
         let emitterLayer = CAEmitterLayer()
-        emitterLayer.emitterPosition = CGPoint(x: bounds.width / 2, y: bounds.height + 40)
-        emitterLayer.emitterSize = CGSize(width: bounds.width + 50, height: 20)
-        emitterLayer.emitterShape = .line
-        emitterLayer.beginTime = CACurrentMediaTime()
-        emitterLayer.timeOffset = 5
-        emitterLayer.birthRate = 0.3
+        let item = DispatchWorkItem {
+            emitterLayer.emitterPosition = CGPoint(x: self.bounds.width / 2, y: self.bounds.height + 40)
+            emitterLayer.emitterSize = CGSize(width: self.bounds.width + 50, height: 20)
+            emitterLayer.emitterShape = .line
+            emitterLayer.beginTime = CACurrentMediaTime()
+            emitterLayer.timeOffset = 5
+            emitterLayer.birthRate = 0.3
 
-        let emoji = ["😍", "🥰", "😘", "😜", "💋", "❤️"]
-        emitterLayer.emitterCells = makeEmitterCells(emoji: emoji)
+            let emoji = ["😍", "🥰", "😘", "😜", "💋", "❤️"]
+            emitterLayer.emitterCells = self.makeEmitterCells(emoji: emoji)
+        }
 
-        return emitterLayer
+        item.notify(queue: DispatchQueue.main) {
+            completion(emitterLayer)
+        }
+
+        DispatchQueue.global(qos: .userInteractive).async(execute: item)
     }
 
     private func makeEmitterCells(emoji: [String]) -> [CAEmitterCell] {

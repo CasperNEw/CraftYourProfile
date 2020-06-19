@@ -8,33 +8,46 @@
 
 import UIKit
 
+protocol WelcomeViewDelegate: AnyObject {
+
+    func letsGoButtonTapped()
+    func circleButtonTapped()
+    func safariButtonTapped()
+    func homeButtonTapped()
+}
+
 class WelcomeView: UIView {
 
-// MARK: Init
+    // MARK: Init
     private let mainLabel = UILabel(text: "Craft Your Profile",
                                     font: .compactRounded(style: .bold, size: 26),
                                     color: .white)
     private let additionalLabel = UILabel(text: "Create a profile, follow other accounts, make your own lives!",
-                                  font: .compactRounded(style: .medium, size: 20),
-                                  color: .mainGrayText(), lines: 2)
+                                          font: .compactRounded(style: .medium, size: 20),
+                                          color: .mainGrayText(), lines: 2)
     private let smileView = UIImageView(image: UIImage(named: "whiteSmile"))
     private let letsGoButton = UIControl(title: "LET'S GO!!!",
-                                 titleColor: .mainBlackText(),
-                                 backgroundColor: .mainWhite(),
-                                 font: .compactRounded(style: .bold, size: 20),
-                                 cornerRadius: 23)
+                                         titleColor: .mainBlackText(),
+                                         backgroundColor: .mainWhite(),
+                                         font: .compactRounded(style: .bold, size: 20),
+                                         cornerRadius: 23)
     private let bottomTextView = UITextView(text: "By signing up, you agree to our Terms and Privacy Policy",
-                                couples: [("Terms", "https://developer.apple.com/terms/"),
-                                          ("Privacy Policy", "https://www.apple.com/legal/privacy/en-ww/")],
-                                font: .compactRounded(style: .medium, size: 16),
-                                textColor: .mainGrayText(), backgroundColor: .clear, tintColor: .white)
+                                            couples: [("Terms", "https://developer.apple.com/terms/"),
+                                                      ("Privacy Policy", "https://www.apple.com/legal/privacy/en-ww/")],
+                                            font: .compactRounded(style: .medium, size: 16),
+                                            textColor: .mainGrayText(), backgroundColor: .clear, tintColor: .white)
 
     private let circleButton = UIControl(image: UIImage(named: "circle"))
     private let safariButton = UIControl(image: UIImage(named: "safari"))
     private let homeButton = UIControl(image: UIImage(named: "home"))
 
-    weak var delegate: WelcomeViewDelegate?
-    let animator = EmitterLayerAnimator()
+    private let animator = EmitterLayerAnimator()
+    weak private var delegate: WelcomeViewDelegate?
+
+    convenience init(delegate: WelcomeViewDelegate) {
+        self.init(frame: CGRect.zero)
+        self.delegate = delegate
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,9 +64,9 @@ class WelcomeView: UIView {
         super.layoutSubviews()
         setupConstraints()
         setGradientBackground(colorTop: .mainBlue(), colorBottom: .black,
-                               startPoint: CGPoint(x: 0.5, y: 1.3  ),
-                               endPoint: CGPoint(x: 0.5, y: 0.8),
-                               locations: [0, 1])
+                              startPoint: CGPoint(x: 0.5, y: 1.3  ),
+                              endPoint: CGPoint(x: 0.5, y: 0.8),
+                              locations: [0, 1])
     }
 
     private func setupViews() {
@@ -73,19 +86,19 @@ class WelcomeView: UIView {
         setupBottomButtonsConstraints()
     }
 
-    @objc func letsGoButtonTapped() {
+    @objc private func letsGoButtonTapped() {
         letsGoButton.clickAnimation(with: 0.8)
         delegate?.letsGoButtonTapped()
     }
-    @objc func circleButtonTapped() {
+    @objc private func circleButtonTapped() {
         circleButton.clickAnimation()
         delegate?.circleButtonTapped()
     }
-    @objc func safariButtonTapped() {
+    @objc private func safariButtonTapped() {
         safariButton.clickAnimation()
         delegate?.safariButtonTapped()
     }
-    @objc func homeButtonTapped() {
+    @objc private func homeButtonTapped() {
         homeButton.clickAnimation()
         delegate?.homeButtonTapped()
     }
@@ -95,7 +108,7 @@ class WelcomeView: UIView {
     }
 }
 
-// MARK: Setup Views
+// MARK: setupViews
 extension WelcomeView {
 
     private func setupCenterElements() {
@@ -128,7 +141,7 @@ extension WelcomeView {
     }
 }
 
-// MARK: Setup Constraints
+// MARK: setupConstraints
 extension WelcomeView {
 
     private func setupCenterElementConstraints() {

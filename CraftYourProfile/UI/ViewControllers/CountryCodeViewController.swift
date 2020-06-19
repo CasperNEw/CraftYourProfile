@@ -8,16 +8,31 @@
 
 import UIKit
 
+protocol CountryCodeViewControllerDelegate: AnyObject {
+
+    func getCountryCodes(with filter: String?) -> [CountryCode]
+    func didSelectItemAt(index: Int)
+}
+
 class CountryCodeViewController: UIViewController {
 
     private enum Section: CaseIterable {
         case main
     }
 
-    weak var delegate: CountryCodeDataProviderProtocol?
     private let searchBar = UISearchBar(frame: .zero)
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, CountryCode>!
+    weak private var delegate: CountryCodeViewControllerDelegate?
+
+    init(delegate: CountryCodeViewControllerDelegate) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,14 +48,16 @@ extension CountryCodeViewController {
         dataSource = UICollectionViewDiffableDataSource
             <Section, CountryCode>(collectionView: collectionView,
                                    cellProvider: { (collectionView, indexPath, countryCode) -> UICollectionViewCell? in
-            guard let countryCodeCell =
-                collectionView.dequeueReusableCell(withReuseIdentifier: CountryCodeCell.reuseIdentifier,
+                                    // swiftlint:disable line_length
+                                    guard let countryCodeCell =
+                                        collectionView.dequeueReusableCell(withReuseIdentifier: CountryCodeCell.reuseIdentifier,
                                                                            for: indexPath) as? CountryCodeCell else {
-                fatalError("Cannot create new cell")
-            }
-            countryCodeCell.label.text = countryCode.description
-            return countryCodeCell
-        })
+                                                                            fatalError("Cannot create new cell")
+                                    }
+                                    // swiftlint:enable line_length
+                                    countryCodeCell.label.text = countryCode.description
+                                    return countryCodeCell
+            })
     }
 
     private func configureHierarchy() {

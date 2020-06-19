@@ -11,39 +11,42 @@ import UIKit
 class IntroduceYourselfViewController: UIViewController {
 
     // MARK: Init
-        private var mainView: ScrollViewContainer? { return self.view as? ScrollViewContainer }
-        private var viewControllerFactory: ViewControllerFactory
-        private var updater: IntroduceYourselfViewUpdater?
+    private var viewControllerFactory: ViewControllerFactory
+    private var viewUpdater: IntroduceYourselfViewUpdater?
 
-        lazy var resizeScrollViewService: ResizeScrollViewService = {
-            let resizeScrollView = ResizeScrollViewService(view: self.view)
-            return resizeScrollView
-        }()
+    lazy private var resizeScrollViewService: ResizeScrollViewService = {
+        let resizeScrollView = ResizeScrollViewService(view: self.view)
+        return resizeScrollView
+    }()
 
-        init(_ factory: ViewControllerFactory) {
+    lazy private var introduceYourselfView: IntroduceYourselfView = {
+        let view = IntroduceYourselfView(delegate: self)
+        return view
+    }()
 
-            self.viewControllerFactory = factory
+    init(_ factory: ViewControllerFactory) {
 
-            super.init(nibName: nil, bundle: nil)
-            self.updater = mainView?.view as? IntroduceYourselfViewUpdater
-            self.view.backgroundColor = .white
-        }
+        self.viewControllerFactory = factory
 
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+        super.init(nibName: nil, bundle: nil)
+        self.viewUpdater = introduceYourselfView
+        self.view.backgroundColor = .white
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: lifeCycle
-        override func loadView() {
-            self.view = ScrollViewContainer(frame: UIScreen.main.bounds, type: IntroduceYourselfView.self)
-        }
+    override func loadView() {
+        self.view = ScrollViewContainer(with: introduceYourselfView)
+    }
 
-        override func viewDidLoad() {
-            super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-            (mainView?.view as? IntroduceYourselfView)?.delegate = self
-            resizeScrollViewService.setupKeyboard()
-        }
+        resizeScrollViewService.setupKeyboard()
+    }
 }
 
 // MARK: IntroduceYourselfViewDelegate
@@ -64,11 +67,11 @@ extension IntroduceYourselfViewController: IntroduceYourselfViewDelegate {
 
         if name.isEmpty {
             check = false
-            updater?.shakeTextFieldView(nameTextField)
+            viewUpdater?.shakeTextFieldView(nameTextField)
         }
         if birthday.isEmpty {
             check = false
-            updater?.shakeTextFieldView(birthdayTextField)
+            viewUpdater?.shakeTextFieldView(birthdayTextField)
         }
 
         if check {
