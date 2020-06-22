@@ -193,3 +193,14 @@ extension WelcomeView {
         ])
     }
 }
+
+// MARK: forTests
+extension WelcomeView {
+
+    func testWelcomeViewTap() {
+        letsGoButtonTapped()
+        circleButtonTapped()
+        safariButtonTapped()
+        homeButtonTapped()
+    }
+}

@@ -13,7 +13,7 @@ class VerifyPhoneViewController: UIViewController {
     // MARK: Init
     private var viewControllerFactory: ViewControllerFactory
     private var modelController: VerifyPhoneModelControllerProtocol
-    private var viewUpdater: VerifyPhoneViewUpdater
+    var viewUpdater: VerifyPhoneViewUpdater
     var popOver: UIViewController?
 
     init(factory: ViewControllerFactory,

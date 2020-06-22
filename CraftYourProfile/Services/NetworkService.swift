@@ -24,7 +24,9 @@ class NetworkService {
 
             guard let data = data else {
                 if let error = error {
-                    completion(.failure(error))
+                    DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
                     return
                 }
                 return
@@ -34,9 +36,13 @@ class NetworkService {
                 let result = try JSONDecoder().decode([CountryFromServer].self, from: data).filter {
                     $0.callingCodes != [""]
                 }
-                completion(.success(result))
+                DispatchQueue.main.async {
+                    completion(.success(result))
+                }
             } catch {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             }
         }
         task.resume()

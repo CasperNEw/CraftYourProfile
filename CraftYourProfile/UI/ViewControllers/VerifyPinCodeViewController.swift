@@ -40,6 +40,15 @@ class VerifyPinCodeViewController: UIViewController {
         super.viewDidAppear(animated)
 
         startTimer()
+        viewUpdater.shakePinCodeView()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        viewUpdater.hideResendCodeButton()
+        timer.invalidate()
+        repeatTimerInterval = 20
     }
 }
 

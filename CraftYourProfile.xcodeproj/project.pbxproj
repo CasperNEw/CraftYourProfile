@@ -29,8 +29,11 @@
 		DA262DBD248E67D0007FB3EA /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DBC248E67D0007FB3EA /* UIViewController+.swift */; };
 		DA262DC8248F449C007FB3EA /* ScrollViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */; };
 		DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DCB248F6390007FB3EA /* UIScrollView+.swift */; };
-		DA2DED33249FE18A00944342 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED32249FE18A00944342 /* Router.swift */; };
 		DA2DED3524A0B1A100944342 /* PhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3424A0B1A100944342 /* PhoneView.swift */; };
+		DA2DED3724A0DCE900944342 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3624A0DCE900944342 /* Factory.swift */; };
+		DA2DED3924A0E8F200944342 /* VerifyPhoneModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3824A0E8F200944342 /* VerifyPhoneModule.swift */; };
+		DA2DED3C24A1050800944342 /* VerifyPinCodeModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3B24A1050800944342 /* VerifyPinCodeModule.swift */; };
+		DA2DED3F24A110D800944342 /* IntroduceYourselfModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3E24A110D800944342 /* IntroduceYourselfModule.swift */; };
 		DA52EE4124893B480062D174 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE4024893B480062D174 /* UIView+.swift */; };
 		DA67A295248F9002004079AC /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A294248F9002004079AC /* Array+.swift */; };
 		DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A296248F94EC004079AC /* WelcomeView.swift */; };
@@ -105,8 +108,11 @@
 		DA262DBC248E67D0007FB3EA /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewContainer.swift; sourceTree = "<group>"; };
 		DA262DCB248F6390007FB3EA /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
-		DA2DED32249FE18A00944342 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		DA2DED3424A0B1A100944342 /* PhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneView.swift; sourceTree = "<group>"; };
+		DA2DED3624A0DCE900944342 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		DA2DED3824A0E8F200944342 /* VerifyPhoneModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneModule.swift; sourceTree = "<group>"; };
+		DA2DED3B24A1050800944342 /* VerifyPinCodeModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPinCodeModule.swift; sourceTree = "<group>"; };
+		DA2DED3E24A110D800944342 /* IntroduceYourselfModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceYourselfModule.swift; sourceTree = "<group>"; };
 		DA52EE4024893B480062D174 /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		DA67A294248F9002004079AC /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		DA67A296248F94EC004079AC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -202,8 +208,12 @@
 		DA208681249FA6850017F0E8 /* CraftYourProfileTests */ = {
 			isa = PBXGroup;
 			children = (
+				DA2DED3624A0DCE900944342 /* Factory.swift */,
 				DA20868A249FA6D50017F0E8 /* WelcomeModule */,
+				DA2DED3A24A0E8FF00944342 /* VerifyPhoneModule */,
+				DA2DED3D24A1050C00944342 /* VerifyPinCodeModule */,
 				DA208684249FA6850017F0E8 /* Info.plist */,
+				DA2DED4124A1111300944342 /* IntroduceYourselfModule */,
 			);
 			path = CraftYourProfileTests;
 			sourceTree = "<group>";
@@ -243,6 +253,30 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		DA2DED3A24A0E8FF00944342 /* VerifyPhoneModule */ = {
+			isa = PBXGroup;
+			children = (
+				DA2DED3824A0E8F200944342 /* VerifyPhoneModule.swift */,
+			);
+			path = VerifyPhoneModule;
+			sourceTree = "<group>";
+		};
+		DA2DED3D24A1050C00944342 /* VerifyPinCodeModule */ = {
+			isa = PBXGroup;
+			children = (
+				DA2DED3B24A1050800944342 /* VerifyPinCodeModule.swift */,
+			);
+			path = VerifyPinCodeModule;
+			sourceTree = "<group>";
+		};
+		DA2DED4124A1111300944342 /* IntroduceYourselfModule */ = {
+			isa = PBXGroup;
+			children = (
+				DA2DED3E24A110D800944342 /* IntroduceYourselfModule.swift */,
+			);
+			path = IntroduceYourselfModule;
+			sourceTree = "<group>";
+		};
 		DA8AD220246FBF8A00876C69 = {
 			isa = PBXGroup;
 			children = (
@@ -269,7 +303,6 @@
 				DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */,
 				DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */,
 				DA67A29C248FCC32004079AC /* ViewControllerFactory.swift */,
-				DA2DED32249FE18A00944342 /* Router.swift */,
 				DA262DBA248E6612007FB3EA /* UI */,
 				DAAC5D0F24860EE80079E6F5 /* Services */,
 				DA1D9A2A249238EF00913A22 /* Errors */,
@@ -560,6 +593,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA20868C249FA6E30017F0E8 /* WelcomeModule.swift in Sources */,
+				DA2DED3C24A1050800944342 /* VerifyPinCodeModule.swift in Sources */,
+				DA2DED3924A0E8F200944342 /* VerifyPhoneModule.swift in Sources */,
+				DA2DED3724A0DCE900944342 /* Factory.swift in Sources */,
+				DA2DED3F24A110D800944342 /* IntroduceYourselfModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,7 +626,6 @@
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,
 				DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */,
 				DA2086732498DACF0017F0E8 /* AddPhotoView.swift in Sources */,
-				DA2DED33249FE18A00944342 /* Router.swift in Sources */,
 				DA67A299248FBCC5004079AC /* EmitterLayerAnimator.swift in Sources */,
 				DA1D9A2C2492390B00913A22 /* KeychainError.swift in Sources */,
 				DA67A29D248FCC32004079AC /* ViewControllerFactory.swift in Sources */,

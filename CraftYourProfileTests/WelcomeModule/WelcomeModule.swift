@@ -9,32 +9,47 @@
 import XCTest
 @testable import CraftYourProfile
 
+class MockWelcomeViewController: WelcomeViewDelegate {
+    var testTapped = [false, false, false, false]
+
+    func letsGoButtonTapped() {
+        testTapped[0] = true
+    }
+
+    func circleButtonTapped() {
+        testTapped[1] = true
+    }
+
+    func safariButtonTapped() {
+        testTapped[2] = true
+    }
+
+    func homeButtonTapped() {
+        testTapped[3] = true
+    }
+}
+
 class WelcomeModule: XCTestCase {
 
-    var viewControllerFactory: ViewControllerFactory!
     var view: WelcomeView!
-    var viewController: WelcomeViewController!
+    var viewController: MockWelcomeViewController!
 
     override func setUp() {
-        viewControllerFactory = ViewControllerFactory()
-        viewController = WelcomeViewController(viewControllerFactory)
-        view = WelcomeView(delegate: viewController)
-        viewController.view = view
+        view = WelcomeView()
+        viewController = MockWelcomeViewController()
+        view.delegate = viewController
     }
 
     override func tearDown() {
-        viewControllerFactory = nil
         viewController = nil
         view = nil
     }
 
-    func testModuleIsNotNil() {
-        XCTAssertNotNil(viewControllerFactory, "factory is not nil")
-        XCTAssertNotNil(view, "view is not nil")
-        XCTAssertNotNil(viewController, "viewController is not nil")
-    }
+    func testTap() {
+        view.testWelcomeViewTap()
 
-    func testCorrectView() {
-        XCTAssertEqual(viewController.view, view, "viewController received the correct view")
+        for tap in viewController.testTapped {
+            XCTAssertTrue(tap)
+        }
     }
 }
