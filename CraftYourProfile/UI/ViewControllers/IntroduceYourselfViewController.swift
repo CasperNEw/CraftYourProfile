@@ -12,40 +12,21 @@ class IntroduceYourselfViewController: UIViewController {
 
     // MARK: Init
     private var viewControllerFactory: ViewControllerFactory
-    private var viewUpdater: IntroduceYourselfViewUpdater?
+    private var viewUpdater: IntroduceYourselfViewUpdater
 
-    lazy private var resizeScrollViewService: ResizeScrollViewService = {
-        let resizeScrollView = ResizeScrollViewService(view: self.view)
-        return resizeScrollView
-    }()
-
-    lazy private var introduceYourselfView: IntroduceYourselfView = {
-        let view = IntroduceYourselfView(delegate: self)
-        return view
-    }()
-
-    init(_ factory: ViewControllerFactory) {
+    init(factory: ViewControllerFactory,
+         view: UIView,
+         viewUpdater: IntroduceYourselfViewUpdater) {
 
         self.viewControllerFactory = factory
+        self.viewUpdater = viewUpdater
 
         super.init(nibName: nil, bundle: nil)
-        self.viewUpdater = introduceYourselfView
-        self.view.backgroundColor = .white
+        self.view = view
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: lifeCycle
-    override func loadView() {
-        self.view = ScrollViewContainer(with: introduceYourselfView)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        resizeScrollViewService.setupKeyboard()
     }
 }
 
@@ -67,11 +48,11 @@ extension IntroduceYourselfViewController: IntroduceYourselfViewDelegate {
 
         if name.isEmpty {
             check = false
-            viewUpdater?.shakeTextFieldView(nameTextField)
+            viewUpdater.shakeTextFieldView(nameTextField)
         }
         if birthday.isEmpty {
             check = false
-            viewUpdater?.shakeTextFieldView(birthdayTextField)
+            viewUpdater.shakeTextFieldView(birthdayTextField)
         }
 
         if check {

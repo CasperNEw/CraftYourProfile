@@ -21,7 +21,15 @@ class NetworkService {
         guard let url = component.url else { return }
 
         let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-            guard let data = data else { return }
+
+            guard let data = data else {
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                return
+            }
+
             do {
                 let result = try JSONDecoder().decode([CountryFromServer].self, from: data).filter {
                     $0.callingCodes != [""]

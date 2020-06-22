@@ -42,12 +42,7 @@ class WelcomeView: UIView {
     private let homeButton = UIControl(image: UIImage(named: "home"))
 
     private let animator = EmitterLayerAnimator()
-    weak private var delegate: WelcomeViewDelegate?
-
-    convenience init(delegate: WelcomeViewDelegate) {
-        self.init(frame: CGRect.zero)
-        self.delegate = delegate
-    }
+    weak var delegate: WelcomeViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -13,28 +13,15 @@ class WelcomeViewController: UIViewController {
     // MARK: Init
     private let viewControllerFactory: ViewControllerFactory
 
-    init(_ factory: ViewControllerFactory) {
+    init(factory: ViewControllerFactory, view: UIView) {
 
         self.viewControllerFactory = factory
         super.init(nibName: nil, bundle: nil)
+        self.view = view
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: lifeCycle
-    override func loadView() {
-        self.view = WelcomeView(delegate: self)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupNavigationBar()
-    }
-
-    private func setupNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 

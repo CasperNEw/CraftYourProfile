@@ -10,19 +10,23 @@ import UIKit
 
 class CountryCodeCell: UICollectionViewCell {
     static let reuseIdentifier = "countryCode-cell-reuse-identifier"
-    let label = UILabel()
+    private let label = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        setupCell()
     }
     required init?(coder: NSCoder) {
         fatalError("not implemented")
     }
+
+    func configure(with text: String) {
+        self.label.text = text
+    }
 }
 
 extension CountryCodeCell {
-    func configure() {
+    func setupCell() {
         label.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(label)
         label.font = UIFont.compactRounded(style: .semibold, size: 18)

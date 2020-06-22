@@ -41,15 +41,10 @@ class AddProfilePhotoView: UIView {
                                       font: .compactRounded(style: .semibold, size: 20),
                                       cornerRadius: 20)
 
-    weak private var delegate: AddProfilePhotoViewDelegate?
+    weak var delegate: AddProfilePhotoViewDelegate?
     lazy private var designer: ViewDesignerService = {
         return ViewDesignerService(self)
     }()
-
-    convenience init(delegate: AddProfilePhotoViewDelegate) {
-        self.init(frame: CGRect.zero)
-        self.delegate = delegate
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -145,25 +140,5 @@ extension AddProfilePhotoView: AddProfilePhotoViewUpdater {
 
     func updatePhotoView(image: UIImage) {
         photoView.imageView.image = image
-    }
-}
-
-// MARK: SwiftUI
-import SwiftUI
-
-struct AddProfilePhotoVProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-
-    struct ContainerView: UIViewControllerRepresentable {
-        let viewController = AddProfilePhotoViewController()
-        // swiftlint:disable line_length
-        func makeUIViewController(context: UIViewControllerRepresentableContext<AddProfilePhotoVProvider.ContainerView>) -> AddProfilePhotoViewController {
-            return viewController
-        }
-        func updateUIViewController(_ uiViewController: AddProfilePhotoViewController, context: UIViewControllerRepresentableContext<AddProfilePhotoVProvider.ContainerView>) {
-        }
-        // swiftlint:enable line_length
     }
 }

@@ -8,7 +8,17 @@
 
 import Foundation
 
-class VerifyPhoneModelController {
+protocol VerifyPhoneModelControllerProtocol {
+
+    func networkErrorChecking(completion: (Error?) -> Void)
+    func reloadData()
+    func isValid(phone: String?, completion: @escaping (Error?) -> Void) -> Bool
+    func getFormattedPhoneNumber(phone: String, completion: @escaping (Error?) -> Void) -> String
+    func getCountryCodes(with filter: String?) -> [CountryCode]
+    func getTheSelectedCode(at index: Int) -> String
+}
+
+class VerifyPhoneModelController: VerifyPhoneModelControllerProtocol {
 
     private let networkService = NetworkService()
     private let validatingService = ValidationService()
@@ -67,20 +77,12 @@ class VerifyPhoneModelController {
         DispatchQueue.global(qos: .userInitiated).async(execute: item)
     }
 
-    func getCodesCount() -> Int {
-        return countryCodes.count
-    }
-
-    func getCodesDescription(at index: Int) -> String {
-        return countryCodes[index].description
-    }
-
     func getTheSelectedCode(at index: Int) -> String {
         lastSelected = countryCodes[index]
         return countryCodes[index].code
     }
 
-    func filterCodes(searchText: String) {
+    private func filterCodes(searchText: String) {
 
         if !searchText.isEmpty {
             countryCodes = sourceCodes.filter { $0.description.lowercased().contains(searchText.lowercased()) }

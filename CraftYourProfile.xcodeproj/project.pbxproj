@@ -21,6 +21,7 @@
 		DA20866F2493B1CD0017F0E8 /* AddProfilePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */; };
 		DA2086732498DACF0017F0E8 /* AddPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2086722498DACF0017F0E8 /* AddPhotoView.swift */; };
 		DA20867524991F9C0017F0E8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20867424991F9C0017F0E8 /* ImagePicker.swift */; };
+		DA20868C249FA6E30017F0E8 /* WelcomeModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA20868B249FA6E30017F0E8 /* WelcomeModule.swift */; };
 		DA262DB3248A44A6007FB3EA /* VerifyPhoneModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB2248A44A6007FB3EA /* VerifyPhoneModelController.swift */; };
 		DA262DB5248A4D57007FB3EA /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB4248A4D57007FB3EA /* CountryCode.swift */; };
 		DA262DB7248E3507007FB3EA /* CountryCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */; };
@@ -28,6 +29,8 @@
 		DA262DBD248E67D0007FB3EA /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DBC248E67D0007FB3EA /* UIViewController+.swift */; };
 		DA262DC8248F449C007FB3EA /* ScrollViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */; };
 		DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA262DCB248F6390007FB3EA /* UIScrollView+.swift */; };
+		DA2DED33249FE18A00944342 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED32249FE18A00944342 /* Router.swift */; };
+		DA2DED3524A0B1A100944342 /* PhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3424A0B1A100944342 /* PhoneView.swift */; };
 		DA52EE4124893B480062D174 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE4024893B480062D174 /* UIView+.swift */; };
 		DA67A295248F9002004079AC /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A294248F9002004079AC /* Array+.swift */; };
 		DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A296248F94EC004079AC /* WelcomeView.swift */; };
@@ -65,6 +68,16 @@
 		DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		DA208685249FA6850017F0E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA8AD221246FBF8A00876C69 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA8AD228246FBF8A00876C69;
+			remoteInfo = CraftYourProfile;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		98F3CBAFDA5598B141D1055C /* Pods-CraftYourProfile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftYourProfile.debug.xcconfig"; path = "Target Support Files/Pods-CraftYourProfile/Pods-CraftYourProfile.debug.xcconfig"; sourceTree = "<group>"; };
 		C6704E210622BDF80B137E98 /* Pods-CraftYourProfile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftYourProfile.release.xcconfig"; path = "Target Support Files/Pods-CraftYourProfile/Pods-CraftYourProfile.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,6 +95,9 @@
 		DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfilePhotoView.swift; sourceTree = "<group>"; };
 		DA2086722498DACF0017F0E8 /* AddPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoView.swift; sourceTree = "<group>"; };
 		DA20867424991F9C0017F0E8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		DA208680249FA6850017F0E8 /* CraftYourProfileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CraftYourProfileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA208684249FA6850017F0E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA20868B249FA6E30017F0E8 /* WelcomeModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModule.swift; sourceTree = "<group>"; };
 		DA262DB2248A44A6007FB3EA /* VerifyPhoneModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneModelController.swift; sourceTree = "<group>"; };
 		DA262DB4248A4D57007FB3EA /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +105,8 @@
 		DA262DBC248E67D0007FB3EA /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewContainer.swift; sourceTree = "<group>"; };
 		DA262DCB248F6390007FB3EA /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
+		DA2DED32249FE18A00944342 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		DA2DED3424A0B1A100944342 /* PhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneView.swift; sourceTree = "<group>"; };
 		DA52EE4024893B480062D174 /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		DA67A294248F9002004079AC /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		DA67A296248F94EC004079AC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -129,6 +147,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DA20867D249FA6850017F0E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA8AD226246FBF8A00876C69 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -174,6 +199,23 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		DA208681249FA6850017F0E8 /* CraftYourProfileTests */ = {
+			isa = PBXGroup;
+			children = (
+				DA20868A249FA6D50017F0E8 /* WelcomeModule */,
+				DA208684249FA6850017F0E8 /* Info.plist */,
+			);
+			path = CraftYourProfileTests;
+			sourceTree = "<group>";
+		};
+		DA20868A249FA6D50017F0E8 /* WelcomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				DA20868B249FA6E30017F0E8 /* WelcomeModule.swift */,
+			);
+			path = WelcomeModule;
+			sourceTree = "<group>";
+		};
 		DA262DBA248E6612007FB3EA /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				DA8AD22B246FBF8A00876C69 /* CraftYourProfile */,
+				DA208681249FA6850017F0E8 /* CraftYourProfileTests */,
 				DA8AD22A246FBF8A00876C69 /* Products */,
 				3E0F8066D6F96041EC7625C5 /* Pods */,
 				FC795780290540DE90AE7B79 /* Frameworks */,
@@ -215,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				DA8AD229246FBF8A00876C69 /* CraftYourProfile.app */,
+				DA208680249FA6850017F0E8 /* CraftYourProfileTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,6 +269,7 @@
 				DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */,
 				DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */,
 				DA67A29C248FCC32004079AC /* ViewControllerFactory.swift */,
+				DA2DED32249FE18A00944342 /* Router.swift */,
 				DA262DBA248E6612007FB3EA /* UI */,
 				DAAC5D0F24860EE80079E6F5 /* Services */,
 				DA1D9A2A249238EF00913A22 /* Errors */,
@@ -327,6 +372,7 @@
 				DA1D9A1C2491050B00913A22 /* VerifyPinCodeView.swift */,
 				DA1D9A3324935C8700913A22 /* IntroduceYourselfView.swift */,
 				DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */,
+				DA2DED3424A0B1A100944342 /* PhoneView.swift */,
 				DA1D9A202491354900913A22 /* PinCodeView */,
 				DA2086722498DACF0017F0E8 /* AddPhotoView.swift */,
 				DA20867424991F9C0017F0E8 /* ImagePicker.swift */,
@@ -345,6 +391,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DA20867F249FA6850017F0E8 /* CraftYourProfileTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA208687249FA6850017F0E8 /* Build configuration list for PBXNativeTarget "CraftYourProfileTests" */;
+			buildPhases = (
+				DA20867C249FA6850017F0E8 /* Sources */,
+				DA20867D249FA6850017F0E8 /* Frameworks */,
+				DA20867E249FA6850017F0E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA208686249FA6850017F0E8 /* PBXTargetDependency */,
+			);
+			name = CraftYourProfileTests;
+			productName = CraftYourProfileTests;
+			productReference = DA208680249FA6850017F0E8 /* CraftYourProfileTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DA8AD228246FBF8A00876C69 /* CraftYourProfile */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA8AD23D246FBF8F00876C69 /* Build configuration list for PBXNativeTarget "CraftYourProfile" */;
@@ -375,6 +439,10 @@
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Дмитрий Константинов";
 				TargetAttributes = {
+					DA20867F249FA6850017F0E8 = {
+						CreatedOnToolsVersion = 11.2;
+						TestTargetID = DA8AD228246FBF8A00876C69;
+					};
 					DA8AD228246FBF8A00876C69 = {
 						CreatedOnToolsVersion = 11.2;
 					};
@@ -394,11 +462,19 @@
 			projectRoot = "";
 			targets = (
 				DA8AD228246FBF8A00876C69 /* CraftYourProfile */,
+				DA20867F249FA6850017F0E8 /* CraftYourProfileTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DA20867E249FA6850017F0E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA8AD227246FBF8A00876C69 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -479,6 +555,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DA20867C249FA6850017F0E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA20868C249FA6E30017F0E8 /* WelcomeModule.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA8AD225246FBF8A00876C69 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -505,6 +589,7 @@
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,
 				DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */,
 				DA2086732498DACF0017F0E8 /* AddPhotoView.swift in Sources */,
+				DA2DED33249FE18A00944342 /* Router.swift in Sources */,
 				DA67A299248FBCC5004079AC /* EmitterLayerAnimator.swift in Sources */,
 				DA1D9A2C2492390B00913A22 /* KeychainError.swift in Sources */,
 				DA67A29D248FCC32004079AC /* ViewControllerFactory.swift in Sources */,
@@ -525,12 +610,21 @@
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,
 				DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */,
 				DA1D9A36249360CE00913A22 /* UITextField+.swift in Sources */,
+				DA2DED3524A0B1A100944342 /* PhoneView.swift in Sources */,
 				DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */,
 				DA8AD26D24700EE900876C69 /* NSAttributedString+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA208686249FA6850017F0E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA8AD228246FBF8A00876C69 /* CraftYourProfile */;
+			targetProxy = DA208685249FA6850017F0E8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DA8AD237246FBF8F00876C69 /* LaunchScreen.storyboard */ = {
@@ -544,6 +638,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DA208688249FA6850017F0E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V343AH88RK;
+				INFOPLIST_FILE = CraftYourProfileTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = CasperNEw.CraftYourProfileTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CraftYourProfile.app/CraftYourProfile";
+			};
+			name = Debug;
+		};
+		DA208689249FA6850017F0E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V343AH88RK;
+				INFOPLIST_FILE = CraftYourProfileTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = CasperNEw.CraftYourProfileTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CraftYourProfile.app/CraftYourProfile";
+			};
+			name = Release;
+		};
 		DA8AD23B246FBF8F00876C69 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -699,6 +833,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DA208687249FA6850017F0E8 /* Build configuration list for PBXNativeTarget "CraftYourProfileTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA208688249FA6850017F0E8 /* Debug */,
+				DA208689249FA6850017F0E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DA8AD224246FBF8A00876C69 /* Build configuration list for PBXProject "CraftYourProfile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

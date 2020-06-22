@@ -13,10 +13,18 @@ class ScrollViewContainer: UIView {
     var scrollView: UIScrollView?
     var view: UIView?
 
+    lazy var scrollService: ResizeScrollViewService = {
+        let service = ResizeScrollViewService(view: self)
+        return service
+    }()
+
     convenience init(with view: UIView) {
         self.init(frame: UIScreen.main.bounds)
         self.view = view
         configure(with: view)
+        scrollService.setupKeyboard()
+
+        self.backgroundColor = .white
     }
 
     override init(frame: CGRect) {

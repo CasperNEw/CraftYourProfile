@@ -12,55 +12,30 @@ class VerifyPhoneViewController: UIViewController {
 
     // MARK: Init
     private var viewControllerFactory: ViewControllerFactory
-    private var modelController: VerifyPhoneModelController
-    private var viewUpdater: VerifyPhoneViewUpdater?
-    private var popOver: UIViewController?
+    private var modelController: VerifyPhoneModelControllerProtocol
+    private var viewUpdater: VerifyPhoneViewUpdater
+    var popOver: UIViewController?
 
-    lazy private var resizeScrollViewService: ResizeScrollViewService = {
-        let resizeScrollView = ResizeScrollViewService(view: self.view)
-        return resizeScrollView
-    }()
-
-    lazy private var verifyPhoneView: VerifyPhoneView = {
-        let view = VerifyPhoneView(delegate: self)
-        return view
-    }()
-
-    init(_ factory: ViewControllerFactory) {
+    init(factory: ViewControllerFactory,
+         model: VerifyPhoneModelControllerProtocol,
+         view: UIView,
+         viewUpdater: VerifyPhoneViewUpdater) {
 
         self.viewControllerFactory = factory
-        self.modelController = VerifyPhoneModelController()
+        self.modelController = model
+        self.viewUpdater = viewUpdater
 
         super.init(nibName: nil, bundle: nil)
-        self.viewUpdater = verifyPhoneView
-        self.view.backgroundColor = .white
+        self.view = view
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    // MARK: lifeCycle
-    override func loadView() {
-        self.view = ScrollViewContainer(with: verifyPhoneView)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        loadPopOver()
-        resizeScrollViewService.setupKeyboard()
-    }
 }
 
 // MARK: setupAndPresentPopOverVC
 extension VerifyPhoneViewController {
-
-    private func loadPopOver() {
-        DispatchQueue.main.async {
-            self.popOver = self.viewControllerFactory.makeCountryCodeViewController(self)
-        }
-    }
 
     private func setupAndPresentPopOverVC(_ view: UIView) {
 
@@ -87,7 +62,7 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
             return true
         }
         if Int(string) == nil { return false }
-        if modelController.isValid(phone: textField.text) { return false }
+        if modelController.isValid(phone: textField.text, completion: { _ in }) { return false }
 
         return true
     }
@@ -95,7 +70,7 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text else { return }
 
-        if modelController.isValid(phone: text) {
+        if modelController.isValid(phone: text, completion: { _ in }) {
             let formattedPhone = modelController.getFormattedPhoneNumber(phone: text) { [weak self] (error) in
                 guard let error = error else { return }
                 self?.showAlert(with: "Phone Number Formatting Error", and: error.localizedDescription)
@@ -147,7 +122,7 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
     }
 }
 
-// MARK: CountryCodeDataProviderProtocol
+// MARK: CountryCodeViewControllerDelegate
 extension VerifyPhoneViewController: CountryCodeViewControllerDelegate {
 
     func getCountryCodes(with filter: String?) -> [CountryCode] {
@@ -156,7 +131,7 @@ extension VerifyPhoneViewController: CountryCodeViewControllerDelegate {
 
     func didSelectItemAt(index: Int) {
         let code = modelController.getTheSelectedCode(at: index)
-        viewUpdater?.setNewValue(string: code)
+        viewUpdater.setNewValue(string: code)
     }
 }
 

@@ -55,15 +55,10 @@ class IntroduceYourselfView: UIView {
         return formatter
     }()
 
-    weak private var delegate: IntroduceYourselfViewDelegate?
+    weak var delegate: IntroduceYourselfViewDelegate?
     lazy private var designer: ViewDesignerService = {
         return ViewDesignerService(self)
     }()
-
-    convenience init(delegate: IntroduceYourselfViewDelegate) {
-        self.init(frame: CGRect.zero)
-        self.delegate = delegate
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

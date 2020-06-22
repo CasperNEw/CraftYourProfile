@@ -39,6 +39,10 @@ class CountryCodeViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         performQuery(with: nil)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         searchBar.becomeFirstResponder()
     }
 }
@@ -55,7 +59,7 @@ extension CountryCodeViewController {
                                                                             fatalError("Cannot create new cell")
                                     }
                                     // swiftlint:enable line_length
-                                    countryCodeCell.label.text = countryCode.description
+                                    countryCodeCell.configure(with: countryCode.description)
                                     return countryCodeCell
             })
     }

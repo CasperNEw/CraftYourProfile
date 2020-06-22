@@ -11,51 +11,25 @@ import UIKit
 class AddProfilePhotoViewController: UIViewController {
 
     // MARK: Init
-    private var viewControllerFactory: ViewControllerFactory?
-    private var viewUpdater: AddProfilePhotoViewUpdater?
-
-    lazy private var resizeScrollViewService: ResizeScrollViewService = {
-        let resizeScrollView = ResizeScrollViewService(view: self.view)
-        return resizeScrollView
-    }()
-
-    private var imagePicker: ImagePicker?
-
-    lazy private var addProfilePhotoView: AddProfilePhotoView = {
-        let view = AddProfilePhotoView(delegate: self)
-        return view
-    }()
+    private var viewControllerFactory: ViewControllerFactory
+    private var viewUpdater: AddProfilePhotoViewUpdater
 
     private var photoIsEmpty = true
+    var imagePicker: ImagePicker?
 
-    init(_ factory: ViewControllerFactory? = nil) {
+    init(factory: ViewControllerFactory,
+         view: UIView,
+         viewUpdater: AddProfilePhotoViewUpdater) {
+
         self.viewControllerFactory = factory
+        self.viewUpdater = viewUpdater
 
         super.init(nibName: nil, bundle: nil)
-        self.viewUpdater = addProfilePhotoView
-        self.view.backgroundColor = .white
+        self.view = view
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: lifeCycle
-    override func loadView() {
-        self.view = addProfilePhotoView
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        loadImagePicker()
-        resizeScrollViewService.setupKeyboard()
-    }
-
-    private func loadImagePicker() {
-        DispatchQueue.main.async {
-            self.imagePicker = ImagePicker(presentationController: self, delegate: self)
-        }
     }
 }
 
@@ -100,30 +74,10 @@ extension AddProfilePhotoViewController: ImagePickerDelegate {
 
         DispatchQueue.main.async {
             guard let image = image else { return }
-            self.viewUpdater?.updatePhotoView(image: image)
-            self.viewUpdater?.editAddPhotoButton()
-            self.viewUpdater?.showEditButton()
+            self.viewUpdater.updatePhotoView(image: image)
+            self.viewUpdater.editAddPhotoButton()
+            self.viewUpdater.showEditButton()
             self.photoIsEmpty = false
         }
-    }
-}
-
-// MARK: SwiftUI
-import SwiftUI
-
-struct AddProfilePhotoVCProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-
-    struct ContainerView: UIViewControllerRepresentable {
-        let viewController = AddProfilePhotoViewController()
-        // swiftlint:disable line_length
-        func makeUIViewController(context: UIViewControllerRepresentableContext<AddProfilePhotoVCProvider.ContainerView>) -> AddProfilePhotoViewController {
-            return viewController
-        }
-        func updateUIViewController(_ uiViewController: AddProfilePhotoViewController, context: UIViewControllerRepresentableContext<AddProfilePhotoVCProvider.ContainerView>) {
-        }
-        // swiftlint:enable line_length
     }
 }

@@ -45,15 +45,10 @@ class VerifyPinCodeView: UIView {
                                             font: .compactRounded(style: .semibold, size: 20),
                                             cornerRadius: 20)
 
-    weak private var delegate: VerifyPinCodeViewDelegate?
+    weak var delegate: VerifyPinCodeViewDelegate?
     lazy private var designer: ViewDesignerService = {
         return ViewDesignerService(self)
     }()
-
-    convenience init(delegate: VerifyPinCodeViewDelegate) {
-        self.init(frame: CGRect.zero)
-        self.delegate = delegate
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

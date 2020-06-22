@@ -11,12 +11,26 @@ import UIKit
 class ViewControllerFactory {
 
     func makeRootViewController() -> UIViewController {
-        let viewController = WelcomeViewController(self)
+        let view = WelcomeView()
+        let viewController = WelcomeViewController(factory: self, view: view)
+        view.delegate = viewController
         return viewController
     }
 
     func makeVerifyPhoneViewController() -> UIViewController {
-        let viewConroller = VerifyPhoneViewController(self)
+        let modelController = VerifyPhoneModelController()
+        let view = VerifyPhoneView()
+        let mainView = ScrollViewContainer(with: view)
+        let viewConroller = VerifyPhoneViewController(factory: self,
+                                                      model: modelController,
+                                                      view: mainView,
+                                                      viewUpdater: view)
+        view.delegate = viewConroller
+
+        DispatchQueue.main.async {
+            viewConroller.popOver = self.makeCountryCodeViewController(viewConroller)
+        }
+
         return viewConroller
     }
 
@@ -26,17 +40,37 @@ class ViewControllerFactory {
     }
 
     func makeVerifyPinCodeViewController() -> UIViewController {
-        let viewController = VerifyPinCodeViewController(self)
+        let view = VerifyPinCodeView()
+        let mainView = ScrollViewContainer(with: view)
+        let viewController = VerifyPinCodeViewController(factory: self,
+                                                         view: mainView,
+                                                         viewUpdater: view)
+        view.delegate = viewController
         return viewController
     }
 
     func makeIntroduceYourselfViewController() -> UIViewController {
-        let viewController = IntroduceYourselfViewController(self)
+        let view = IntroduceYourselfView()
+        let mainView = ScrollViewContainer(with: view)
+        let viewController = IntroduceYourselfViewController(factory: self,
+                                                             view: mainView,
+                                                             viewUpdater: view)
+        view.delegate = viewController
         return viewController
     }
 
     func makeAddProfilePhotoViewController() -> UIViewController {
-        let viewController = AddProfilePhotoViewController()
+        let view = AddProfilePhotoView()
+        let viewController = AddProfilePhotoViewController(factory: self,
+                                                           view: view,
+                                                           viewUpdater: view)
+        view.delegate = viewController
+
+        DispatchQueue.main.async {
+            viewController.imagePicker = ImagePicker(presentationController: viewController,
+                                                    delegate: viewController)
+        }
+
         return viewController
     }
 }
