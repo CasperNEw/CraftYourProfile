@@ -10,18 +10,11 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
 
-    // MARK: Init
-    private let viewControllerFactory: ViewControllerFactory
-
-    init(factory: ViewControllerFactory, view: UIView) {
-
-        self.viewControllerFactory = factory
-        super.init(nibName: nil, bundle: nil)
+    // MARK: - Lifecycle
+    override func loadView() {
+        let view = WelcomeView()
+        view.delegate = self
         self.view = view
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -29,8 +22,13 @@ class WelcomeViewController: UIViewController {
 extension WelcomeViewController: WelcomeViewDelegate {
 
     func letsGoButtonTapped() {
-        let viewController = viewControllerFactory.makeVerifyPhoneViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+
+        let viewController = VerifyPhoneConfigurator.create()
+        VerifyPhoneConfigurator.configure(with: viewController)
+        let navController = UINavigationController(rootViewController: viewController)
+        navController.modalPresentationStyle = .fullScreen
+        navController.setNavigationBarHidden(true, animated: true)
+        present(navController, animated: true)
     }
 
     func circleButtonTapped() { print(#function) }

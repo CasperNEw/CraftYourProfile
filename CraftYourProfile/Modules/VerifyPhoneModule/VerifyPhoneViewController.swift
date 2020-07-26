@@ -10,27 +10,17 @@ import UIKit
 
 class VerifyPhoneViewController: UIViewController {
 
-    // MARK: Init
-    private var viewControllerFactory: ViewControllerFactory
-    private var modelController: VerifyPhoneModelControllerProtocol
-    var viewUpdater: VerifyPhoneViewUpdater
+    // MARK: - Properties
+    var modelController: VerifyPhoneModelControllerProtocol?
+    var viewUpdater: VerifyPhoneViewUpdater?
     var popOver: UIViewController?
 
-    init(factory: ViewControllerFactory,
-         model: VerifyPhoneModelControllerProtocol,
-         view: UIView,
-         viewUpdater: VerifyPhoneViewUpdater) {
-
-        self.viewControllerFactory = factory
-        self.modelController = model
-        self.viewUpdater = viewUpdater
-
-        super.init(nibName: nil, bundle: nil)
-        self.view = view
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // MARK: - Lifecycle
+    override func loadView() {
+        let view = VerifyPhoneView()
+        view.delegate = self
+        self.viewUpdater = view
+        self.view = ScrollViewContainer(with: view)
     }
 }
 
@@ -62,7 +52,9 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
             return true
         }
         if Int(string) == nil { return false }
-        if modelController.isValid(phone: textField.text, completion: { _ in }) { return false }
+        if modelController?.isValid(phone: textField.text, completion: { _ in }) == true {
+            return false
+        }
 
         return true
     }
@@ -70,8 +62,8 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text else { return }
 
-        if modelController.isValid(phone: text, completion: { _ in }) {
-            let formattedPhone = modelController.getFormattedPhoneNumber(phone: text) { [weak self] (error) in
+        if modelController?.isValid(phone: text, completion: { _ in }) == true {
+            let formattedPhone = modelController?.getFormattedPhoneNumber(phone: text) { [weak self] (error) in
                 guard let error = error else { return }
                 self?.showAlert(with: "Phone Number Formatting Error", and: error.localizedDescription)
             }
@@ -80,18 +72,14 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
     }
 
     func crossButtonTapped() {
-        perform(#selector(popViewController), with: nil, afterDelay: 0.5)
-    }
-
-    @objc func popViewController() {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
     }
 
     func codeButtonTapped(_ view: UIView) {
-        modelController.networkErrorChecking { [weak self] (error) in
+        modelController?.networkErrorChecking { [weak self] (error) in
             guard let error = error else { return }
             showAlert(with: "Network Error", and: error.localizedDescription) {
-                self?.modelController.reloadData()
+                self?.modelController?.reloadData()
             }
         }
         setupAndPresentPopOverVC(view)
@@ -101,10 +89,10 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
 
         guard let string = string else { return }
 
-        if modelController.isValid(phone: string, completion: { [weak self] (error) in
+        if modelController?.isValid(phone: string, completion: { [weak self] (error) in
             guard let error = error else { return }
             self?.showAlert(with: "Validation Error", and: error.localizedDescription)
-        }) {
+        }) == true {
             let pinCode = AuthorizationService.shared.generationPinCode(with: 6)
             do {
                 try AuthorizationService.shared.signIn(account: string, pinCode: pinCode)
@@ -113,7 +101,7 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
                 return
             }
             showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number") {
-                let viewController = self.viewControllerFactory.makeVerifyPinCodeViewController()
+                let viewController = ViewControllerFactory().makeVerifyPinCodeViewController()
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
         } else {
@@ -126,12 +114,12 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
 extension VerifyPhoneViewController: CountryCodeViewControllerDelegate {
 
     func getCountryCodes(with filter: String?) -> [CountryCode] {
-        return modelController.getCountryCodes(with: filter)
+        return modelController?.getCountryCodes(with: filter) ?? []
     }
 
     func didSelectItemAt(index: Int) {
-        let code = modelController.getTheSelectedCode(at: index)
-        viewUpdater.setNewValue(string: code)
+        let code = modelController?.getTheSelectedCode(at: index) ?? ""
+        viewUpdater?.setNewValue(string: code)
     }
 }
 

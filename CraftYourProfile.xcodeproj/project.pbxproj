@@ -71,6 +71,7 @@
 		DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */; };
 		DAAC5D1624869FEA0079E6F5 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1524869FEA0079E6F5 /* ValidationService.swift */; };
 		DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */; };
+		DACF49BD24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +155,7 @@
 		DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFromServer.swift; sourceTree = "<group>"; };
 		DAAC5D1524869FEA0079E6F5 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneView.swift; sourceTree = "<group>"; };
+		DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +299,7 @@
 		DA62355F24CD95D30020711C /* VerifyPhoneModule */ = {
 			isa = PBXGroup;
 			children = (
+				DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */,
 				DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */,
 				DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */,
 				DA2DED3424A0B1A100944342 /* PhoneView.swift */,
@@ -652,6 +655,7 @@
 				DA2086692493932B0017F0E8 /* AddProfilePhotoViewController.swift in Sources */,
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
 				DA390AD824CDD20E008A535D /* PushButton.swift in Sources */,
+				DACF49BD24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift in Sources */,
 				DA20867524991F9C0017F0E8 /* ImagePicker.swift in Sources */,
 				DA67A295248F9002004079AC /* Array+.swift in Sources */,
 				DA8AD2752472792000876C69 /* UIButton+.swift in Sources */,

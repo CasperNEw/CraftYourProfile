@@ -10,35 +10,6 @@ import UIKit
 
 class ViewControllerFactory {
 
-    func makeRootViewController() -> UIViewController {
-        let view = WelcomeView()
-        let viewController = WelcomeViewController(factory: self, view: view)
-        view.delegate = viewController
-        return viewController
-    }
-
-    func makeVerifyPhoneViewController() -> UIViewController {
-        let modelController = VerifyPhoneModelController()
-        let view = VerifyPhoneView()
-        let mainView = ScrollViewContainer(with: view)
-        let viewConroller = VerifyPhoneViewController(factory: self,
-                                                      model: modelController,
-                                                      view: mainView,
-                                                      viewUpdater: view)
-        view.delegate = viewConroller
-
-        DispatchQueue.main.async {
-            viewConroller.popOver = self.makeCountryCodeViewController(viewConroller)
-        }
-
-        return viewConroller
-    }
-
-    func makeCountryCodeViewController(_ delegate: CountryCodeViewControllerDelegate) -> UIViewController {
-        let viewController = CountryCodeViewController(delegate: delegate)
-        return viewController
-    }
-
     func makeVerifyPinCodeViewController() -> UIViewController {
         let view = VerifyPinCodeView()
         let mainView = ScrollViewContainer(with: view)
