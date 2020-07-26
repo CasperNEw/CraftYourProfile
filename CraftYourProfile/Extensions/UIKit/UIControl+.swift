@@ -10,9 +10,10 @@ import UIKit
 
 extension UIControl {
 
-    convenience init(image: UIImage?) {
+    convenience init(image: UIImage?, alpha: CGFloat = 1) {
         self.init()
         addImage(image: image)
+        self.alpha = alpha
     }
 
     convenience init(title: String,

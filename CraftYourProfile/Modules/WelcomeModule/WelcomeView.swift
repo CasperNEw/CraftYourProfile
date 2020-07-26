@@ -18,27 +18,31 @@ protocol WelcomeViewDelegate: AnyObject {
 
 class WelcomeView: UIView {
 
-    // MARK: Init
+    // MARK: - Properties
     private let mainLabel = UILabel(text: "Craft Your Profile",
                                     font: .compactRounded(style: .bold, size: 26),
                                     color: .white)
+
     private let additionalLabel = UILabel(text: "Create a profile, follow other accounts, make your own lives!",
                                           font: .compactRounded(style: .medium, size: 20),
                                           color: .mainGrayText(), lines: 2)
+
     private let smileView = UIImageView(image: UIImage(named: "whiteSmile"))
+
     private let letsGoButton = UIControl(title: "LET'S GO!!!",
                                          titleColor: .mainBlackText(),
                                          backgroundColor: .mainWhite(),
                                          font: .compactRounded(style: .bold, size: 20),
                                          cornerRadius: 23)
+
     private let bottomTextView = UITextView(text: "By signing up, you agree to our Terms and Privacy Policy",
                                             couples: [("Terms", "https://developer.apple.com/terms/"),
                                                       ("Privacy Policy", "https://www.apple.com/legal/privacy/en-ww/")],
                                             font: .compactRounded(style: .medium, size: 16),
                                             textColor: .mainGrayText(), backgroundColor: .clear, tintColor: .white)
 
-    private let circleButton = UIControl(image: UIImage(named: "circle"))
-    private let safariButton = UIControl(image: UIImage(named: "safari"))
+    private let circleButton = UIControl(image: UIImage(named: "circle"), alpha: 0.9)
+    private let safariButton = UIControl(image: UIImage(named: "safari"), alpha: 0.9)
     private let homeButton = UIControl(image: UIImage(named: "home"))
 
     private let animator = EmitterLayerAnimator()
@@ -46,10 +50,11 @@ class WelcomeView: UIView {
 
     weak var delegate: WelcomeViewDelegate?
 
+    private var didSetupConstraints = false
+
+    // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        backgroundColor = .mainBlue()
         setupViews()
     }
 
@@ -57,19 +62,28 @@ class WelcomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupConstraints()
-        setGradientBackground(colorTop: .mainBlue(), colorBottom: .black,
-                              startPoint: CGPoint(x: 0.5, y: 1.3  ),
-                              endPoint: CGPoint(x: 0.5, y: 0.8),
-                              locations: [0, 1])
+    override func updateConstraints() {
+        super.updateConstraints()
+
+        if !didSetupConstraints {
+
+            setGradientBackground(colorTop: .mainBlue(),
+                                  colorBottom: .black,
+                                  startPoint: CGPoint(x: 0.5, y: 1.3),
+                                  endPoint: CGPoint(x: 0.5, y: 0.8),
+                                  locations: [0, 1])
+
+            setupConstraints()
+            didSetupConstraints = true
+        }
     }
 
+    // MARK: - Module functions
     private func setupViews() {
-        setupCenterElements()
+
+        addSubviews([mainLabel, additionalLabel, smileView, letsGoButton, bottomTextView])
         setupAnimation()
-        setupBottomButtons()
+        addSubviews([safariButton, homeButton, circleButton])
 
         letsGoButton.addTarget(self, action: #selector(letsGoButtonTapped), for: .touchUpInside)
         circleButton.addTarget(self, action: #selector(circleButtonTapped), for: .touchUpInside)
@@ -83,6 +97,12 @@ class WelcomeView: UIView {
         setupBottomButtonsConstraints()
     }
 
+    private func setupAnimation() {
+        let emitter = animator.createEmitterLayer(with: emoji)
+        layer.addSublayer(emitter)
+    }
+
+    // MARK: - Actions
     @objc private func letsGoButtonTapped() {
         letsGoButton.clickAnimation(with: 0.8)
         delegate?.letsGoButtonTapped()
@@ -98,44 +118,6 @@ class WelcomeView: UIView {
     @objc private func homeButtonTapped() {
         homeButton.clickAnimation()
         delegate?.homeButtonTapped()
-    }
-
-    private func setupAnimation() {
-        let emitter = animator.createEmitterLayer(with: emoji)
-        layer.addSublayer(emitter)
-    }
-}
-
-// MARK: setupViews
-extension WelcomeView {
-
-    private func setupCenterElements() {
-
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        additionalLabel.translatesAutoresizingMaskIntoConstraints = false
-        smileView.translatesAutoresizingMaskIntoConstraints = false
-        letsGoButton.translatesAutoresizingMaskIntoConstraints = false
-        bottomTextView.translatesAutoresizingMaskIntoConstraints = false
-
-        addSubview(mainLabel)
-        addSubview(additionalLabel)
-        addSubview(smileView)
-        addSubview(letsGoButton)
-        addSubview(bottomTextView)
-    }
-
-    private func setupBottomButtons() {
-
-        safariButton.alpha = 0.9
-        circleButton.alpha = 0.9
-
-        safariButton.translatesAutoresizingMaskIntoConstraints = false
-        homeButton.translatesAutoresizingMaskIntoConstraints = false
-        circleButton.translatesAutoresizingMaskIntoConstraints = false
-
-        addSubview(safariButton)
-        addSubview(homeButton)
-        addSubview(circleButton)
     }
 }
 
@@ -171,7 +153,6 @@ extension WelcomeView {
             bottomTextView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -60),
             bottomTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
             bottomTextView.heightAnchor.constraint(equalToConstant: 80),
-
             bottomTextView.topAnchor.constraint(greaterThanOrEqualTo: letsGoButton.bottomAnchor, constant: 30)
         ])
     }
@@ -194,16 +175,5 @@ extension WelcomeView {
             circleButton.trailingAnchor.constraint(equalTo: safariButton.leadingAnchor, constant: -30),
             circleButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -45)
         ])
-    }
-}
-
-// MARK: forTests
-extension WelcomeView {
-
-    func testWelcomeViewTap() {
-        letsGoButtonTapped()
-        circleButtonTapped()
-        safariButtonTapped()
-        homeButtonTapped()
     }
 }

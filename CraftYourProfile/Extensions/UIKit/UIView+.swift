@@ -11,6 +11,7 @@ import UIKit
 extension UIView {
 
     func addMainSubviewInSafeArea(_ view: UIView?) {
+
         guard let view = view else { return }
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +25,7 @@ extension UIView {
     }
 
     func addMainSubview(_ view: UIView?) {
+
         guard let view = view else { return }
         addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -36,8 +38,19 @@ extension UIView {
         ])
     }
 
-    func setGradientBackground(colorTop: UIColor, colorBottom: UIColor, startPoint: CGPoint,
-                               endPoint: CGPoint, locations: [NSNumber]?) {
+    func addSubviews(_ views: [UIView]) {
+        views.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
+    }
+
+    func setGradientBackground(colorTop: UIColor,
+                               colorBottom: UIColor,
+                               startPoint: CGPoint,
+                               endPoint: CGPoint,
+                               locations: [NSNumber]?) {
+
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [colorBottom.cgColor, colorTop.cgColor]
         gradientLayer.startPoint = startPoint
@@ -49,6 +62,7 @@ extension UIView {
     }
 
     func shakeAnimation() {
+
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         animation.duration = 0.6
