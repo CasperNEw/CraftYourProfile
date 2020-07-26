@@ -25,23 +25,26 @@ protocol AddProfilePhotoViewUpdater {
 
 class AddProfilePhotoView: UIView {
 
-    private let backButton = UIButton(image: UIImage(named: "back"))
+    private let backButton = PushButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Add profile photo ❤️",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 1, alignment: .left)
 
     private let photoView = AddPhotoView()
-    private let skipButton = UIButton(title: "Skip for now", titleColor: .gray,
-                                      backgroundColor: .clear,
-                                      font: .compactRounded(style: .medium, size: 16),
-                                      cornerRadius: 0)
 
-    private let addPhotoButton = UIButton(title: "Add Photo", titleColor: .white,
-                                      backgroundColor: .blueButton(),
-                                      font: .compactRounded(style: .semibold, size: 20),
-                                      cornerRadius: 20)
+    private let skipButton = PushButton(title: "Skip for now", titleColor: .gray,
+                                        backgroundColor: .clear,
+                                        font: .compactRounded(style: .medium, size: 16),
+                                        cornerRadius: 0)
+
+    private let addPhotoButton = PushButton(title: "Add Photo", titleColor: .white,
+                                            backgroundColor: .blueButton(),
+                                            font: .compactRounded(style: .semibold, size: 20),
+                                            cornerRadius: 20,
+                                            transformScale: 0.9)
 
     weak var delegate: AddProfilePhotoViewDelegate?
+
     lazy private var designer: ViewDesignerService = {
         return ViewDesignerService(self)
     }()
@@ -89,22 +92,18 @@ class AddProfilePhotoView: UIView {
     }
 
     @objc func backButtonTapped() {
-        backButton.clickAnimation()
         delegate?.backButtonTapped()
     }
 
     @objc func skipButtonTapped() {
-        skipButton.clickAnimation()
         delegate?.skipButtonTapped()
     }
 
     @objc func editButtonTapped() {
-        photoView.editButton.clickAnimation()
         delegate?.editButtonTapped()
     }
 
     @objc func addPhotoButtonTapped() {
-        addPhotoButton.clickAnimation(with: 0.9)
         delegate?.addPhotoButtonTapped(image: photoView.imageView.image)
     }
 }

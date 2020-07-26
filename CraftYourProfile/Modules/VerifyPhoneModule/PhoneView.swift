@@ -22,7 +22,7 @@ protocol PhoneViewUpdater: UIView {
 class PhoneView: UIView {
 
     private let codeTextField = UITextField()
-    private let codeButton = UIButton(image: UIImage(named: "rexona"))
+    private let codeButton = PushButton(image: UIImage(named: "rexona"))
     private let lineView = UIView()
     private let phoneTextField = UITextField()
 
@@ -47,7 +47,6 @@ class PhoneView: UIView {
     }
 
     @objc private func codeButtonTapped() {
-        codeButton.clickAnimation()
         delegate?.codeButtonTapped(view: codeButton)
     }
 

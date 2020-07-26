@@ -26,7 +26,7 @@ protocol VerifyPhoneViewUpdater {
 class VerifyPhoneView: UIView {
 
     // MARK: Init
-    private let crossButton = UIButton(image: UIImage(named: "cross"))
+    private let crossButton = PushButton(image: UIImage(named: "cross"))
     private let mainLabel = UILabel(text: "Let's verify your phone number 😘",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 2, alignment: .left)
@@ -39,10 +39,11 @@ class VerifyPhoneView: UIView {
         return view
     }()
 
-    private let nextButton = UIButton(title: "Next", titleColor: .white,
-                                      backgroundColor: .blueButton(),
-                                      font: .compactRounded(style: .semibold, size: 20),
-                                      cornerRadius: 20)
+    private let nextButton = PushButton(title: "Next", titleColor: .white,
+                                        backgroundColor: .blueButton(),
+                                        font: .compactRounded(style: .semibold, size: 20),
+                                        cornerRadius: 20,
+                                        transformScale: 0.9)
 
     weak var delegate: VerifyPhoneViewDelegate?
     lazy private var designer: ViewDesignerService = {
@@ -78,12 +79,10 @@ class VerifyPhoneView: UIView {
     }
 
     @objc private func crossButtonTapped() {
-        crossButton.clickAnimation()
         delegate?.crossButtonTapped()
     }
 
     @objc private func nextButtonTapped() {
-        nextButton.clickAnimation(with: 0.9)
         let string = phoneView.getPhoneString()
         delegate?.nextButtonTapped(string: string)
     }

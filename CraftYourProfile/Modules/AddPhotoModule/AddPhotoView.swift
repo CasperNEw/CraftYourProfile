@@ -19,8 +19,8 @@ class AddPhotoView: UIView {
         return imageView
     }()
 
-    let editButton: UIButton = {
-        let button = UIButton(type: .system)
+    let editButton: PushButton = {
+        let button = PushButton(type: .system)
         button.setTitle("Edit", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0, green: 0.02164490582, blue: 0, alpha: 0.5)

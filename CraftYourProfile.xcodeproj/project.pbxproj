@@ -34,6 +34,7 @@
 		DA2DED3924A0E8F200944342 /* VerifyPhoneModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3824A0E8F200944342 /* VerifyPhoneModule.swift */; };
 		DA2DED3C24A1050800944342 /* VerifyPinCodeModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3B24A1050800944342 /* VerifyPinCodeModule.swift */; };
 		DA2DED3F24A110D800944342 /* IntroduceYourselfModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3E24A110D800944342 /* IntroduceYourselfModule.swift */; };
+		DA390AD824CDD20E008A535D /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA390AD724CDD20E008A535D /* PushButton.swift */; };
 		DA52EE4124893B480062D174 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE4024893B480062D174 /* UIView+.swift */; };
 		DA62355D24CD92FD0020711C /* Issues.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA62355C24CD92FD0020711C /* Issues.swift */; };
 		DA67A295248F9002004079AC /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A294248F9002004079AC /* Array+.swift */; };
@@ -64,7 +65,7 @@
 		DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD26E24701FC500876C69 /* UITextView+.swift */; };
 		DA8AD2712470759A00876C69 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD2702470759A00876C69 /* String+.swift */; };
 		DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD27224707FC700876C69 /* UIImage+.swift */; };
-		DA8AD2752472792000876C69 /* UIControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD2742472791F00876C69 /* UIControl+.swift */; };
+		DA8AD2752472792000876C69 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD2742472791F00876C69 /* UIButton+.swift */; };
 		DAAC5D0B247E916D0079E6F5 /* VerifyPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */; };
 		DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1024860F050079E6F5 /* NetworkService.swift */; };
 		DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */; };
@@ -114,6 +115,7 @@
 		DA2DED3824A0E8F200944342 /* VerifyPhoneModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneModule.swift; sourceTree = "<group>"; };
 		DA2DED3B24A1050800944342 /* VerifyPinCodeModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPinCodeModule.swift; sourceTree = "<group>"; };
 		DA2DED3E24A110D800944342 /* IntroduceYourselfModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceYourselfModule.swift; sourceTree = "<group>"; };
+		DA390AD724CDD20E008A535D /* PushButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		DA52EE4024893B480062D174 /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		DA62355C24CD92FD0020711C /* Issues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issues.swift; sourceTree = "<group>"; };
 		DA67A294248F9002004079AC /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
@@ -146,7 +148,7 @@
 		DA8AD26E24701FC500876C69 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		DA8AD2702470759A00876C69 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		DA8AD27224707FC700876C69 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
-		DA8AD2742472791F00876C69 /* UIControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+.swift"; sourceTree = "<group>"; };
+		DA8AD2742472791F00876C69 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneViewController.swift; sourceTree = "<group>"; };
 		DAAC5D1024860F050079E6F5 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFromServer.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */,
+				DA390AD724CDD20E008A535D /* PushButton.swift */,
 				DA62355E24CD95980020711C /* WelcomeModule */,
 				DA62355F24CD95D30020711C /* VerifyPhoneModule */,
 				DA62356024CD976D0020711C /* VerifyPinCodeModule */,
@@ -417,7 +420,7 @@
 				DA8AD268246FE36000876C69 /* UIStackView+.swift */,
 				DA8AD26E24701FC500876C69 /* UITextView+.swift */,
 				DA8AD27224707FC700876C69 /* UIImage+.swift */,
-				DA8AD2742472791F00876C69 /* UIControl+.swift */,
+				DA8AD2742472791F00876C69 /* UIButton+.swift */,
 				DA52EE4024893B480062D174 /* UIView+.swift */,
 				DA262DBC248E67D0007FB3EA /* UIViewController+.swift */,
 				DA262DCB248F6390007FB3EA /* UIScrollView+.swift */,
@@ -648,9 +651,10 @@
 				DA52EE4124893B480062D174 /* UIView+.swift in Sources */,
 				DA2086692493932B0017F0E8 /* AddProfilePhotoViewController.swift in Sources */,
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
+				DA390AD824CDD20E008A535D /* PushButton.swift in Sources */,
 				DA20867524991F9C0017F0E8 /* ImagePicker.swift in Sources */,
 				DA67A295248F9002004079AC /* Array+.swift in Sources */,
-				DA8AD2752472792000876C69 /* UIControl+.swift in Sources */,
+				DA8AD2752472792000876C69 /* UIButton+.swift in Sources */,
 				DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */,
 				DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */,
 				DA262DC8248F449C007FB3EA /* ScrollViewContainer.swift in Sources */,

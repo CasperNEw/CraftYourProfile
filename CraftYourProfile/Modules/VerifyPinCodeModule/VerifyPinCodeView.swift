@@ -26,7 +26,7 @@ protocol VerifyPinCodeViewUpdater {
 
 class VerifyPinCodeView: UIView {
 
-    private let backButton = UIButton(image: UIImage(named: "back"))
+    private let backButton = PushButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Next, enter the code we sent 😍",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 2, alignment: .left)
@@ -40,10 +40,11 @@ class VerifyPinCodeView: UIView {
                                           font: .compactRounded(style: .medium, size: 16),
                                           color: .gray, lines: 1, alignment: .center)
 
-    private let resendCodeButton = UIButton(title: "Resend code", titleColor: .white,
-                                            backgroundColor: .blueButton(),
-                                            font: .compactRounded(style: .semibold, size: 20),
-                                            cornerRadius: 20)
+    private let resendCodeButton = PushButton(title: "Resend code", titleColor: .white,
+                                              backgroundColor: .blueButton(),
+                                              font: .compactRounded(style: .semibold, size: 20),
+                                              cornerRadius: 20,
+                                              transformScale: 0.9)
 
     weak var delegate: VerifyPinCodeViewDelegate?
     lazy private var designer: ViewDesignerService = {
@@ -87,12 +88,10 @@ class VerifyPinCodeView: UIView {
     }
 
     @objc func backButtonTapped() {
-        backButton.clickAnimation()
         delegate?.backButtonTapped()
     }
 
     @objc func resendCodeButtonTapped() {
-        resendCodeButton.clickAnimation(with: 0.9)
         delegate?.resendCodeButtonTapped()
     }
 }

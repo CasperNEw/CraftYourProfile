@@ -21,7 +21,7 @@ protocol IntroduceYourselfViewUpdater {
 
 class IntroduceYourselfView: UIView {
 
-    private let backButton = UIButton(image: UIImage(named: "back"))
+    private let backButton = PushButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Let's introduce yourself 🤪",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 2, alignment: .left)
@@ -42,12 +42,13 @@ class IntroduceYourselfView: UIView {
                                                 textColor: .black, backgroundColor: .backgroundGray(),
                                                 cornerRadius: 15)
     private let datePicker = UIDatePicker()
-    private let dateButton = UIButton(image: UIImage(named: "rexona"))
+    private let dateButton = PushButton(image: UIImage(named: "rexona"))
 
-    private let nextButton = UIButton(title: "Next", titleColor: .white,
-                                      backgroundColor: .blueButton(),
-                                      font: .compactRounded(style: .semibold, size: 20),
-                                      cornerRadius: 20)
+    private let nextButton = PushButton(title: "Next", titleColor: .white,
+                                        backgroundColor: .blueButton(),
+                                        font: .compactRounded(style: .semibold, size: 20),
+                                        cornerRadius: 20,
+                                        transformScale: 0.9)
 
     lazy private var formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -102,17 +103,14 @@ class IntroduceYourselfView: UIView {
     }
 
     @objc func backButtonTapped() {
-        backButton.clickAnimation()
         delegate?.backButtonTapped()
     }
 
     @objc func nextButtonTapped() {
-        nextButton.clickAnimation(with: 0.9)
         delegate?.nextButtonTapped(nameTextField, birthdayTextField, datePicker.date)
     }
 
     @objc func dateButtonTapped() {
-        dateButton.clickAnimation()
         birthdayTextField.becomeFirstResponder()
     }
 

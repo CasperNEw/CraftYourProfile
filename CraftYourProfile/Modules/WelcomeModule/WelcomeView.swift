@@ -29,11 +29,12 @@ class WelcomeView: UIView {
 
     private let smileView = UIImageView(image: UIImage(named: "whiteSmile"))
 
-    private let letsGoButton = UIControl(title: "LET'S GO!!!",
-                                         titleColor: .mainBlackText(),
-                                         backgroundColor: .mainWhite(),
-                                         font: .compactRounded(style: .bold, size: 20),
-                                         cornerRadius: 23)
+    private let letsGoButton = PushButton(title: "LET'S GO!!!",
+                                          titleColor: .mainBlackText(),
+                                          backgroundColor: .mainWhite(),
+                                          font: .compactRounded(style: .bold, size: 20),
+                                          cornerRadius: 23,
+                                          transformScale: 0.8)
 
     private let bottomTextView = UITextView(text: "By signing up, you agree to our Terms and Privacy Policy",
                                             couples: [("Terms", "https://developer.apple.com/terms/"),
@@ -41,9 +42,9 @@ class WelcomeView: UIView {
                                             font: .compactRounded(style: .medium, size: 16),
                                             textColor: .mainGrayText(), backgroundColor: .clear, tintColor: .white)
 
-    private let circleButton = UIControl(image: UIImage(named: "circle"), alpha: 0.9)
-    private let safariButton = UIControl(image: UIImage(named: "safari"), alpha: 0.9)
-    private let homeButton = UIControl(image: UIImage(named: "home"))
+    private let circleButton = PushButton(image: UIImage(named: "circle"), alpha: 0.9)
+    private let safariButton = PushButton(image: UIImage(named: "safari"), alpha: 0.9)
+    private let homeButton = PushButton(image: UIImage(named: "home"))
 
     private let animator = EmitterLayerAnimator()
     private let emoji = ["😍", "🥰", "😘", "😜", "💋", "❤️"]
@@ -104,19 +105,15 @@ class WelcomeView: UIView {
 
     // MARK: - Actions
     @objc private func letsGoButtonTapped() {
-        letsGoButton.clickAnimation(with: 0.8)
         delegate?.letsGoButtonTapped()
     }
     @objc private func circleButtonTapped() {
-        circleButton.clickAnimation()
         delegate?.circleButtonTapped()
     }
     @objc private func safariButtonTapped() {
-        safariButton.clickAnimation()
         delegate?.safariButtonTapped()
     }
     @objc private func homeButtonTapped() {
-        homeButton.clickAnimation()
         delegate?.homeButtonTapped()
     }
 }
