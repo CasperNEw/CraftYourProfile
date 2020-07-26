@@ -13,7 +13,7 @@ Test task from my friend) Creating a welcome screen and authorization screens. I
 
 # CodeReview
 
-I am very grateful to my friend for taking the time to review this code) A little later I will post a link to the video of the review process (in Russian). Below are the points of the issues that need to be fixed ...
+I am very grateful to my friend for taking the time to view this code ) Link to the video of the review process - https://youtu.be/BIzOiBUKtxM (in Russian). Below are the points of the issues that need to be fixed ...
 
 ## Issues
 
@@ -57,5 +57,3 @@ I am very grateful to my friend for taking the time to review this code) A littl
 - Pay attention to naming.
 
 ---------------------------------------
-
-In the near future, I will fix these issued and a link to the video of the review itself, wish me luck ))
