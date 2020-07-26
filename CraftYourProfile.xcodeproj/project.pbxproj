@@ -195,14 +195,6 @@
 			path = PinCodeView;
 			sourceTree = "<group>";
 		};
-		DA1D9A212491357100913A22 /* Animations */ = {
-			isa = PBXGroup;
-			children = (
-				DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */,
-			);
-			path = Animations;
-			sourceTree = "<group>";
-		};
 		DA1D9A2A249238EF00913A22 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,7 +283,7 @@
 			children = (
 				DA8AD240246FC06300876C69 /* WelcomeViewController.swift */,
 				DA67A296248F94EC004079AC /* WelcomeView.swift */,
-				DA1D9A212491357100913A22 /* Animations */,
+				DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */,
 			);
 			path = WelcomeModule;
 			sourceTree = "<group>";

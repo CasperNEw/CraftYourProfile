@@ -53,7 +53,7 @@ class WelcomeView: UIView {
 
     private var didSetupConstraints = false
 
-    // MARK: - Lifecycle
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -63,6 +63,7 @@ class WelcomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
     override func updateConstraints() {
         super.updateConstraints()
 
