@@ -35,6 +35,7 @@
 		DA2DED3C24A1050800944342 /* VerifyPinCodeModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3B24A1050800944342 /* VerifyPinCodeModule.swift */; };
 		DA2DED3F24A110D800944342 /* IntroduceYourselfModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3E24A110D800944342 /* IntroduceYourselfModule.swift */; };
 		DA52EE4124893B480062D174 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE4024893B480062D174 /* UIView+.swift */; };
+		DA62355D24CD92FD0020711C /* Issues.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA62355C24CD92FD0020711C /* Issues.swift */; };
 		DA67A295248F9002004079AC /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A294248F9002004079AC /* Array+.swift */; };
 		DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A296248F94EC004079AC /* WelcomeView.swift */; };
 		DA67A299248FBCC5004079AC /* EmitterLayerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */; };
@@ -114,6 +115,7 @@
 		DA2DED3B24A1050800944342 /* VerifyPinCodeModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPinCodeModule.swift; sourceTree = "<group>"; };
 		DA2DED3E24A110D800944342 /* IntroduceYourselfModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceYourselfModule.swift; sourceTree = "<group>"; };
 		DA52EE4024893B480062D174 /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		DA62355C24CD92FD0020711C /* Issues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issues.swift; sourceTree = "<group>"; };
 		DA67A294248F9002004079AC /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		DA67A296248F94EC004079AC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterLayerAnimator.swift; sourceTree = "<group>"; };
@@ -226,15 +228,17 @@
 			path = WelcomeModule;
 			sourceTree = "<group>";
 		};
-		DA262DBA248E6612007FB3EA /* UI */ = {
+		DA262DBA248E6612007FB3EA /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				DAAC5D0C247E91750079E6F5 /* ViewControllers */,
-				DAAC5D1724879D0B0079E6F5 /* Views */,
-				DA262DBB248E6634007FB3EA /* Cells */,
-				DA1D9A212491357100913A22 /* Animations */,
+				DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */,
+				DA62355E24CD95980020711C /* WelcomeModule */,
+				DA62355F24CD95D30020711C /* VerifyPhoneModule */,
+				DA62356024CD976D0020711C /* VerifyPinCodeModule */,
+				DA62356324CD98970020711C /* IntroduceYourselfModule */,
+				DA62356424CD98DD0020711C /* AddPhotoModule */,
 			);
-			path = UI;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		DA262DBB248E6634007FB3EA /* Cells */ = {
@@ -277,6 +281,66 @@
 			path = IntroduceYourselfModule;
 			sourceTree = "<group>";
 		};
+		DA62355E24CD95980020711C /* WelcomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				DA8AD240246FC06300876C69 /* WelcomeViewController.swift */,
+				DA67A296248F94EC004079AC /* WelcomeView.swift */,
+				DA1D9A212491357100913A22 /* Animations */,
+			);
+			path = WelcomeModule;
+			sourceTree = "<group>";
+		};
+		DA62355F24CD95D30020711C /* VerifyPhoneModule */ = {
+			isa = PBXGroup;
+			children = (
+				DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */,
+				DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */,
+				DA2DED3424A0B1A100944342 /* PhoneView.swift */,
+				DA62356224CD98650020711C /* CountryCode */,
+			);
+			path = VerifyPhoneModule;
+			sourceTree = "<group>";
+		};
+		DA62356024CD976D0020711C /* VerifyPinCodeModule */ = {
+			isa = PBXGroup;
+			children = (
+				DA67A29E2490FC9A004079AC /* VerifyPinCodeViewController.swift */,
+				DA1D9A1C2491050B00913A22 /* VerifyPinCodeView.swift */,
+				DA1D9A202491354900913A22 /* PinCodeView */,
+			);
+			path = VerifyPinCodeModule;
+			sourceTree = "<group>";
+		};
+		DA62356224CD98650020711C /* CountryCode */ = {
+			isa = PBXGroup;
+			children = (
+				DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */,
+				DA262DBB248E6634007FB3EA /* Cells */,
+			);
+			path = CountryCode;
+			sourceTree = "<group>";
+		};
+		DA62356324CD98970020711C /* IntroduceYourselfModule */ = {
+			isa = PBXGroup;
+			children = (
+				DA1D9A2D24925D9400913A22 /* IntroduceYourselfViewController.swift */,
+				DA1D9A3324935C8700913A22 /* IntroduceYourselfView.swift */,
+			);
+			path = IntroduceYourselfModule;
+			sourceTree = "<group>";
+		};
+		DA62356424CD98DD0020711C /* AddPhotoModule */ = {
+			isa = PBXGroup;
+			children = (
+				DA2086682493932B0017F0E8 /* AddProfilePhotoViewController.swift */,
+				DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */,
+				DA2086722498DACF0017F0E8 /* AddPhotoView.swift */,
+				DA20867424991F9C0017F0E8 /* ImagePicker.swift */,
+			);
+			path = AddPhotoModule;
+			sourceTree = "<group>";
+		};
 		DA8AD220246FBF8A00876C69 = {
 			isa = PBXGroup;
 			children = (
@@ -300,10 +364,11 @@
 		DA8AD22B246FBF8A00876C69 /* CraftYourProfile */ = {
 			isa = PBXGroup;
 			children = (
+				DA62355C24CD92FD0020711C /* Issues.swift */,
 				DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */,
 				DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */,
 				DA67A29C248FCC32004079AC /* ViewControllerFactory.swift */,
-				DA262DBA248E6612007FB3EA /* UI */,
+				DA262DBA248E6612007FB3EA /* Modules */,
 				DAAC5D0F24860EE80079E6F5 /* Services */,
 				DA1D9A2A249238EF00913A22 /* Errors */,
 				DAAC5D1224869D760079E6F5 /* Models */,
@@ -361,19 +426,6 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
-		DAAC5D0C247E91750079E6F5 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				DA8AD240246FC06300876C69 /* WelcomeViewController.swift */,
-				DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */,
-				DA262DB6248E3507007FB3EA /* CountryCodeViewController.swift */,
-				DA67A29E2490FC9A004079AC /* VerifyPinCodeViewController.swift */,
-				DA1D9A2D24925D9400913A22 /* IntroduceYourselfViewController.swift */,
-				DA2086682493932B0017F0E8 /* AddProfilePhotoViewController.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
 		DAAC5D0F24860EE80079E6F5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,23 +446,6 @@
 				DA262DB4248A4D57007FB3EA /* CountryCode.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		DAAC5D1724879D0B0079E6F5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				DA262DC7248F449C007FB3EA /* ScrollViewContainer.swift */,
-				DA67A296248F94EC004079AC /* WelcomeView.swift */,
-				DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */,
-				DA1D9A1C2491050B00913A22 /* VerifyPinCodeView.swift */,
-				DA1D9A3324935C8700913A22 /* IntroduceYourselfView.swift */,
-				DA20866E2493B1CD0017F0E8 /* AddProfilePhotoView.swift */,
-				DA2DED3424A0B1A100944342 /* PhoneView.swift */,
-				DA1D9A202491354900913A22 /* PinCodeView */,
-				DA2086722498DACF0017F0E8 /* AddPhotoView.swift */,
-				DA20867424991F9C0017F0E8 /* ImagePicker.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		FC795780290540DE90AE7B79 /* Frameworks */ = {
@@ -641,6 +676,7 @@
 				DA1D9A1D2491050B00913A22 /* VerifyPinCodeView.swift in Sources */,
 				DA8AD2712470759A00876C69 /* String+.swift in Sources */,
 				DA262DB3248A44A6007FB3EA /* VerifyPhoneModelController.swift in Sources */,
+				DA62355D24CD92FD0020711C /* Issues.swift in Sources */,
 				DA20866F2493B1CD0017F0E8 /* AddProfilePhotoView.swift in Sources */,
 				DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */,
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,

@@ -42,6 +42,8 @@ class WelcomeView: UIView {
     private let homeButton = UIControl(image: UIImage(named: "home"))
 
     private let animator = EmitterLayerAnimator()
+    private let emoji = ["😍", "🥰", "😘", "😜", "💋", "❤️"]
+
     weak var delegate: WelcomeViewDelegate?
 
     override init(frame: CGRect) {
@@ -99,7 +101,8 @@ class WelcomeView: UIView {
     }
 
     private func setupAnimation() {
-        animator.addAnimationOnView(self)
+        let emitter = animator.createEmitterLayer(with: emoji)
+        layer.addSublayer(emitter)
     }
 }
 
