@@ -14,74 +14,75 @@ protocol PhoneViewDelegate: AnyObject {
     func codeButtonTapped(view: UIView)
 }
 
-protocol PhoneViewUpdater: UIView {
-    func setCodeValue(string: String)
-    func getPhoneString() -> String?
-}
-
 class PhoneView: UIView {
 
-    private let codeTextField = UITextField()
+    // MARK: - Properties
+    lazy private var phoneTextField: UITextField = {
+
+        let textField = UITextField()
+        textField.backgroundColor = .clear
+        textField.font = .compactRounded(style: .semibold, size: 20)
+        textField.keyboardType = .phonePad
+        textField.minimumFontSize = 16
+        textField.adjustsFontSizeToFitWidth = true
+        textField.delegate = self
+        return textField
+    }()
+
+    private let codeTextField: UITextField = {
+
+        let textField = UITextField()
+        textField.backgroundColor = .clear
+        textField.font = .compactRounded(style: .semibold, size: 20)
+        textField.textAlignment = .right
+        textField.isUserInteractionEnabled = false
+        textField.minimumFontSize = 16
+        textField.adjustsFontSizeToFitWidth = true
+        return textField
+    }()
+
+    private let lineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .grayText()
+        return view
+    }()
+
     private let codeButton = PushButton(image: UIImage(named: "rexona"))
-    private let lineView = UIView()
-    private let phoneTextField = UITextField()
 
     weak var delegate: PhoneViewDelegate?
+    private var didSetupConstraints = false
 
-    init(delegate: PhoneViewDelegate) {
-        self.init()
-        self.delegate = delegate
-    }
-
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         setupView()
-        setupConstraints()
-
-        codeButton.addTarget(self, action: #selector(codeButtonTapped), for: .touchUpInside)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func codeButtonTapped() {
-        delegate?.codeButtonTapped(view: codeButton)
+    // MARK: - Lifecycle
+    override func updateConstraints() {
+        super.updateConstraints()
+
+        if didSetupConstraints {
+            setupConstraints()
+            didSetupConstraints = true
+        }
     }
 
+    // MARK: - Module functions
     private func setupView() {
-        codeTextField.translatesAutoresizingMaskIntoConstraints = false
-        codeButton.translatesAutoresizingMaskIntoConstraints = false
-        lineView .translatesAutoresizingMaskIntoConstraints = false
-        phoneTextField.translatesAutoresizingMaskIntoConstraints = false
 
         backgroundColor = .backgroundGray()
         layer.cornerRadius = 15
-
-        codeTextField.backgroundColor = .clear
-        phoneTextField.backgroundColor = .clear
-        lineView.backgroundColor = .grayText()
-        codeTextField.font = .compactRounded(style: .semibold, size: 20)
-        codeTextField.textAlignment = .right
-        codeTextField.isUserInteractionEnabled = false
-        phoneTextField.font = .compactRounded(style: .semibold, size: 20)
-        phoneTextField.keyboardType = .phonePad
-
-        codeTextField.minimumFontSize = 16
-        phoneTextField.minimumFontSize = 16
-
-        codeTextField.adjustsFontSizeToFitWidth = true
-        phoneTextField.adjustsFontSizeToFitWidth = true
-        phoneTextField.delegate = self
-
-        addSubview(codeTextField)
-        addSubview(codeButton)
-        addSubview(lineView)
-        addSubview(phoneTextField)
+        addSubviews([codeTextField, codeButton, lineView, phoneTextField])
+        codeButton.addTarget(self, action: #selector(codeButtonTapped), for: .touchUpInside)
     }
 
     private func setupConstraints() {
+
         NSLayoutConstraint.activate([
             codeTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             codeTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -102,23 +103,26 @@ class PhoneView: UIView {
             phoneTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
         ])
     }
-}
 
-// MARK: PhoneViewUpdater
-extension PhoneView: PhoneViewUpdater {
-    func setCodeValue(string: String) {
+    // MARK: - Public functions
+    public func setCodeValue(string: String) {
         codeTextField.text = string
     }
 
-    func getPhoneString() -> String? {
+    public func getPhoneString() -> String? {
         return phoneTextField.text
+    }
+
+    // MARK: - Actions
+    @objc private func codeButtonTapped() {
+        delegate?.codeButtonTapped(view: codeButton)
     }
 }
 
 // MARK: UITextFieldDelegate
 extension PhoneView: UITextFieldDelegate {
-    func textField(_ textField: UITextField,
-                   shouldChangeCharactersIn range: NSRange,
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
 
         return delegate?.shouldChangeCharactersIn(textField: textField, string: string) ?? true

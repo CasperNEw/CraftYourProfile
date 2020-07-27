@@ -26,13 +26,14 @@ class VerifyPhoneView: UIView {
     private let mainLabel = UILabel(text: "Let's verify your phone number 😘",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 2, alignment: .left)
-    
+
     private let additionalLabel = UILabel(text: "PHONE NUMBER",
                                           font: .compactRounded(style: .semibold, size: 15),
                                           color: .gray, lines: 1, alignment: .left)
 
-    lazy private var phoneView: PhoneViewUpdater = {
-        let view = PhoneView(delegate: self)
+    lazy private var phoneView: PhoneView = {
+        let view = PhoneView()
+        view.delegate = self
         return view
     }()
 
