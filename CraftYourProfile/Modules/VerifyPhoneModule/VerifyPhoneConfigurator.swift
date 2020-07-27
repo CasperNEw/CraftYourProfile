@@ -15,11 +15,6 @@ struct VerifyPhoneConfigurator {
     static func configure(with reference: VerifyPhoneViewController) {
 
         let model = VerifyPhoneModelController()
-        let popover = CountryCodeViewController()
-
-        popover.delegate = reference
-
         reference.modelController = model
-        reference.popOver = popover
     }
 }

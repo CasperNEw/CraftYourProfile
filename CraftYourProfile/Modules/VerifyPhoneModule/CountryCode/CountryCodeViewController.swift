@@ -50,7 +50,13 @@ extension CountryCodeViewController {
                                                                             fatalError("Cannot create new cell")
                                     }
                                     // swiftlint:enable line_length
-                                    countryCodeCell.configure(with: countryCode.description)
+
+                                    let urlString = String(format: "https://www.countryflags.io/%@/flat/32.png",
+                                                           countryCode.shortName)
+
+                                    countryCodeCell.setupCell(code: countryCode.code,
+                                                              country: countryCode.name,
+                                                              imageUrl: urlString)
                                     return countryCodeCell
             })
     }
@@ -103,7 +109,7 @@ extension CountryCodeViewController {
                                                       heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                       heightDimension: .absolute(32))
+                                                       heightDimension: .absolute(40))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
                 group.interItemSpacing = .fixed(spacing)
 

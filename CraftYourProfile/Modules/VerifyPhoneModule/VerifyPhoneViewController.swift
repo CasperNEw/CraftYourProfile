@@ -12,7 +12,6 @@ class VerifyPhoneViewController: UIViewController {
 
     // MARK: - Properties
     var modelController: VerifyPhoneModelControllerProtocol?
-    var popOver: UIViewController?
     var presentationView: VerifyPhoneView?
 
     // MARK: - Lifecycle
@@ -22,23 +21,22 @@ class VerifyPhoneViewController: UIViewController {
         self.presentationView = view
         self.view = ScrollViewContainer(with: view)
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        print("start load network data")
+    }
 }
 
 // MARK: setupAndPresentPopOverVC
 extension VerifyPhoneViewController {
 
-    private func setupAndPresentPopOverVC(_ view: UIView) {
+    private func createAndPresentCountryCodeVC() {
 
-        guard let popOver = popOver else { return }
-        popOver.modalPresentationStyle = .popover
-        guard let popOverPC = popOver.popoverPresentationController else { return }
-        popOverPC.delegate = self
-        popOverPC.sourceView = view
-        popOverPC.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY,
-                                      width: 0, height: 0)
-        popOver.preferredContentSize = CGSize(width: self.view.bounds.width * 3/4,
-                                              height: self.view.bounds.height * 1/3)
-        self.present(popOver, animated: true)
+        let viewController = CountryCodeViewController()
+        viewController.delegate = self
+        self.present(viewController, animated: true)
     }
 }
 
@@ -82,7 +80,7 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
                 self?.modelController?.reloadData()
             }
         }
-        setupAndPresentPopOverVC(view)
+        createAndPresentCountryCodeVC()
     }
 
     func nextButtonTapped(string: String?) {
@@ -120,13 +118,5 @@ extension VerifyPhoneViewController: CountryCodeViewControllerDelegate {
     func didSelectItemAt(index: Int) {
         let code = modelController?.getTheSelectedCode(at: index) ?? ""
         presentationView?.setCountryCode(string: code)
-    }
-}
-
-// MARK: UIPopoverPresentationControllerDelegate
-extension VerifyPhoneViewController: UIPopoverPresentationControllerDelegate {
-
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
     }
 }

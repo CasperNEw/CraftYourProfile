@@ -50,26 +50,17 @@ class PhoneView: UIView {
     private let codeButton = PushButton(image: UIImage(named: "rexona"))
 
     weak var delegate: PhoneViewDelegate?
-    private var didSetupConstraints = false
 
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         setupView()
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: - Lifecycle
-    override func updateConstraints() {
-        super.updateConstraints()
-
-        if didSetupConstraints {
-            setupConstraints()
-            didSetupConstraints = true
-        }
     }
 
     // MARK: - Module functions
