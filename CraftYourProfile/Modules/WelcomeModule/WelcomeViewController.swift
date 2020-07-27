@@ -22,6 +22,18 @@ class WelcomeViewController: UIViewController {
 extension WelcomeViewController: WelcomeViewDelegate {
 
     func letsGoButtonTapped() {
+        createAndPresentVerifyPhoneVC()
+    }
+
+    func circleButtonTapped() { print(#function) }
+    func safariButtonTapped() { print(#function) }
+    func homeButtonTapped() { print(#function) }
+}
+
+// MARK: - Module functions
+extension WelcomeViewController {
+
+    private func createAndPresentVerifyPhoneVC() {
 
         let viewController = VerifyPhoneConfigurator.create()
         VerifyPhoneConfigurator.configure(with: viewController)
@@ -30,8 +42,4 @@ extension WelcomeViewController: WelcomeViewDelegate {
         navController.setNavigationBarHidden(true, animated: true)
         present(navController, animated: true)
     }
-
-    func circleButtonTapped() { print(#function) }
-    func safariButtonTapped() { print(#function) }
-    func homeButtonTapped() { print(#function) }
 }

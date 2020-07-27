@@ -18,18 +18,15 @@ protocol VerifyPhoneViewDelegate: AnyObject {
     func nextButtonTapped(string: String?)
 }
 
-protocol VerifyPhoneViewUpdater {
-
-    func setNewValue(string: String)
-}
-
 class VerifyPhoneView: UIView {
 
-    // MARK: Init
+    // MARK: - Properties
     private let crossButton = PushButton(image: UIImage(named: "cross"))
+
     private let mainLabel = UILabel(text: "Let's verify your phone number 😘",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 2, alignment: .left)
+    
     private let additionalLabel = UILabel(text: "PHONE NUMBER",
                                           font: .compactRounded(style: .semibold, size: 15),
                                           color: .gray, lines: 1, alignment: .left)
@@ -46,14 +43,15 @@ class VerifyPhoneView: UIView {
                                         transformScale: 0.9)
 
     weak var delegate: VerifyPhoneViewDelegate?
+    private var didSetupConstraints = false
+
     lazy private var designer: ViewDesignerService = {
         return ViewDesignerService(self)
     }()
 
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        self.backgroundColor = .white
         setupViews()
     }
 
@@ -61,23 +59,22 @@ class VerifyPhoneView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupConstraints()
+    // MARK: - Lifecycle
+    override func updateConstraints() {
+        super.updateConstraints()
+
+        if !didSetupConstraints {
+            setupConstraints()
+            didSetupConstraints = true
+        }
     }
 
-    private func setupViews() {
-        setupNextButton()
-        addSubviews()
-
-        crossButton.addTarget(self, action: #selector(crossButtonTapped), for: .touchUpInside)
-        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+    // MARK: - Public function
+    func setCountryCode(string: String) {
+        phoneView.setCodeValue(string: string)
     }
 
-    private func setupConstraints() {
-        setupMainConstraints()
-    }
-
+    // MARK: - Actions
     @objc private func crossButtonTapped() {
         delegate?.crossButtonTapped()
     }
@@ -88,32 +85,20 @@ class VerifyPhoneView: UIView {
     }
 }
 
-// MARK: setupViews
+// MARK: - Module functions
 extension VerifyPhoneView {
 
-    private func addSubviews() {
-        crossButton.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        additionalLabel.translatesAutoresizingMaskIntoConstraints = false
-        phoneView.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
+    private func setupViews() {
 
-        addSubview(crossButton)
-        addSubview(mainLabel)
-        addSubview(additionalLabel)
-        addSubview(phoneView)
-        addSubview(nextButton)
-    }
-
-    private func setupNextButton() {
+        backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         nextButton.addRightImage(image: UIImage(named: "next"), side: 30, offset: -10)
+        addSubviews([crossButton, mainLabel, additionalLabel, phoneView, nextButton])
+
+        crossButton.addTarget(self, action: #selector(crossButtonTapped), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
-}
 
-// MARK: setupConstraints
-extension VerifyPhoneView {
-
-    private func setupMainConstraints() {
+    private func setupConstraints() {
 
         designer.setBackButton(crossButton)
         designer.setView(mainLabel, with: crossButton)
@@ -121,14 +106,6 @@ extension VerifyPhoneView {
         designer.setView(phoneView, with: additionalLabel, trailingIsShort: false,
                          withHeight: true, specialHeight: false)
         designer.setBottomView(nextButton, with: phoneView)
-    }
-}
-
-// MARK: VerifyPhoneViewUpdater
-extension VerifyPhoneView: VerifyPhoneViewUpdater {
-
-    func setNewValue(string: String) {
-        phoneView.setCodeValue(string: string)
     }
 }
 

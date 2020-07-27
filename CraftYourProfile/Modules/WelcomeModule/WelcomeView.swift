@@ -50,7 +50,6 @@ class WelcomeView: UIView {
     private let emoji = ["😍", "🥰", "😘", "😜", "💋", "❤️"]
 
     weak var delegate: WelcomeViewDelegate?
-
     private var didSetupConstraints = false
 
     // MARK: - Initialization

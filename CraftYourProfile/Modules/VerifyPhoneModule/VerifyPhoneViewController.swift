@@ -12,14 +12,14 @@ class VerifyPhoneViewController: UIViewController {
 
     // MARK: - Properties
     var modelController: VerifyPhoneModelControllerProtocol?
-    var viewUpdater: VerifyPhoneViewUpdater?
     var popOver: UIViewController?
+    var presentationView: VerifyPhoneView?
 
     // MARK: - Lifecycle
     override func loadView() {
         let view = VerifyPhoneView()
         view.delegate = self
-        self.viewUpdater = view
+        self.presentationView = view
         self.view = ScrollViewContainer(with: view)
     }
 }
@@ -119,7 +119,7 @@ extension VerifyPhoneViewController: CountryCodeViewControllerDelegate {
 
     func didSelectItemAt(index: Int) {
         let code = modelController?.getTheSelectedCode(at: index) ?? ""
-        viewUpdater?.setNewValue(string: code)
+        presentationView?.setCountryCode(string: code)
     }
 }
 
