@@ -12,7 +12,13 @@ class VerifyPhoneViewController: UIViewController {
 
     // MARK: - Properties
     var modelController: VerifyPhoneModelControllerProtocol?
-    var presentationView: VerifyPhoneView?
+    private var presentationView: VerifyPhoneView?
+
+    lazy private var countryCodeViewController: CountryCodeViewController = {
+        let viewController = CountryCodeViewController()
+        viewController.delegate = self
+        return viewController
+    }()
 
     // MARK: - Lifecycle
     override func loadView() {
@@ -26,17 +32,10 @@ class VerifyPhoneViewController: UIViewController {
         super.viewDidLoad()
 
         print("start load network data")
-    }
-}
-
-// MARK: setupAndPresentPopOverVC
-extension VerifyPhoneViewController {
-
-    private func createAndPresentCountryCodeVC() {
-
-        let viewController = CountryCodeViewController()
-        viewController.delegate = self
-        self.present(viewController, animated: true)
+        let countryCode = Locale.current.regionCode
+        print(countryCode)
+//        guard let current = modelController?.getCountryCodes(with: nil).filter { $0.shortName == countryCode }.first else { return }
+//        presentationView?.setCountryCode(string: current.code)
     }
 }
 
@@ -80,7 +79,7 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
                 self?.modelController?.reloadData()
             }
         }
-        createAndPresentCountryCodeVC()
+        present(countryCodeViewController, animated: true)
     }
 
     func nextButtonTapped(string: String?) {
