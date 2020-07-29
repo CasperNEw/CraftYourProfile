@@ -15,7 +15,7 @@ protocol VerifyPhoneViewDelegate: AnyObject {
 
     func crossButtonTapped()
     func codeButtonTapped(_ view: UIView)
-    func nextButtonTapped(string: String?)
+    func nextButtonTapped(phone: String)
 }
 
 class VerifyPhoneView: UIView {
@@ -71,8 +71,14 @@ class VerifyPhoneView: UIView {
     }
 
     // MARK: - Public function
-    func setCountryCode(string: String) {
+    public func setCountryCode(string: String) {
         phoneView.setCodeValue(string: string)
+    }
+
+    public func setNextButtonIsEnabled(_ value: Bool) {
+
+        nextButton.isEnabled = value
+        nextButton.backgroundColor = value ? .blueButton() : .backgroundGray()
     }
 
     // MARK: - Actions
@@ -81,8 +87,7 @@ class VerifyPhoneView: UIView {
     }
 
     @objc private func nextButtonTapped() {
-        let string = phoneView.getPhoneString()
-        delegate?.nextButtonTapped(string: string)
+        delegate?.nextButtonTapped(phone: phoneView.getPhoneString())
     }
 }
 

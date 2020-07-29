@@ -100,8 +100,8 @@ class PhoneView: UIView {
         codeTextField.text = string
     }
 
-    public func getPhoneString() -> String? {
-        return phoneTextField.text
+    public func getPhoneString() -> String {
+        return phoneTextField.text ?? "Error_phone"
     }
 
     // MARK: - Actions
