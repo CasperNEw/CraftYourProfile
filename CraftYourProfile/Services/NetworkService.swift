@@ -60,9 +60,12 @@ class NetworkService: NetworkServiceLimitedProtocol {
             guard let data = data else {
                 if let error = error {
                     DispatchQueue.main.async {
-                        completion(.failure(error))
+                        completion(.failure(NetworkError.serverError(error: error)))
                     }
                     return
+                }
+                DispatchQueue.main.async {
+                    completion(.failure(NetworkError.noConnectionError))
                 }
                 return
             }
@@ -74,7 +77,7 @@ class NetworkService: NetworkServiceLimitedProtocol {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(error))
+                    completion(.failure(NetworkError.incorrectDataError))
                 }
             }
         }

@@ -19,7 +19,7 @@ class ValidationService {
             let phoneNumber: NBPhoneNumber = try phoneUtil.parse(phone, defaultRegion: region)
             completion(.success(phoneUtil.isValidNumber(phoneNumber)))
         } catch let error as NSError {
-            completion(.failure(error))
+            completion(.failure(ValidationError.serverError(error: error)))
         }
     }
 
@@ -48,11 +48,11 @@ class ValidationService {
                 completion(.success(String(fullString.dropFirst(prefix.count))))
 
             } catch let error {
-                completion(.failure(error))
+                completion(.failure(ValidationError.serverError(error: error)))
                 return
             }
         } catch let error {
-            completion(.failure(error))
+            completion(.failure(ValidationError.serverError(error: error)))
             return
         }
     }
