@@ -33,7 +33,6 @@ class VerifyPinCodeViewController: UIViewController {
         super.viewDidAppear(animated)
 
         startTimer()
-        presentationView.shakePinCodeView()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -49,10 +48,6 @@ class VerifyPinCodeViewController: UIViewController {
 extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
 
     func backButtonTapped() {
-        perform(#selector(popViewController), with: nil, afterDelay: 0.5)
-    }
-
-    @objc func popViewController() {
         navigationController?.popViewController(animated: true)
     }
 
@@ -61,7 +56,6 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
         do {
             let newPinCode = try AuthorizationService.shared.updatePinCode(with: 6)
             showAlert(with: "Success", and: "A PIN code \(newPinCode) has been sent to your phone number") {
-                self.presentationView.shakePinCodeView()
                 self.presentationView.hideResendCodeButton()
                 self.startTimer()
             }

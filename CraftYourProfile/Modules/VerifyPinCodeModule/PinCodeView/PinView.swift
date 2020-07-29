@@ -17,8 +17,6 @@ class PinView: UIView {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .backgroundGray()
-        layer.cornerRadius = 15
         setupUI()
     }
 
@@ -28,11 +26,15 @@ class PinView: UIView {
 
     // MARK: - Module function
     private func setupUI() {
+
+        backgroundColor = .backgroundGray()
+        layer.cornerRadius = 15
+        translatesAutoresizingMaskIntoConstraints = false
+
         pin.backgroundColor = .gray
         pin.layer.cornerRadius = 5
         pin.layer.masksToBounds = true
         pin.translatesAutoresizingMaskIntoConstraints = false
-        translatesAutoresizingMaskIntoConstraints = false
         addSubview(pin)
 
         number.font = .compactRounded(style: .semibold, size: 18)

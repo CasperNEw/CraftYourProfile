@@ -61,12 +61,16 @@ extension UIView {
         layer.insertSublayer(gradientLayer, at: 0)
     }
 
-    func shakeAnimation() {
-
-        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        animation.duration = 0.6
-        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
-        layer.add(animation, forKey: "shake")
+    // swiftlint:disable all
+    func shake(_ iteration: Int = 0) {
+        UIView.animate(withDuration: 0.05,
+                       animations: { [weak self] in self?.transform = CGAffineTransform(translationX: 8, y: 0) })
+        { [weak self] (_) in
+            UIView.animate(withDuration: 0.05,
+                           animations: { [weak self] in self?.transform = .identity },
+                           completion: { [weak self] (_) in if  iteration < 2 { self?.shake(iteration + 1) }
+            })
+        }
     }
+    // swiftlint:enable all
 }

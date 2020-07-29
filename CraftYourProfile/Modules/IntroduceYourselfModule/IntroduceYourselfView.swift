@@ -177,6 +177,6 @@ extension IntroduceYourselfView: UITextFieldDelegate {
 // MARK: IntroduceYourselfViewUpdater
 extension IntroduceYourselfView: IntroduceYourselfViewUpdater {
     func shakeTextFieldView(_ textField: UITextField) {
-        textField.shakeAnimation()
+        textField.shake()
     }
 }

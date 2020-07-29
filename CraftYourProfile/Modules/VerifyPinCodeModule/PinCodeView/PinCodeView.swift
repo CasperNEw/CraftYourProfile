@@ -16,7 +16,6 @@ class PinCodeView: UIView, UITextInputTraits {
         didSet {
             updateStack(by: pinCode)
             if pinCode.count == maxLenght, let didFinishedEnterCode = didFinishedEnterCode {
-                self.resignFirstResponder()
                 didFinishedEnterCode(pinCode)
             }
         }
@@ -28,7 +27,8 @@ class PinCodeView: UIView, UITextInputTraits {
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        showKeyboardIfNeeded()
+
+        setupGestureRecognizer()
         setupUI()
     }
 
@@ -99,13 +99,10 @@ extension PinCodeView {
         return true
     }
 
-    private func showKeyboardIfNeeded() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showKeyboard))
+    private func setupGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(becomeFirstResponder))
         self.addGestureRecognizer(tapGesture)
-    }
-
-    @objc func showKeyboard() {
-        self.becomeFirstResponder()
     }
 }
 

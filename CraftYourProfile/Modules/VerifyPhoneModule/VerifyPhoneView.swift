@@ -97,7 +97,10 @@ extension VerifyPhoneView {
     private func setupViews() {
 
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        nextButton.addRightImage(image: UIImage(named: "next"), side: 30, offset: -10)
+
+        setNextButtonIsEnabled(false)
+        setupNextButton()
+
         addSubviews([crossButton, mainLabel, additionalLabel, phoneView, nextButton])
 
         crossButton.addTarget(self, action: #selector(crossButtonTapped), for: .touchUpInside)
@@ -112,6 +115,12 @@ extension VerifyPhoneView {
         designer.setView(phoneView, with: additionalLabel, trailingIsShort: false,
                          withHeight: true, specialHeight: false)
         designer.setBottomView(nextButton, with: phoneView)
+    }
+
+    private func setupNextButton() {
+        guard let image = UIImage(named: "next") else { return }
+        let tintedImage = image.withTintColor(.white, renderingMode: .alwaysOriginal)
+        nextButton.addRightImage(image: tintedImage, side: 17, offset: -15)
     }
 }
 

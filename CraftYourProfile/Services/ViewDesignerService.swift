@@ -11,6 +11,7 @@ import UIKit
 class ViewDesignerService {
 
     let view: UIView
+    private let bounds = UIScreen.main.bounds
 
     init(_ view: UIView) {
         self.view = view
@@ -40,7 +41,8 @@ class ViewDesignerService {
 
         if withHeight {
             var height: CGFloat = 50
-            if specialHeight { height = (self.view.bounds.width - 48 - 30) / 6 }
+            // TODO: Need fix, thinking about this parameters
+            if specialHeight { height = (bounds.width - 48 - 30) / 6 }
             view.heightAnchor.constraint(equalToConstant: height).isActive = true
         }
     }

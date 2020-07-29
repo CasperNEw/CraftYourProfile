@@ -144,11 +144,7 @@ extension VerifyPinCodeView {
     }
 
     public func shakePinCodeView() {
-
-        pinCodeView.shakeAnimation()
+        pinCodeView.shake()
         pinCodeView.eraseView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            self.pinCodeView.becomeFirstResponder()
-        }
     }
 }
