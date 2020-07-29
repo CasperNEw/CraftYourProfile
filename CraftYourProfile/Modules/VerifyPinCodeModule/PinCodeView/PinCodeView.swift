@@ -10,6 +10,7 @@ import UIKit
 
 class PinCodeView: UIView, UITextInputTraits {
 
+    // MARK: - Properties
     private var maxLenght = 6
     private var pinCode: String = "" {
         didSet {
@@ -24,6 +25,7 @@ class PinCodeView: UIView, UITextInputTraits {
     var didFinishedEnterCode: ((String) -> Void)?
     var keyboardType: UIKeyboardType = .phonePad
 
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         showKeyboardIfNeeded()
@@ -34,6 +36,7 @@ class PinCodeView: UIView, UITextInputTraits {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Module functions
     private func setupUI() {
         addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -83,7 +86,8 @@ class PinCodeView: UIView, UITextInputTraits {
         return pin
     }
 
-    func eraseView() {
+    // MARK: - Public function
+    public func eraseView() {
         self.pinCode = ""
     }
 }

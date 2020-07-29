@@ -28,8 +28,8 @@ class VerifyPhoneViewController: UIViewController {
     }
 
     lazy private var countryCodeViewController: CountryCodeViewController = {
-        let viewController = CountryCodeViewController()
-        viewController.networkService = NetworkService()
+        let viewController = CountryCodeConfigurator.create()
+        CountryCodeConfigurator.configure(with: viewController)
         viewController.delegate = self
         return viewController
     }()
@@ -125,7 +125,7 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
             return
         }
         showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number") {
-            let viewController = ViewControllerFactory().makeVerifyPinCodeViewController()
+            let viewController = VerifyPinCodeConfigurator.create()
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }

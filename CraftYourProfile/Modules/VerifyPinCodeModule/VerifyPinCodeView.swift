@@ -15,17 +15,9 @@ protocol VerifyPinCodeViewDelegate: AnyObject {
     func didFinishedEnterCode(_ code: String)
 }
 
-protocol VerifyPinCodeViewUpdater {
-
-    func updateResendCodeLabel(with timer: Int)
-    func updateResendCodeLabel(with text: String)
-    func hideResendCodeLabel()
-    func hideResendCodeButton()
-    func shakePinCodeView()
-}
-
 class VerifyPinCodeView: UIView {
 
+    // MARK: - Properties
     private let backButton = PushButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Next, enter the code we sent 😍",
                                     font: .compactRounded(style: .black, size: 32),
@@ -47,14 +39,15 @@ class VerifyPinCodeView: UIView {
                                               transformScale: 0.9)
 
     weak var delegate: VerifyPinCodeViewDelegate?
+    private var didSetupConstraints = false
+
     lazy private var designer: ViewDesignerService = {
         return ViewDesignerService(self)
     }()
 
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        self.backgroundColor = .white
         setupViews()
     }
 
@@ -62,13 +55,25 @@ class VerifyPinCodeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupConstraints()
+    // MARK: - Lifecycle
+    override func updateConstraints() {
+        super.updateConstraints()
+
+        if !didSetupConstraints {
+            setupConstraints()
+            didSetupConstraints = true
+        }
     }
 
+    // MARK: - Module function
     private func setupViews() {
-        addSubviews()
+
+        backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+
+        resendCodeButton.alpha = 0
+        addSubviews([backButton, mainLabel, additionalLabel,
+                     pinCodeView, resendCodeLabel, resendCodeButton])
+
         pinCodeView.didFinishedEnterCode = { [weak self] code in
             self?.delegate?.didFinishedEnterCode(code)
         }
@@ -87,61 +92,6 @@ class VerifyPinCodeView: UIView {
         designer.setBottomView(resendCodeButton, with: pinCodeView)
     }
 
-    @objc func backButtonTapped() {
-        delegate?.backButtonTapped()
-    }
-
-    @objc func resendCodeButtonTapped() {
-        delegate?.resendCodeButtonTapped()
-    }
-}
-
-// MARK: setupViews
-extension VerifyPinCodeView {
-    private func addSubviews() {
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        additionalLabel.translatesAutoresizingMaskIntoConstraints = false
-        pinCodeView.translatesAutoresizingMaskIntoConstraints = false
-        resendCodeLabel.translatesAutoresizingMaskIntoConstraints = false
-        resendCodeButton.translatesAutoresizingMaskIntoConstraints = false
-        resendCodeButton.alpha = 0
-
-        addSubview(backButton)
-        addSubview(mainLabel)
-        addSubview(additionalLabel)
-        addSubview(pinCodeView)
-        addSubview(resendCodeLabel)
-        addSubview(resendCodeButton)
-    }
-}
-
-// MARK: VerifyPinCodeViewUpdater
-extension VerifyPinCodeView: VerifyPinCodeViewUpdater {
-
-    func updateResendCodeLabel(with timer: Int) {
-        let text = "Resend code after \(timer) sec"
-        resendCodeLabel.text = text
-    }
-
-    func updateResendCodeLabel(with text: String) {
-        resendCodeLabel.text = text
-    }
-
-    func hideResendCodeLabel() {
-
-        UIView.animate(withDuration: 1,
-                       animations: { self.resendCodeLabel.alpha = 0 },
-                       completion: { _ in self.showView(self.resendCodeButton) })
-    }
-
-    func hideResendCodeButton() {
-
-        UIView.animate(withDuration: 1,
-                       animations: { self.resendCodeButton.alpha = 0 },
-                       completion: { _ in self.showView(self.resendCodeLabel) })
-    }
-
     private func showView(_ view: UIView) {
 
         view.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
@@ -157,7 +107,43 @@ extension VerifyPinCodeView: VerifyPinCodeViewUpdater {
         })
     }
 
-    func shakePinCodeView() {
+    // MARK: - Actions
+    @objc func backButtonTapped() {
+        delegate?.backButtonTapped()
+    }
+
+    @objc func resendCodeButtonTapped() {
+        delegate?.resendCodeButtonTapped()
+    }
+}
+
+// MARK: - Public functions
+extension VerifyPinCodeView {
+
+    public func updateResendCodeLabel(with timer: Int) {
+        let text = "Resend code after \(timer) sec"
+        resendCodeLabel.text = text
+    }
+
+    func updateResendCodeLabel(with text: String) {
+        resendCodeLabel.text = text
+    }
+
+    public func hideResendCodeLabel() {
+
+        UIView.animate(withDuration: 1,
+                       animations: { self.resendCodeLabel.alpha = 0 },
+                       completion: { _ in self.showView(self.resendCodeButton) })
+    }
+
+    public func hideResendCodeButton() {
+
+        UIView.animate(withDuration: 1,
+                       animations: { self.resendCodeButton.alpha = 0 },
+                       completion: { _ in self.showView(self.resendCodeLabel) })
+    }
+
+    public func shakePinCodeView() {
 
         pinCodeView.shakeAnimation()
         pinCodeView.eraseView()

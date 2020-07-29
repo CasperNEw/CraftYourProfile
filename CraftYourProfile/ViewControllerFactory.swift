@@ -10,16 +10,6 @@ import UIKit
 
 class ViewControllerFactory {
 
-    func makeVerifyPinCodeViewController() -> UIViewController {
-        let view = VerifyPinCodeView()
-        let mainView = ScrollViewContainer(with: view)
-        let viewController = VerifyPinCodeViewController(factory: self,
-                                                         view: mainView,
-                                                         viewUpdater: view)
-        view.delegate = viewController
-        return viewController
-    }
-
     func makeIntroduceYourselfViewController() -> UIViewController {
         let view = IntroduceYourselfView()
         let mainView = ScrollViewContainer(with: view)

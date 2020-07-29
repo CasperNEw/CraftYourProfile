@@ -10,9 +10,11 @@ import UIKit
 
 class PinView: UIView {
 
+    // MARK: - Properties
     let pin = UIView()
     let number = UILabel()
 
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .backgroundGray()
@@ -24,6 +26,7 @@ class PinView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Module function
     private func setupUI() {
         pin.backgroundColor = .gray
         pin.layer.cornerRadius = 5
