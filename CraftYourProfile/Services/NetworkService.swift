@@ -20,6 +20,8 @@ class NetworkService: NetworkServiceLimitedProtocol {
         case single = "/rest/v2/alpha/%@"
     }
 
+    static let flagUrl = "https://www.countryflags.io/%@/flat/32.png"
+
     // MARK: - Public functions
     public func getCountryInformation(shortCode: String,
                                       completion: @escaping (Result<CountryFromServer, Error>) -> Void) {
@@ -28,7 +30,7 @@ class NetworkService: NetworkServiceLimitedProtocol {
         request(path: path) { completion($0) }
     }
 
-    public func getCountriesInformation2(completion: @escaping (Result<[CountryFromServer], Error>) -> Void) {
+    public func getCountriesInformation(completion: @escaping (Result<[CountryFromServer], Error>) -> Void) {
 
         let path = RestcountriesPath.all.rawValue
 

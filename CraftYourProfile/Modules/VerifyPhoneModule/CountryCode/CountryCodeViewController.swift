@@ -9,13 +9,12 @@
 import UIKit
 
 protocol CountryCodeViewControllerDelegate: AnyObject {
-
-    func getCountryCodes(with filter: String?) -> [CountryCode]
-    func didSelectItemAt(index: Int)
+    func didSelectItem(code: CountryCode)
 }
 
 class CountryCodeViewController: UIViewController {
 
+    // MARK: - Properties
     private enum Section: CaseIterable {
         case main
     }
@@ -25,40 +24,84 @@ class CountryCodeViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, CountryCode>!
     weak var delegate: CountryCodeViewControllerDelegate?
 
+    var networkService: NetworkService?
+
+    private var countryCodes: [CountryCode] = []
+    private var sourceCodes: [CountryCode] = [] {
+        didSet { performQuery(with: nil) }
+    }
+
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHierarchy()
         configureDataSource()
         performQuery(with: nil)
+
+        loadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchBar.becomeFirstResponder()
     }
+
+    // MARK: - Module function
+    private func loadData() {
+
+        networkService?
+            .getCountriesInformation(completion: { [weak self] result in
+
+            switch result {
+            case .success(let data):
+                self?.makeCountryCodesFromNetworkData(data)
+            case .failure(let error):
+                self?.showAlert(with: "Network Error", and: error.localizedDescription)
+            }
+        })
+    }
+
+    private func makeCountryCodesFromNetworkData(_ source: [CountryFromServer]) {
+
+        var countryCodes: Set<CountryCode> = []
+
+        let item = DispatchWorkItem {
+            for country in source {
+                for code in country.callingCodes {
+                    countryCodes.insert(CountryCode(code: "+" + code,
+                                                    name: country.name,
+                                                    shortName: country.alpha2Code))
+                }
+            }
+        }
+
+        item.notify(queue: DispatchQueue.main) {
+            self.sourceCodes = countryCodes.sorted { $0.name < $1.name }
+            self.countryCodes = countryCodes.sorted { $0.name < $1.name }
+        }
+
+        DispatchQueue.global(qos: .userInitiated).async(execute: item)
+    }
 }
 
+// MARK: - CollectionView
 extension CountryCodeViewController {
+
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource
             <Section, CountryCode>(collectionView: collectionView,
                                    cellProvider: { (collectionView, indexPath, countryCode) -> UICollectionViewCell? in
-                                    // swiftlint:disable line_length
-                                    guard let countryCodeCell =
-                                        collectionView.dequeueReusableCell(withReuseIdentifier: CountryCodeCell.reuseIdentifier,
-                                                                           for: indexPath) as? CountryCodeCell else {
-                                                                            fatalError("Cannot create new cell")
-                                    }
-                                    // swiftlint:enable line_length
 
-                                    let urlString = String(format: "https://www.countryflags.io/%@/flat/32.png",
-                                                           countryCode.shortName)
+            let countryCodeCell = collectionView
+                .dequeueReusableCell(withReuseIdentifier: CountryCodeCell.reuseIdentifier,
+                                     for: indexPath) as? CountryCodeCell
 
-                                    countryCodeCell.setupCell(code: countryCode.code,
-                                                              country: countryCode.name,
-                                                              imageUrl: urlString)
-                                    return countryCodeCell
-            })
+            countryCodeCell?.setupCell(code: countryCode.code,
+                                       country: countryCode.name,
+                                       imageUrl: String(format: NetworkService.flagUrl,
+                                                        countryCode.shortName))
+            return countryCodeCell
+        })
     }
 
     private func configureHierarchy() {
@@ -90,12 +133,22 @@ extension CountryCodeViewController {
         searchBar.delegate = self
     }
 
-    private func performQuery(with filter: String?) {
-        guard let codes = delegate?.getCountryCodes(with: filter) else { return }
+    private func performQuery(with searchText: String?) {
+        let codes = filterCodes(searchText: searchText ?? "")
         var snapshot = NSDiffableDataSourceSnapshot<Section, CountryCode>()
         snapshot.appendSections([.main])
         snapshot.appendItems(codes)
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+
+    private func filterCodes(searchText: String) -> [CountryCode] {
+
+        if !searchText.isEmpty {
+            countryCodes = sourceCodes.filter { $0.description.lowercased().contains(searchText.lowercased()) }
+        } else {
+            countryCodes = sourceCodes
+        }
+        return countryCodes
     }
 
     private func createLayout() -> UICollectionViewLayout {
@@ -123,21 +176,23 @@ extension CountryCodeViewController {
     }
 }
 
-// MARK: UISearchBarDelegate
+// MARK: - UISearchBarDelegate
 extension CountryCodeViewController: UISearchBarDelegate {
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         performQuery(with: searchText)
     }
 }
 
-// MARK: UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 extension CountryCodeViewController: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
 
         self.dismiss(animated: true) {
             self.searchBar.resignFirstResponder()
-            self.delegate?.didSelectItemAt(index: indexPath.row)
+            self.delegate?.didSelectItem(code: self.countryCodes[indexPath.row])
         }
     }
 }

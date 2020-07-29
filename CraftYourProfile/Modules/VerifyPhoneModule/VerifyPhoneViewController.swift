@@ -11,31 +11,63 @@ import UIKit
 class VerifyPhoneViewController: UIViewController {
 
     // MARK: - Properties
-    var modelController: VerifyPhoneModelControllerProtocol?
-    private var presentationView: VerifyPhoneView?
+    private lazy var presentationView: VerifyPhoneView = {
+        let view = VerifyPhoneView()
+        view.delegate = self
+        return view
+    }()
+
+    var networkService: NetworkServiceLimitedProtocol?
+    var validationService: ValidationService?
+
+    private var selectedCode: CountryCode? {
+        didSet {
+            guard let code = selectedCode?.code else { return }
+            presentationView.setCountryCode(string: code)
+        }
+    }
 
     lazy private var countryCodeViewController: CountryCodeViewController = {
         let viewController = CountryCodeViewController()
+        viewController.networkService = NetworkService()
         viewController.delegate = self
         return viewController
     }()
 
+    // MARK: - Phone Validation
+    private var shouldChangeValidation: Bool = false
+    private var didChangeValidtion: Bool = false {
+        didSet { shouldChangeValidation = didChangeValidtion }
+    }
+
     // MARK: - Lifecycle
     override func loadView() {
-        let view = VerifyPhoneView()
-        view.delegate = self
-        self.presentationView = view
-        self.view = ScrollViewContainer(with: view)
+        self.view = ScrollViewContainer(with: presentationView)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("start load network data")
-        let countryCode = Locale.current.regionCode
-        print(countryCode)
-//        guard let current = modelController?.getCountryCodes(with: nil).filter { $0.shortName == countryCode }.first else { return }
-//        presentationView?.setCountryCode(string: current.code)
+        loadData()
+    }
+
+    // MARK: - Module functions
+    private func loadData() {
+
+        let regionCode = Locale.current.regionCode ?? "RU"
+        networkService?.getCountryInformation(shortCode: regionCode,
+                                              completion: { [weak self] result in
+
+            switch result {
+            case .success(let country):
+                guard let code = country.callingCodes.first else { return }
+                self?.selectedCode = CountryCode(code: "+" + code,
+                                                name: country.name,
+                                                shortName: country.alpha2Code)
+            case .failure(let error):
+                self?.showAlert(with: "Network Error", and: error.localizedDescription)
+            }
+        })
     }
 }
 
@@ -49,22 +81,29 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
             return true
         }
         if Int(string) == nil { return false }
-        if modelController?.isValid(phone: textField.text, completion: { _ in }) == true {
-            return false
-        }
 
-        return true
+        return !shouldChangeValidation
     }
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        guard let text = textField.text else { return }
 
-        if modelController?.isValid(phone: text, completion: { _ in }) == true {
-            let formattedPhone = modelController?.getFormattedPhoneNumber(phone: text) { [weak self] (error) in
-                guard let error = error else { return }
-                self?.showAlert(with: "Phone Number Formatting Error", and: error.localizedDescription)
-            }
-            textField.text = formattedPhone
+        guard let phone = textField.text else { return }
+        didChangeValidtion = validationStatus(phone: phone)
+
+        presentationView.setNextButtonIsEnabled(didChangeValidtion)
+        if didChangeValidtion {
+
+            validationService?.phoneFormatting(phone: phone,
+                                               code: selectedCode?.shortName ?? "",
+                                               completion: { [weak self] result in
+
+                switch result {
+                case .success(let formattedPhone):
+                    textField.text = formattedPhone
+                case .failure(let error):
+                    self?.showAlert(with: "Validation Error", and: error.localizedDescription)
+                }
+            })
         }
     }
 
@@ -73,49 +112,56 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
     }
 
     func codeButtonTapped(_ view: UIView) {
-        modelController?.networkErrorChecking { [weak self] (error) in
-            guard let error = error else { return }
-            showAlert(with: "Network Error", and: error.localizedDescription) {
-                self?.modelController?.reloadData()
-            }
-        }
         present(countryCodeViewController, animated: true)
     }
 
-    func nextButtonTapped(string: String?) {
+    func nextButtonTapped(phone: String) {
 
-        guard let string = string else { return }
-
-        if modelController?.isValid(phone: string, completion: { [weak self] (error) in
-            guard let error = error else { return }
-            self?.showAlert(with: "Validation Error", and: error.localizedDescription)
-        }) == true {
-            let pinCode = AuthorizationService.shared.generationPinCode(with: 6)
-            do {
-                try AuthorizationService.shared.signIn(account: string, pinCode: pinCode)
-            } catch let error {
-                showAlert(with: "Keychain Error", and: error.localizedDescription)
-                return
-            }
-            showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number") {
-                let viewController = ViewControllerFactory().makeVerifyPinCodeViewController()
-                self.navigationController?.pushViewController(viewController, animated: true)
-            }
-        } else {
-            showAlert(with: "Error", and: "Unable to complete validation procedure")
+        let pinCode = AuthorizationService.shared.generationPinCode(with: 6)
+        do {
+            try AuthorizationService.shared.signIn(account: phone, pinCode: pinCode)
+        } catch let error {
+            showAlert(with: "Keychain Error", and: error.localizedDescription)
+            return
         }
+        showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number") {
+            let viewController = ViewControllerFactory().makeVerifyPinCodeViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+}
+
+// MARK: - Module functions
+extension VerifyPhoneViewController {
+
+    private func validationStatus(phone: String?) -> Bool {
+
+        guard let phone = phone else { return false }
+        if phone.count < 5 { return false }
+        if selectedCode?.shortName.isEmpty ?? true { return false }
+
+        var validationStatus = false
+
+        validationService?.isValid(phone: phone,
+                                   region: selectedCode?.shortName ?? "",
+                                   completion: { [weak self] result in
+
+            switch result {
+            case .success(let isValid):
+                validationStatus = isValid
+            case .failure(let error):
+                self?.showAlert(with: "Validation Error", and: error.localizedDescription)
+            }
+        })
+
+        return validationStatus
     }
 }
 
 // MARK: CountryCodeViewControllerDelegate
 extension VerifyPhoneViewController: CountryCodeViewControllerDelegate {
 
-    func getCountryCodes(with filter: String?) -> [CountryCode] {
-        return modelController?.getCountryCodes(with: filter) ?? []
-    }
-
-    func didSelectItemAt(index: Int) {
-        let code = modelController?.getTheSelectedCode(at: index) ?? ""
-        presentationView?.setCountryCode(string: code)
+    func didSelectItem(code: CountryCode) {
+        selectedCode = code
     }
 }

@@ -14,7 +14,10 @@ struct VerifyPhoneConfigurator {
 
     static func configure(with reference: VerifyPhoneViewController) {
 
-        let model = VerifyPhoneModelController()
-        reference.modelController = model
+        let validationService = ValidationService()
+        let networkService = NetworkService()
+
+        reference.validationService = validationService
+        reference.networkService = networkService
     }
 }
