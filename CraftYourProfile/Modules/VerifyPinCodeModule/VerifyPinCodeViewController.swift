@@ -17,6 +17,7 @@ class VerifyPinCodeViewController: UIViewController {
         return view
     }()
 
+    // TODO: need TimerService.shared
     lazy private var timer: Timer = {
         let timer = Timer(timeInterval: 1, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
         timer.tolerance = 0.1
@@ -88,6 +89,7 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
             if pinCode != code {
                 presentationView.shakePinCodeView()
             } else {
+                view.endEditing(true)
                 showAlert(with: "Success", and: "Go to Create Your Profile! 😍") {
                     let viewController = ViewControllerFactory().makeIntroduceYourselfViewController()
                     self.navigationController?.pushViewController(viewController, animated: true)

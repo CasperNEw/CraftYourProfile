@@ -124,8 +124,8 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
             showAlert(with: "Keychain Error", and: error.localizedDescription)
             return
         }
+        view.endEditing(true)
         showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number") {
-            print("Your PIN code - '\(pinCode)")
             let viewController = VerifyPinCodeConfigurator.create()
             self.navigationController?.pushViewController(viewController, animated: true)
         }
