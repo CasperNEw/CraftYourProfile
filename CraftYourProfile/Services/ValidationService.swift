@@ -10,9 +10,11 @@ import libPhoneNumber_iOS
 
 class ValidationService {
 
+    // MARK: - Properties
     private let phoneUtil = NBPhoneNumberUtil()
 
-    func isValid(phone: String, region: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    // MARK: - Public functions
+    public func isValid(phone: String, region: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         do {
             let phoneNumber: NBPhoneNumber = try phoneUtil.parse(phone, defaultRegion: region)
             completion(.success(phoneUtil.isValidNumber(phoneNumber)))
@@ -21,17 +23,37 @@ class ValidationService {
         }
     }
 
-    func format(phone: String, region: String, completion: @escaping (Result<String, Error>) -> Void) {
+    public func phoneFormatting(phone: String, code: String, completion: @escaping (Result<String, Error>) -> Void) {
+
+        if code.isEmpty {
+            completion(.success(phone))
+            return
+        }
+
         do {
-            let phoneNumber: NBPhoneNumber = try phoneUtil.parse(phone, defaultRegion: region)
+            let phoneNumber: NBPhoneNumber = try phoneUtil.parse(phone, defaultRegion: code)
             do {
                 let formattedString: String = try phoneUtil.format(phoneNumber, numberFormat: .RFC3966)
-                completion(.success(phoneUtil.extractPossibleNumber(formattedString)))
+
+                guard let fullString = phoneUtil.extractPossibleNumber(formattedString) else {
+                    completion(.success(phone))
+                    return
+                }
+
+                let prefix = code + "-"
+                if fullString.hasPrefix(prefix) {
+                    completion(.success(phone))
+                    return
+                }
+                completion(.success(String(fullString.dropFirst(prefix.count))))
+
             } catch let error {
                 completion(.failure(error))
+                return
             }
         } catch let error {
             completion(.failure(error))
+            return
         }
     }
 }
