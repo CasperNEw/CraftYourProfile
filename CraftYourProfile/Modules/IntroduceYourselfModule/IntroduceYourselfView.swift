@@ -11,16 +11,12 @@ import UIKit
 protocol IntroduceYourselfViewDelegate: AnyObject {
 
     func backButtonTapped()
-    func nextButtonTapped(_ nameTextField: UITextField, _ birthdayTextField: UITextField, _ date: Date)
-}
-
-protocol IntroduceYourselfViewUpdater {
-
-    func shakeTextFieldView(_ textField: UITextField)
+    func nextButtonTapped(_ name: String, _ birthday: Date)
 }
 
 class IntroduceYourselfView: UIView {
 
+    // MARK: - Properties
     private let backButton = PushButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Let's introduce yourself 🤪",
                                     font: .compactRounded(style: .black, size: 32),
@@ -30,19 +26,19 @@ class IntroduceYourselfView: UIView {
                                     font: .compactRounded(style: .semibold, size: 15),
                                     color: .gray, lines: 1, alignment: .left)
 
-    private let nameTextField = UITextField(font: .compactRounded(style: .semibold, size: 20),
-                                            textColor: .black, backgroundColor: .backgroundGray(),
-                                            cornerRadius: 15)
+    private let nameTextField = OffsetTextField(font: .compactRounded(style: .semibold, size: 20),
+                                                textColor: .black, backgroundColor: .backgroundGray(),
+                                                cornerRadius: 15, alignment: .left)
 
     private let birthdayLabel = UILabel(text: "BIRTHDAY",
                                         font: .compactRounded(style: .semibold, size: 15),
                                         color: .gray, lines: 1, alignment: .left)
 
-    private let birthdayTextField = UITextField(font: .compactRounded(style: .semibold, size: 20),
-                                                textColor: .black, backgroundColor: .backgroundGray(),
-                                                cornerRadius: 15)
-    private let datePicker = UIDatePicker()
-    private let dateButton = PushButton(image: UIImage(named: "rexona"))
+    private let birthdayTextField = DateTextField(font: .compactRounded(style: .semibold, size: 20),
+                                                  textColor: .black,
+                                                  backgroundColor: .backgroundGray(),
+                                                  cornerRadius: 15,
+                                                  alignment: .left)
 
     private let nextButton = PushButton(title: "Next", titleColor: .white,
                                         backgroundColor: .blueButton(),
@@ -50,21 +46,27 @@ class IntroduceYourselfView: UIView {
                                         cornerRadius: 20,
                                         transformScale: 0.9)
 
-    lazy private var formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter
-    }()
-
     weak var delegate: IntroduceYourselfViewDelegate?
+    private var didSetupConstraints = false
+
     lazy private var designer: ViewDesignerService = {
         return ViewDesignerService(self)
     }()
 
+    private var currentData: (name: String, birthday: Date?) = ("", nil) {
+        didSet {
+            currentData.name = currentData.name.trimmingCharacters(in: .whitespacesAndNewlines)
+            if currentData.name.count < 3 || currentData.birthday == nil {
+                setNextButtonIsEnabled(false, animate: true)
+                return
+            }
+            setNextButtonIsEnabled(true, animate: true)
+        }
+    }
+
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        self.backgroundColor = .white
         setupViews()
     }
 
@@ -72,28 +74,81 @@ class IntroduceYourselfView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupConstraints()
+    // MARK: - Lifecycle
+    override func updateConstraints() {
+        super.updateConstraints()
+
+        if !didSetupConstraints {
+            setupConstraints()
+            didSetupConstraints = true
+        }
     }
 
+    // MARK: - Actions
+    @objc func backButtonTapped() {
+        delegate?.backButtonTapped()
+    }
+
+    @objc func nextButtonTapped() {
+        guard let birthday = currentData.birthday else { return }
+        delegate?.nextButtonTapped(currentData.name, birthday)
+    }
+}
+
+// MARK: - Module functions
+extension IntroduceYourselfView {
+
     private func setupViews() {
+
+        backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+
+        setNextButtonIsEnabled(false, animate: false)
         setupNextButton()
         setupTextFields()
-        addSubviews()
+
+        addSubviews([backButton, mainLabel, nameLabel,
+                     nameTextField, birthdayLabel,
+                     birthdayTextField, nextButton])
 
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        dateButton.addTarget(self, action: #selector(dateButtonTapped), for: .touchUpInside)
-        datePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
+    }
+
+    private func setupNextButton() {
+        guard let image = UIImage(named: "next") else { return }
+        let tintedImage = image.withTintColor(.white, renderingMode: .alwaysOriginal)
+        nextButton.addRightImage(image: tintedImage, side: 17, offset: -15)
+    }
+
+    private func setNextButtonIsEnabled(_ value: Bool, animate: Bool) {
+
+        nextButton.isEnabled = value
+
+        if !animate {
+            nextButton.backgroundColor = value ? .blueButton() : .backgroundGray()
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                self.nextButton.backgroundColor = value ? .blueButton() : .backgroundGray()
+            }
+        }
+    }
+
+    private func setupTextFields() {
+
+        birthdayTextField.dateDelegate = self
+        nameTextField.delegate = self
+        nameTextField.tintColor = .gray
     }
 
     private func setupConstraints() {
+
         designer.setBackButton(backButton)
         designer.setView(mainLabel, with: backButton)
         designer.setView(nameLabel, with: mainLabel)
+
         designer.setView(nameTextField, with: nameLabel, trailingIsShort: false,
                          withHeight: true, specialHeight: false)
+
         designer.setView(birthdayLabel, with: nameTextField)
         designer.setView(birthdayTextField, with: birthdayLabel, trailingIsShort: false,
                          withHeight: true, specialHeight: false)
@@ -101,82 +156,31 @@ class IntroduceYourselfView: UIView {
         designer.setBottomView(nextButton, with: birthdayTextField, multiplier: 2,
                                constant: birthdayLabel.bounds.height)
     }
+}
 
-    @objc func backButtonTapped() {
-        delegate?.backButtonTapped()
-    }
+// MARK: - DateTextFieldDelegate
+extension IntroduceYourselfView: DateTextFieldDelegate {
 
-    @objc func nextButtonTapped() {
-        delegate?.nextButtonTapped(nameTextField, birthdayTextField, datePicker.date)
-    }
-
-    @objc func dateButtonTapped() {
-        birthdayTextField.becomeFirstResponder()
-    }
-
-    @objc func datePickerChanged() {
-        birthdayTextField.text = formatter.string(from: datePicker.date)
+    func dateChanged(to date: Date) {
+        currentData.birthday = date
     }
 }
 
-// MARK: setupViews
-extension IntroduceYourselfView {
-    private func addSubviews() {
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameTextField.translatesAutoresizingMaskIntoConstraints = false
-        birthdayLabel.translatesAutoresizingMaskIntoConstraints = false
-        birthdayTextField.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-
-        addSubview(backButton)
-        addSubview(mainLabel)
-        addSubview(nameLabel)
-        addSubview(nameTextField)
-        addSubview(birthdayLabel)
-        addSubview(birthdayTextField)
-        addSubview(nextButton)
-    }
-
-    private func setupNextButton() {
-        nextButton.addRightImage(image: UIImage(named: "next"), side: 30, offset: -10)
-    }
-
-    private func setupTextFields() {
-        birthdayTextField.addRightButton(button: dateButton, side: 30, offset: -10)
-
-        birthdayTextField.inputView = datePicker
-        nameTextField.delegate = self
-        birthdayTextField.delegate = self
-        datePicker.datePickerMode = .date
-        datePicker.backgroundColor = .white
-
-        let minDate = Date(timeIntervalSince1970: 0)
-        datePicker.maximumDate = Calendar.current.date(byAdding: .year, value: -18, to: Date())
-        datePicker.minimumDate = minDate
-        datePicker.date = minDate
-
-        guard let locale = Locale.preferredLanguages.first else { return }
-        datePicker.locale = Locale(identifier: locale)
-    }
-}
-
-// MARK: UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 extension IntroduceYourselfView: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
 
-        if textField == birthdayTextField { return false }
         if textField.text?.count == 20 { return false }
         return true
     }
-}
 
-// MARK: IntroduceYourselfViewUpdater
-extension IntroduceYourselfView: IntroduceYourselfViewUpdater {
-    func shakeTextFieldView(_ textField: UITextField) {
-        textField.shake()
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        currentData.name = textField.text ?? ""
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

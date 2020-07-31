@@ -10,16 +10,6 @@ import UIKit
 
 class ViewControllerFactory {
 
-    func makeIntroduceYourselfViewController() -> UIViewController {
-        let view = IntroduceYourselfView()
-        let mainView = ScrollViewContainer(with: view)
-        let viewController = IntroduceYourselfViewController(factory: self,
-                                                             view: mainView,
-                                                             viewUpdater: view)
-        view.delegate = viewController
-        return viewController
-    }
-
     func makeAddProfilePhotoViewController() -> UIViewController {
         let view = AddProfilePhotoView()
         let viewController = AddProfilePhotoViewController(factory: self,

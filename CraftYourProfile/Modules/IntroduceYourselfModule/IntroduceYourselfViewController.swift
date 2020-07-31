@@ -10,55 +10,30 @@ import UIKit
 
 class IntroduceYourselfViewController: UIViewController {
 
-    // MARK: Init
-    private var viewControllerFactory: ViewControllerFactory
-    private var viewUpdater: IntroduceYourselfViewUpdater
+    // MARK: - Properties
+    private lazy var presentationView: IntroduceYourselfView = {
+        let view = IntroduceYourselfView()
+        view.delegate = self
+        return view
+    }()
 
-    init(factory: ViewControllerFactory,
-         view: UIView,
-         viewUpdater: IntroduceYourselfViewUpdater) {
-
-        self.viewControllerFactory = factory
-        self.viewUpdater = viewUpdater
-
-        super.init(nibName: nil, bundle: nil)
-        self.view = view
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // MARK: - Lifecycle
+    override func loadView() {
+        view = ScrollViewContainer(with: presentationView)
     }
 }
 
 // MARK: IntroduceYourselfViewDelegate
 extension IntroduceYourselfViewController: IntroduceYourselfViewDelegate {
 
+    func nextButtonTapped(_ name: String, _ birthday: Date) {
+
+        AuthorizationService.shared.createUserData(name: name, birthday: birthday)
+        let viewController = ViewControllerFactory().makeAddProfilePhotoViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
     func backButtonTapped() {
-        perform(#selector(popViewController), with: nil, afterDelay: 0.5)
-    }
-
-    @objc func popViewController() {
         navigationController?.popViewController(animated: true)
-    }
-
-    func nextButtonTapped(_ nameTextField: UITextField, _ birthdayTextField: UITextField, _ date: Date) {
-
-        guard let name = nameTextField.text, let birthday = birthdayTextField.text else { return }
-        var check = true
-
-        if name.isEmpty {
-            check = false
-            viewUpdater.shakeTextFieldView(nameTextField)
-        }
-        if birthday.isEmpty {
-            check = false
-            viewUpdater.shakeTextFieldView(birthdayTextField)
-        }
-
-        if check {
-            AuthorizationService.shared.createUserData(name: name, birthday: date)
-            let viewController = viewControllerFactory.makeAddProfilePhotoViewController()
-            navigationController?.pushViewController(viewController, animated: true)
-        }
     }
 }

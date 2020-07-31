@@ -73,6 +73,8 @@
 		DAAC5D1624869FEA0079E6F5 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1524869FEA0079E6F5 /* ValidationService.swift */; };
 		DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */; };
 		DAAEC4B624D431D30088D864 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEC4B524D431D30088D864 /* TimerService.swift */; };
+		DAAEC4B824D450100088D864 /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEC4B724D450100088D864 /* DateTextField.swift */; };
+		DAAEC4BA24D459150088D864 /* OffsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEC4B924D459150088D864 /* OffsetTextField.swift */; };
 		DACF49BD24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +161,8 @@
 		DAAC5D1524869FEA0079E6F5 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneView.swift; sourceTree = "<group>"; };
 		DAAEC4B524D431D30088D864 /* TimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
+		DAAEC4B724D450100088D864 /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
+		DAAEC4B924D459150088D864 /* OffsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetTextField.swift; sourceTree = "<group>"; };
 		DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -324,6 +328,8 @@
 			children = (
 				DA1D9A2D24925D9400913A22 /* IntroduceYourselfViewController.swift */,
 				DA1D9A3324935C8700913A22 /* IntroduceYourselfView.swift */,
+				DAAEC4B724D450100088D864 /* DateTextField.swift */,
+				DAAEC4B924D459150088D864 /* OffsetTextField.swift */,
 			);
 			path = IntroduceYourselfModule;
 			sourceTree = "<group>";
@@ -642,6 +648,7 @@
 				DA94DE8F24D1DD6900125306 /* CountryCodeConfigurator.swift in Sources */,
 				DAAC5D0B247E916D0079E6F5 /* VerifyPhoneViewController.swift in Sources */,
 				DA8AD263246FDAA500876C69 /* UIFont+.swift in Sources */,
+				DAAEC4B824D450100088D864 /* DateTextField.swift in Sources */,
 				DA52EE4124893B480062D174 /* UIView+.swift in Sources */,
 				DA2086692493932B0017F0E8 /* AddProfilePhotoViewController.swift in Sources */,
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
@@ -670,6 +677,7 @@
 				DA262DB9248E3E05007FB3EA /* CountryCodeCell.swift in Sources */,
 				DA1D9A29249216BB00913A22 /* AuthorizationService.swift in Sources */,
 				DA1D9A23249154E300913A22 /* PinView.swift in Sources */,
+				DAAEC4BA24D459150088D864 /* OffsetTextField.swift in Sources */,
 				DA1D9A3424935C8700913A22 /* IntroduceYourselfView.swift in Sources */,
 				DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */,
 				DA262DBD248E67D0007FB3EA /* UIViewController+.swift in Sources */,
