@@ -13,24 +13,27 @@ protocol AddProfilePhotoViewDelegate: AnyObject {
     func backButtonTapped()
     func editButtonTapped()
     func skipButtonTapped()
-    func addPhotoButtonTapped(image: UIImage?)
+    func addPhotoButtonTapped(state: AddButtonState)
 }
 
-protocol AddProfilePhotoViewUpdater {
-
-    func showEditButton()
-    func editAddPhotoButton()
-    func updatePhotoView(image: UIImage)
+enum AddButtonState: String {
+    case add = "Add Photo"
+    case done = "Done"
 }
 
 class AddProfilePhotoView: UIView {
 
+    // MARK: - Properties
     private let backButton = PushButton(image: UIImage(named: "back"))
     private let mainLabel = UILabel(text: "Add profile photo ❤️",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 1, alignment: .left)
 
-    private let photoView = AddPhotoView()
+    private lazy var photoView: AddPhotoView = {
+        let photoView = AddPhotoView()
+        photoView.delegate = self
+        return photoView
+    }()
 
     private let skipButton = PushButton(title: "Skip for now", titleColor: .gray,
                                         backgroundColor: .clear,
@@ -44,15 +47,19 @@ class AddProfilePhotoView: UIView {
                                             transformScale: 0.9)
 
     weak var delegate: AddProfilePhotoViewDelegate?
+    private var didSetupConstraints = false
+
+    private var buttonState: AddButtonState = .add {
+        didSet { changeAddButtonText() }
+    }
 
     lazy private var designer: ViewDesignerService = {
         return ViewDesignerService(self)
     }()
 
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        self.backgroundColor = .white
         setupViews()
     }
 
@@ -60,21 +67,38 @@ class AddProfilePhotoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupConstraints()
+    // MARK: - Lifecycle
+    override func updateConstraints() {
+        super.updateConstraints()
+
+        if !didSetupConstraints {
+            setupConstraints()
+            didSetupConstraints = true
+        }
     }
 
+    // MARK: - Public function
+    public func setImage(_ image: UIImage?) {
+        photoView.setImage(image)
+        buttonState = image == nil ? .add : .done
+    }
+
+    // MARK: - Module functions
     private func setupViews() {
-        addSubviews()
+
+        self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+
+        addSubviews([backButton, mainLabel, photoView,
+                     skipButton, addPhotoButton])
 
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
-        photoView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+
         addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
     }
 
     private func setupConstraints() {
+
         designer.setBackButton(backButton)
         designer.setView(mainLabel, with: backButton, trailingIsShort: false)
 
@@ -91,6 +115,14 @@ class AddProfilePhotoView: UIView {
         designer.setView(addPhotoButton, with: skipButton, trailingIsShort: false, withHeight: true)
     }
 
+    private func changeAddButtonText() {
+
+        for view in addPhotoButton.subviews {
+            (view as? UILabel)?.text = buttonState.rawValue
+        }
+    }
+
+    // MARK: - Actions
     @objc func backButtonTapped() {
         delegate?.backButtonTapped()
     }
@@ -99,45 +131,15 @@ class AddProfilePhotoView: UIView {
         delegate?.skipButtonTapped()
     }
 
-    @objc func editButtonTapped() {
-        delegate?.editButtonTapped()
-    }
-
     @objc func addPhotoButtonTapped() {
-        delegate?.addPhotoButtonTapped(image: photoView.imageView.image)
+        delegate?.addPhotoButtonTapped(state: buttonState)
     }
 }
 
-// MARK: setupViews
-extension AddProfilePhotoView {
-    private func addSubviews() {
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        photoView.translatesAutoresizingMaskIntoConstraints = false
-        skipButton.translatesAutoresizingMaskIntoConstraints = false
-        addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+// MARK: - AddPhotoViewDelegate
+extension AddProfilePhotoView: AddPhotoViewDelegate {
 
-        addSubview(backButton)
-        addSubview(mainLabel)
-        addSubview(photoView)
-        addSubview(skipButton)
-        addSubview(addPhotoButton)
-    }
-}
-
-// MARK: AddProfilePhotoViewUpdater
-extension AddProfilePhotoView: AddProfilePhotoViewUpdater {
-    func showEditButton() {
-        photoView.showButton()
-    }
-
-    func editAddPhotoButton() {
-        for view in addPhotoButton.subviews {
-            (view as? UILabel)?.text = "Done"
-        }
-    }
-
-    func updatePhotoView(image: UIImage) {
-        photoView.imageView.image = image
+    func editButtonTapped() {
+        delegate?.editButtonTapped()
     }
 }

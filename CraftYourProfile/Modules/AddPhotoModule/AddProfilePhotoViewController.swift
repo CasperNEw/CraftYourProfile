@@ -10,74 +10,65 @@ import UIKit
 
 class AddProfilePhotoViewController: UIViewController {
 
-    // MARK: Init
-    private var viewControllerFactory: ViewControllerFactory
-    private var viewUpdater: AddProfilePhotoViewUpdater
+    // MARK: - Properties
+    private lazy var presentationView: AddProfilePhotoView = {
+        let view = AddProfilePhotoView()
+        view.delegate = self
+        return view
+    }()
 
-    private var photoIsEmpty = true
-    var imagePicker: ImagePicker?
+    private lazy var imagePicker: ImagePicker = {
+        let imagePicker = ImagePicker(presentationController: self,
+                                      delegate: self)
+        return imagePicker
+    }()
 
-    init(factory: ViewControllerFactory,
-         view: UIView,
-         viewUpdater: AddProfilePhotoViewUpdater) {
-
-        self.viewControllerFactory = factory
-        self.viewUpdater = viewUpdater
-
-        super.init(nibName: nil, bundle: nil)
-        self.view = view
+    private var currentImage: UIImage? {
+        didSet { presentationView.setImage(currentImage) }
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // MARK: - Lifecycle
+    override func loadView() {
+        view = presentationView
+    }
+
+    // MARK: - Module function
+    private func finish() {
+        showAlert(with: "Success", and: "You did it! 🙃")
     }
 }
 
-// MARK: AddProfilePhotoViewDelegate
+// MARK: - AddProfilePhotoViewDelegate
 extension AddProfilePhotoViewController: AddProfilePhotoViewDelegate {
 
     func backButtonTapped() {
-        perform(#selector(popViewController), with: nil, afterDelay: 0.5)
-    }
-
-    @objc func popViewController() {
         navigationController?.popViewController(animated: true)
     }
 
     func editButtonTapped() {
-        imagePicker?.present()
+        imagePicker.present(imageIsEmpty: currentImage == nil ? true : false)
     }
 
     func skipButtonTapped() {
         finish()
     }
 
-    func addPhotoButtonTapped(image: UIImage?) {
-        if photoIsEmpty {
-            imagePicker?.present()
-            return
-        }
-        AuthorizationService.shared.updateUserPhoto(image: image)
-        finish()
-    }
+    func addPhotoButtonTapped(state: AddButtonState) {
 
-    private func finish() {
-        showAlert(with: "Success", and: "You did it! 🙃") {
-            print("Congratulation!", #function)
+        switch state {
+        case .add:
+            imagePicker.present(imageIsEmpty: currentImage == nil ? true : false)
+        case .done:
+            AuthorizationService.shared.updateUserPhoto(image: currentImage)
+            finish()
         }
     }
 }
 
 // MARK: ImagePickerDelegate
 extension AddProfilePhotoViewController: ImagePickerDelegate {
-    func didSelect(image: UIImage?) {
 
-        DispatchQueue.main.async {
-            guard let image = image else { return }
-            self.viewUpdater.updatePhotoView(image: image)
-            self.viewUpdater.editAddPhotoButton()
-            self.viewUpdater.showEditButton()
-            self.photoIsEmpty = false
-        }
+    func didSelect(image: UIImage?) {
+        currentImage = image
     }
 }

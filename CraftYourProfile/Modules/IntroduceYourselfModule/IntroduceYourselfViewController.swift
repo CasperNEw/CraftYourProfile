@@ -29,7 +29,7 @@ extension IntroduceYourselfViewController: IntroduceYourselfViewDelegate {
     func nextButtonTapped(_ name: String, _ birthday: Date) {
 
         AuthorizationService.shared.createUserData(name: name, birthday: birthday)
-        let viewController = ViewControllerFactory().makeAddProfilePhotoViewController()
+        let viewController = AddProfilePhotoViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
 

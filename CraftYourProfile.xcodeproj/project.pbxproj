@@ -38,7 +38,6 @@
 		DA62355D24CD92FD0020711C /* Issues.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA62355C24CD92FD0020711C /* Issues.swift */; };
 		DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A296248F94EC004079AC /* WelcomeView.swift */; };
 		DA67A299248FBCC5004079AC /* EmitterLayerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */; };
-		DA67A29D248FCC32004079AC /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A29C248FCC32004079AC /* ViewControllerFactory.swift */; };
 		DA67A29F2490FC9A004079AC /* VerifyPinCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A29E2490FC9A004079AC /* VerifyPinCodeViewController.swift */; };
 		DA67A2A124910078004079AC /* ViewDesignerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A2A024910078004079AC /* ViewDesignerService.swift */; };
 		DA8AD22D246FBF8A00876C69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */; };
@@ -124,7 +123,6 @@
 		DA62355C24CD92FD0020711C /* Issues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issues.swift; sourceTree = "<group>"; };
 		DA67A296248F94EC004079AC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterLayerAnimator.swift; sourceTree = "<group>"; };
-		DA67A29C248FCC32004079AC /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		DA67A29E2490FC9A004079AC /* VerifyPinCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPinCodeViewController.swift; sourceTree = "<group>"; };
 		DA67A2A024910078004079AC /* ViewDesignerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDesignerService.swift; sourceTree = "<group>"; };
 		DA8AD229246FBF8A00876C69 /* CraftYourProfile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftYourProfile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,7 +369,6 @@
 				DA62355C24CD92FD0020711C /* Issues.swift */,
 				DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */,
 				DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */,
-				DA67A29C248FCC32004079AC /* ViewControllerFactory.swift */,
 				DA262DBA248E6612007FB3EA /* Modules */,
 				DAAC5D0F24860EE80079E6F5 /* Services */,
 				DA1D9A2A249238EF00913A22 /* Errors */,
@@ -671,7 +668,6 @@
 				DA2086732498DACF0017F0E8 /* AddPhotoView.swift in Sources */,
 				DA67A299248FBCC5004079AC /* EmitterLayerAnimator.swift in Sources */,
 				DA1D9A2C2492390B00913A22 /* KeychainError.swift in Sources */,
-				DA67A29D248FCC32004079AC /* ViewControllerFactory.swift in Sources */,
 				DA67A2A124910078004079AC /* ViewDesignerService.swift in Sources */,
 				DA67A29F2490FC9A004079AC /* VerifyPinCodeViewController.swift in Sources */,
 				DA262DB9248E3E05007FB3EA /* CountryCodeCell.swift in Sources */,
