@@ -75,10 +75,17 @@ class VerifyPhoneView: UIView {
         phoneView.setCodeValue(string: string)
     }
 
-    public func setNextButtonIsEnabled(_ value: Bool) {
+    public func setNextButtonIsEnabled(_ value: Bool, animate: Bool) {
 
         nextButton.isEnabled = value
-        nextButton.backgroundColor = value ? .blueButton() : .backgroundGray()
+
+        if !animate {
+            nextButton.backgroundColor = value ? .blueButton() : .backgroundGray()
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                self.nextButton.backgroundColor = value ? .blueButton() : .backgroundGray()
+            }
+        }
     }
 
     // MARK: - Actions
@@ -98,7 +105,7 @@ extension VerifyPhoneView {
 
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
 
-        setNextButtonIsEnabled(false)
+        setNextButtonIsEnabled(false, animate: false)
         setupNextButton()
 
         addSubviews([crossButton, mainLabel, additionalLabel, phoneView, nextButton])

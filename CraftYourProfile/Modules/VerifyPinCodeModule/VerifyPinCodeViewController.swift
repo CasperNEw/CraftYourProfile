@@ -22,7 +22,7 @@ class VerifyPinCodeViewController: UIViewController {
 
     // MARK: - Lifecycle
     override func loadView() {
-        self.view = ScrollViewContainer(with: presentationView)
+        view = ScrollViewContainer(with: presentationView)
     }
 
     override func viewDidLoad() {
@@ -84,7 +84,7 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
                 view.endEditing(true)
                 isFirstLoad = false
                 showAlert(with: "Success", and: "Go to Create Your Profile! 😍") {
-                    let viewController = ViewControllerFactory().makeIntroduceYourselfViewController()
+                    let viewController = IntroduceYourselfViewController()
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
             }

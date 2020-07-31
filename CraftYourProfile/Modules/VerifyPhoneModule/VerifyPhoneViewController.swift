@@ -42,7 +42,7 @@ class VerifyPhoneViewController: UIViewController {
 
     // MARK: - Lifecycle
     override func loadView() {
-        self.view = ScrollViewContainer(with: presentationView)
+        view = ScrollViewContainer(with: presentationView)
     }
 
     override func viewDidLoad() {
@@ -90,7 +90,7 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
         guard let phone = textField.text else { return }
         didChangeValidtion = validationStatus(phone: phone)
 
-        presentationView.setNextButtonIsEnabled(didChangeValidtion)
+        presentationView.setNextButtonIsEnabled(didChangeValidtion, animate: true)
         if didChangeValidtion {
 
             validationService?.phoneFormatting(phone: phone,
