@@ -16,6 +16,7 @@ enum KeychainError: Error {
 }
 
 extension KeychainError: LocalizedError {
+
     var errorDescription: String? {
         switch self {
         case .accountSearchError:
