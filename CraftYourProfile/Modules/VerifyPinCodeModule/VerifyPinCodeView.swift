@@ -125,10 +125,6 @@ extension VerifyPinCodeView {
         resendCodeLabel.text = text
     }
 
-    func updateResendCodeLabel(with text: String) {
-        resendCodeLabel.text = text
-    }
-
     public func hideResendCodeLabel() {
 
         UIView.animate(withDuration: 1,

@@ -87,7 +87,6 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
                     let viewController = ViewControllerFactory().makeIntroduceYourselfViewController()
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
-                presentationView.updateResendCodeLabel(with: "Perfect 😌")
             }
         } catch let error {
             showAlert(with: "Keychain Error", and: error.localizedDescription)
