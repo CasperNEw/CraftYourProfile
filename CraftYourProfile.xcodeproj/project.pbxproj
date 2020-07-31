@@ -67,12 +67,12 @@
 		DA94DE8B24D1C71200125306 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94DE8A24D1C71200125306 /* NetworkError.swift */; };
 		DA94DE8D24D1D03800125306 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94DE8C24D1D03800125306 /* ValidationError.swift */; };
 		DA94DE8F24D1DD6900125306 /* CountryCodeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94DE8E24D1DD6900125306 /* CountryCodeConfigurator.swift */; };
-		DA94DE9124D1DE4900125306 /* VerifyPinCodeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA94DE9024D1DE4900125306 /* VerifyPinCodeConfigurator.swift */; };
 		DAAC5D0B247E916D0079E6F5 /* VerifyPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */; };
 		DAAC5D1124860F060079E6F5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1024860F050079E6F5 /* NetworkService.swift */; };
 		DAAC5D1424869E6A0079E6F5 /* CountryFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */; };
 		DAAC5D1624869FEA0079E6F5 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1524869FEA0079E6F5 /* ValidationService.swift */; };
 		DAAC5D1924879D4C0079E6F5 /* VerifyPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */; };
+		DAAEC4B624D431D30088D864 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEC4B524D431D30088D864 /* TimerService.swift */; };
 		DACF49BD24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */; };
 /* End PBXBuildFile section */
 
@@ -153,12 +153,12 @@
 		DA94DE8A24D1C71200125306 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		DA94DE8C24D1D03800125306 /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		DA94DE8E24D1DD6900125306 /* CountryCodeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeConfigurator.swift; sourceTree = "<group>"; };
-		DA94DE9024D1DE4900125306 /* VerifyPinCodeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPinCodeConfigurator.swift; sourceTree = "<group>"; };
 		DAAC5D0A247E916D0079E6F5 /* VerifyPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneViewController.swift; sourceTree = "<group>"; };
 		DAAC5D1024860F050079E6F5 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		DAAC5D1324869E690079E6F5 /* CountryFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFromServer.swift; sourceTree = "<group>"; };
 		DAAC5D1524869FEA0079E6F5 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		DAAC5D1824879D4B0079E6F5 /* VerifyPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneView.swift; sourceTree = "<group>"; };
+		DAAEC4B524D431D30088D864 /* TimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
 		DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -302,7 +302,6 @@
 		DA62356024CD976D0020711C /* VerifyPinCodeModule */ = {
 			isa = PBXGroup;
 			children = (
-				DA94DE9024D1DE4900125306 /* VerifyPinCodeConfigurator.swift */,
 				DA67A29E2490FC9A004079AC /* VerifyPinCodeViewController.swift */,
 				DA1D9A1C2491050B00913A22 /* VerifyPinCodeView.swift */,
 				DA1D9A202491354900913A22 /* PinCodeView */,
@@ -431,6 +430,7 @@
 				DA67A2A024910078004079AC /* ViewDesignerService.swift */,
 				DA1D9A242491596F00913A22 /* ResizeScrollViewService.swift */,
 				DA1D9A28249216BB00913A22 /* AuthorizationService.swift */,
+				DAAEC4B524D431D30088D864 /* TimerService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -647,6 +647,7 @@
 				DA8AD241246FC06300876C69 /* WelcomeViewController.swift in Sources */,
 				DA390AD824CDD20E008A535D /* PushButton.swift in Sources */,
 				DACF49BD24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift in Sources */,
+				DAAEC4B624D431D30088D864 /* TimerService.swift in Sources */,
 				DA94DE8D24D1D03800125306 /* ValidationError.swift in Sources */,
 				DA20867524991F9C0017F0E8 /* ImagePicker.swift in Sources */,
 				DA8AD2752472792000876C69 /* UIButton+.swift in Sources */,
@@ -681,7 +682,6 @@
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,
 				DA262DCC248F6390007FB3EA /* UIScrollView+.swift in Sources */,
 				DA1D9A36249360CE00913A22 /* UITextField+.swift in Sources */,
-				DA94DE9124D1DE4900125306 /* VerifyPinCodeConfigurator.swift in Sources */,
 				DA2DED3524A0B1A100944342 /* PhoneView.swift in Sources */,
 				DA8AD27324707FC700876C69 /* UIImage+.swift in Sources */,
 				DA8AD26D24700EE900876C69 /* NSAttributedString+.swift in Sources */,

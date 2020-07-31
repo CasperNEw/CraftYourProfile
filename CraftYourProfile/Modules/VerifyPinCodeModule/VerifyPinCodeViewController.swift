@@ -17,31 +17,42 @@ class VerifyPinCodeViewController: UIViewController {
         return view
     }()
 
-    // TODO: need TimerService.shared
-    lazy private var timer: Timer = {
-        let timer = Timer(timeInterval: 1, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
-        timer.tolerance = 0.1
-        return timer
-    }()
-    private var repeatTimerInterval = 20
+    var timerService: TimerService?
+    private var isFirstLoad = true
 
     // MARK: - Lifecycle
     override func loadView() {
         self.view = ScrollViewContainer(with: presentationView)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        startTimer()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bindTimer()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
+        if !isFirstLoad { startTimer() }
+    }
+
+    // MARK: - Module functions
+    private func startTimer() {
         presentationView.hideResendCodeButton()
-        timer.invalidate()
-        repeatTimerInterval = 20
+        timerService?.startTimer(with: 20)
+    }
+
+    private func bindTimer() {
+
+        timerService?.timerCompletion = { [weak self] timer in
+
+            switch timer {
+            case .fire(let value):
+                self?.presentationView.updateResendCodeLabel(with: value)
+            case .expired:
+                self?.presentationView.hideResendCodeLabel()
+            }
+        }
     }
 }
 
@@ -56,29 +67,10 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
 
         do {
             let newPinCode = try AuthorizationService.shared.updatePinCode(with: 6)
-            showAlert(with: "Success", and: "A PIN code \(newPinCode) has been sent to your phone number") {
-                self.presentationView.hideResendCodeButton()
-                self.startTimer()
-            }
+            showAlert(with: "Success", and: "A PIN code \(newPinCode) has been sent to your phone number")
+            startTimer()
         } catch let error {
             showAlert(with: "Keychain Error", and: error.localizedDescription)
-        }
-    }
-
-    private func startTimer() {
-        timer = Timer(timeInterval: 1, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
-        timer.tolerance = 0.1
-        RunLoop.current.add(timer, forMode: .common)
-    }
-
-    @objc func fireTimer() {
-        repeatTimerInterval -= 1
-        presentationView.updateResendCodeLabel(with: repeatTimerInterval)
-
-        if repeatTimerInterval == 0 {
-            timer.invalidate()
-            repeatTimerInterval = 20
-            presentationView.hideResendCodeLabel()
         }
     }
 
@@ -90,11 +82,11 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
                 presentationView.shakePinCodeView()
             } else {
                 view.endEditing(true)
+                isFirstLoad = false
                 showAlert(with: "Success", and: "Go to Create Your Profile! 😍") {
                     let viewController = ViewControllerFactory().makeIntroduceYourselfViewController()
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
-                timer.invalidate()
                 presentationView.updateResendCodeLabel(with: "Perfect 😌")
             }
         } catch let error {

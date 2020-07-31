@@ -126,7 +126,9 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
         }
         view.endEditing(true)
         showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number") {
-            let viewController = VerifyPinCodeConfigurator.create()
+
+            let viewController = VerifyPinCodeViewController()
+            viewController.timerService = self.createTimerService()
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
@@ -156,6 +158,13 @@ extension VerifyPhoneViewController {
         })
 
         return validationStatus
+    }
+
+    private func createTimerService() -> TimerService {
+
+        let timerService = TimerService()
+        timerService.startTimer(with: 20)
+        return timerService
     }
 }
 
