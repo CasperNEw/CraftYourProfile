@@ -22,8 +22,8 @@ class ScrollViewContainer: UIView {
 
     private var view: UIView?
 
-    lazy var scrollService: ResizeScrollViewService = {
-        let service = ResizeScrollViewService(view: self)
+    lazy var keyboardService: KeyboardService = {
+        let service = KeyboardService(container: self)
         return service
     }()
 
@@ -33,7 +33,7 @@ class ScrollViewContainer: UIView {
 
         self.view = view
         setupConstraints(with: view)
-        scrollService.setupKeyboard()
+        keyboardService.setupKeyboard()
         backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
 

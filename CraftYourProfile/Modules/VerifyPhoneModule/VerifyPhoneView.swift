@@ -80,10 +80,10 @@ class VerifyPhoneView: UIView {
         nextButton.isEnabled = value
 
         if !animate {
-            nextButton.backgroundColor = value ? .blueButton() : .backgroundGray()
+            nextButton.alpha = value ? 1 : 0.5
         } else {
             UIView.animate(withDuration: 0.5) {
-                self.nextButton.backgroundColor = value ? .blueButton() : .backgroundGray()
+                self.nextButton.alpha = value ? 1 : 0.5
             }
         }
     }
