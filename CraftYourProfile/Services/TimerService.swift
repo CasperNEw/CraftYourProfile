@@ -16,11 +16,13 @@ class TimerService {
         case expired
     }
 
+    static var currentTimer: Timer?
     var timerCompletion: ((TimerStatus) -> Void)?
-    private var currentDuration: Int = 20
 
     // MARK: - Public function
     public func startTimer(with duration: Int) {
+
+        TimerService.currentTimer?.invalidate()
 
         var seconds = duration
         let timer = Timer(timeInterval: 1, repeats: true) { timer in
@@ -35,6 +37,7 @@ class TimerService {
         }
 
         timer.tolerance = 0.1
+        TimerService.currentTimer = timer
         RunLoop.current.add(timer, forMode: .common)
     }
 }

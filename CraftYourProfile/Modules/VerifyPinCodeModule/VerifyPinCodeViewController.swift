@@ -30,13 +30,6 @@ class VerifyPinCodeViewController: UIViewController {
         bindTimer()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        // TODO: collision!
-        if !isFirstLoad { startTimer() }
-    }
-
     // MARK: - Module functions
     private func startTimer() {
         presentationView.hideResendCodeButton()
