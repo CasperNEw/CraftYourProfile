@@ -10,14 +10,18 @@ import UIKit
 
 class ViewDesignerService {
 
-    let view: UIView
-    private let bounds = UIScreen.main.bounds
+    // MARK: - Properties
+    weak private var view: UIView?
 
+    // MARK: - Initialization
     init(_ view: UIView) {
         self.view = view
     }
 
-    func setBackButton(_ button: UIView) {
+    // MARK: - Public methods
+    public func setBackButton(_ button: UIView) {
+
+        guard let view = view else { return }
 
         NSLayoutConstraint.activate([
             button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
@@ -27,47 +31,61 @@ class ViewDesignerService {
         ])
     }
 
-    func setView(_ view: UIView, with topView: UIView, trailingIsShort: Bool = true,
-                 withHeight: Bool = false, specialHeight: Bool = false) {
+    public func setView(_ view: UIView,
+                        with topView: UIView,
+                        trailingIsShort: Bool = true,
+                        withHeight: Bool = false,
+                        specialHeight: Bool = false) {
+
+        guard let mainView = self.view else { return }
 
         var trailingAnchor: CGFloat = -48
         if !trailingIsShort { trailingAnchor = -24 }
 
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 24),
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: trailingAnchor)
+            view.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 24),
+            view.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: trailingAnchor)
         ])
 
         if withHeight {
             var height: CGFloat = 50
-            // TODO: Need fix, thinking about this parameters
-            if specialHeight { height = (bounds.width - 48 - 30) / 6 }
+
+            if specialHeight { height = (UIScreen.main.bounds.width - 48 - 30) / 6 }
             view.heightAnchor.constraint(equalToConstant: height).isActive = true
         }
     }
 
-    func setBottomView(_ view: UIView, with topView: UIView, specialSpacing: Bool = false) {
+    public func setBottomView(_ view: UIView,
+                              with topView: UIView,
+                              specialSpacing: Bool = false) {
+
+        guard let mainView = self.view else { return }
 
         var topSpacing: CGFloat = 170
         if specialSpacing { topSpacing += 16 }
 
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: topSpacing),
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
+            view.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 24),
+            view.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -24),
             view.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 
-    func setBottomView(_ view: UIView, with topView: UIView, multiplier: Int, constant: CGFloat) {
+    public func setBottomView(_ view: UIView,
+                              with topView: UIView,
+                              multiplier: Int,
+                              constant: CGFloat) {
+
+        guard let mainView = self.view else { return }
 
         let topSpacing: CGFloat = 24 * CGFloat(multiplier) + constant
 
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: topSpacing),
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
+            view.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 24),
+            view.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -24),
             view.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
