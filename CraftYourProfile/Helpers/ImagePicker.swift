@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol ImagePickerDelegate: class {
+protocol ImagePickerDelegate: class {
     func didSelect(image: UIImage?)
 }
 

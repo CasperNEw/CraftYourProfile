@@ -24,7 +24,7 @@ class CountryCodeViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, CountryCode>!
     weak var delegate: CountryCodeViewControllerDelegate?
 
-    var networkService: NetworkService?
+    var networkService: NetworkServiceCountriesProtocol?
 
     private var countryCodes: [CountryCode] = []
     private var sourceCodes: [CountryCode] = [] {
@@ -93,26 +93,28 @@ extension CountryCodeViewController {
                                    cellProvider: { (collectionView, indexPath, countryCode) -> UICollectionViewCell? in
 
             let countryCodeCell = collectionView
-                .dequeueReusableCell(withReuseIdentifier: CountryCodeCell.reuseIdentifier,
+                .dequeueReusableCell(withReuseIdentifier: CountryCodeCell.identifier,
                                      for: indexPath) as? CountryCodeCell
 
+            countryCodeCell?.imageService = NetworkService()
             countryCodeCell?.setupCell(code: countryCode.code,
                                        country: countryCode.name,
-                                       imageUrl: String(format: NetworkService.flagUrl,
-                                                        countryCode.shortName))
+                                       shortCode: countryCode.shortName)
+
             return countryCodeCell
         })
     }
 
     private func configureHierarchy() {
-        view.backgroundColor = .white
+
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         let layout = createLayout()
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.register(CountryCodeCell.self, forCellWithReuseIdentifier: CountryCodeCell.reuseIdentifier)
+        collectionView.register(CountryCodeCell.self, forCellWithReuseIdentifier: CountryCodeCell.identifier)
         view.addSubview(collectionView)
         view.addSubview(searchBar)
 

@@ -11,6 +11,7 @@ import Foundation
 extension NSAttributedString {
 
     static func makeHyperlinks(for couples: [(String, String)], in text: String) -> NSAttributedString {
+
         let nsString = NSString(string: text)
         let attributedString = NSMutableAttributedString(string: text)
 

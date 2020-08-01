@@ -17,7 +17,7 @@ class VerifyPhoneViewController: UIViewController {
         return view
     }()
 
-    var networkService: NetworkServiceLimitedProtocol?
+    var networkService: NetworkServiceSingleCountryProtocol?
     var validationService: ValidationService?
 
     private var selectedCode: CountryCode? {

@@ -10,8 +10,11 @@ import UIKit
 
 extension UITextField {
 
-    convenience init(font: UIFont?, textColor: UIColor, backgroundColor: UIColor,
-                     cornerRadius: CGFloat, alignment: NSTextAlignment = .center) {
+    convenience init(font: UIFont?,
+                     textColor: UIColor,
+                     backgroundColor: UIColor,
+                     cornerRadius: CGFloat,
+                     alignment: NSTextAlignment = .center) {
         self.init()
 
         self.font = font
@@ -21,15 +24,16 @@ extension UITextField {
         self.textAlignment = alignment
     }
 
-    func addRightButton(button: UIButton, side: CGFloat, offset: CGFloat) {
-        button.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(button)
+    func addRightButton(button: UIButton,
+                        side: CGFloat, offset: CGFloat) {
+
+        addSubviews([button])
 
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalToConstant: side),
             button.heightAnchor.constraint(equalToConstant: side),
-            button.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: offset),
-            button.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: offset),
+            button.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }

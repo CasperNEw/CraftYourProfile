@@ -34,15 +34,13 @@ class PinView: UIView {
         pin.backgroundColor = .gray
         pin.layer.cornerRadius = 5
         pin.layer.masksToBounds = true
-        pin.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(pin)
 
         number.font = .compactRounded(style: .semibold, size: 18)
         number.textAlignment = .center
         number.adjustsFontSizeToFitWidth = true
-        number.translatesAutoresizingMaskIntoConstraints = false
         number.isHidden = true
-        addSubview(number)
+
+        addSubviews([pin, number])
 
         NSLayoutConstraint.activate([
             pin.centerXAnchor.constraint(equalTo: centerXAnchor),

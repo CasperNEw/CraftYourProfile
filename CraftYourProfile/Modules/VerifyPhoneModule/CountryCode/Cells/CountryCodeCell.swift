@@ -11,7 +11,7 @@ import UIKit
 class CountryCodeCell: UICollectionViewCell {
 
     // MARK: - Properties
-    static let reuseIdentifier = "countryCode-cell-reuse-identifier"
+    static let identifier = String(describing: CountryCodeCell.self)
 
     private let codeLabel = UILabel(text: "",
                                     font: UIFont.compactRounded(style: .semibold, size: 20),
@@ -26,6 +26,8 @@ class CountryCodeCell: UICollectionViewCell {
                                      alignment: .left)
 
     private let flagImageView = UIImageView()
+
+    var imageService: NetworkServiceImageDataProtocol?
 
     // MARK: - Initialization
     override init(frame: CGRect) {
@@ -48,11 +50,11 @@ class CountryCodeCell: UICollectionViewCell {
     // MARK: - Public function
     public func setupCell(code: String,
                           country: String,
-                          imageUrl: String) {
+                          shortCode: String) {
 
         codeLabel.text = code
         titleLabel.text = country
-        loadImage(from: imageUrl)
+        loadImage(with: shortCode)
     }
 
     // MARK: - Module functions
@@ -82,16 +84,13 @@ class CountryCodeCell: UICollectionViewCell {
         ])
     }
 
-    private func loadImage(from url: String) {
+    // TODO: need caching
+    private func loadImage(with shortCode: String) {
 
-        guard let url = URL(string: url) else { return }
-        let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { [weak self] (data, _, _) in
-            DispatchQueue.main.async {
-                guard let data = data else { return }
-                self?.flagImageView.image = UIImage(data: data)
-            }
-        }
-        task.resume()
+        imageService?.getImageData(with: shortCode,
+                                   completion: { [weak self] data in
+
+            self?.flagImageView.image = UIImage(data: data)
+        })
     }
 }

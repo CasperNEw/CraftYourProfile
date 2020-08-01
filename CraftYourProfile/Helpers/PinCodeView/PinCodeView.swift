@@ -38,9 +38,8 @@ class PinCodeView: UIView, UITextInputTraits {
 
     // MARK: - Module functions
     private func setupUI() {
-        addSubview(stack)
-        stack.translatesAutoresizingMaskIntoConstraints = false
 
+        addSubviews([stack])
         NSLayoutConstraint.activate([
             stack.leadingAnchor.constraint(equalTo: leadingAnchor),
             stack.trailingAnchor.constraint(equalTo: trailingAnchor),

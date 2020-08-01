@@ -18,6 +18,7 @@ class IntroduceYourselfView: UIView {
 
     // MARK: - Properties
     private let backButton = PushButton(image: UIImage(named: "back"))
+
     private let mainLabel = UILabel(text: "Let's introduce yourself 🤪",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 2, alignment: .left)

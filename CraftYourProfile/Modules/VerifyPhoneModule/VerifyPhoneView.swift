@@ -125,6 +125,7 @@ extension VerifyPhoneView {
     }
 
     private func setupNextButton() {
+
         guard let image = UIImage(named: "next") else { return }
         let tintedImage = image.withTintColor(.white, renderingMode: .alwaysOriginal)
         nextButton.addRightImage(image: tintedImage, side: 17, offset: -15)

@@ -19,6 +19,7 @@ class VerifyPinCodeView: UIView {
 
     // MARK: - Properties
     private let backButton = PushButton(image: UIImage(named: "back"))
+
     private let mainLabel = UILabel(text: "Next, enter the code we sent 😍",
                                     font: .compactRounded(style: .black, size: 32),
                                     color: .mainBlackText(), lines: 2, alignment: .left)
@@ -28,6 +29,7 @@ class VerifyPinCodeView: UIView {
                                           color: .gray, lines: 1, alignment: .left)
 
     private let pinCodeView = PinCodeView()
+    
     private let resendCodeLabel = UILabel(text: "Resend code after 20 sec",
                                           font: .compactRounded(style: .medium, size: 16),
                                           color: .gray, lines: 1, alignment: .center)

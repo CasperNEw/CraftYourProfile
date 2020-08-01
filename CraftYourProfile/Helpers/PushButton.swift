@@ -31,8 +31,8 @@ class PushButton: UIButton {
         self.init()
 
         adjustsImageWhenHighlighted = false
+        layer.cornerRadius = cornerRadius
         self.backgroundColor = backgroundColor
-        self.layer.cornerRadius = cornerRadius
         self.transformScale = transformScale
         addLabel(text: title, font: font, color: titleColor)
     }
@@ -63,16 +63,16 @@ class PushButton: UIButton {
 
     private func addLabel(text: String, font: UIFont?, color: UIColor) {
 
-        let label = UILabel(text: text, font: font, color: color)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        self.addSubview(label)
+        let label = UILabel(text: text, font: font, color: color,
+                            lines: 1, alignment: .center)
+
+        addSubviews([label])
 
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.bounds.width / 4),
-            label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -self.bounds.width / 4),
-            label.topAnchor.constraint(equalTo: self.topAnchor, constant: self.bounds.height / 3),
-            label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -self.bounds.height / 3)
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: bounds.width / 4),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bounds.width / 4),
+            label.topAnchor.constraint(equalTo: topAnchor, constant: bounds.height / 3),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bounds.height / 3)
         ])
     }
 }

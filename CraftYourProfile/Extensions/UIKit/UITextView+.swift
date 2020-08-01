@@ -10,8 +10,12 @@ import UIKit
 
 extension UITextView {
 
-    convenience init(text: String, couples: [(String, String)], font: UIFont?,
-                     textColor: UIColor, backgroundColor: UIColor, tintColor: UIColor) {
+    convenience init(text: String,
+                     couples: [(String, String)],
+                     font: UIFont?,
+                     textColor: UIColor,
+                     backgroundColor: UIColor,
+                     tintColor: UIColor) {
         self.init()
 
         self.text = text

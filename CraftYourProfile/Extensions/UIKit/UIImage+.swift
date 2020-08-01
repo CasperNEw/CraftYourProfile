@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIImage {
+
     func rotate(radians: Float) -> UIImage? {
 
         // swiftlint:disable line_length

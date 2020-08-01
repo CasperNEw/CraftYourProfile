@@ -235,7 +235,6 @@
 		DA262DBA248E6612007FB3EA /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				DAAEC4BD24D47FCB0088D864 /* Helpers */,
 				DA62355E24CD95980020711C /* WelcomeModule */,
 				DA62355F24CD95D30020711C /* VerifyPhoneModule */,
 				DA62356024CD976D0020711C /* VerifyPinCodeModule */,
@@ -364,6 +363,7 @@
 				DA262DBA248E6612007FB3EA /* Modules */,
 				DAAC5D0F24860EE80079E6F5 /* Services */,
 				DA1D9A2A249238EF00913A22 /* Errors */,
+				DAAEC4BD24D47FCB0088D864 /* Helpers */,
 				DA8AD260246FDA8700876C69 /* Extensions */,
 				DA8AD235246FBF8F00876C69 /* Assets.xcassets */,
 				DA8AD24D246FD29E00876C69 /* Fonts */,

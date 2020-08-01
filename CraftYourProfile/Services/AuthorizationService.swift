@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: need rebuild
 class AuthorizationService {
 
     static var shared = AuthorizationService()

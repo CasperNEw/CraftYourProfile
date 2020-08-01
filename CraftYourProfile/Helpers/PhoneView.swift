@@ -21,6 +21,7 @@ class PhoneView: UIView {
 
         let textField = UITextField()
         textField.backgroundColor = .clear
+        textField.tintColor = .gray
         textField.font = .compactRounded(style: .semibold, size: 20)
         textField.keyboardType = .phonePad
         textField.minimumFontSize = 16

@@ -33,6 +33,7 @@ class VerifyPinCodeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        // TODO: collision!
         if !isFirstLoad { startTimer() }
     }
 

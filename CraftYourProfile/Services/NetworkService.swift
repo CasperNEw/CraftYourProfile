@@ -8,11 +8,19 @@
 
 import Foundation
 
-protocol NetworkServiceLimitedProtocol {
+protocol NetworkServiceSingleCountryProtocol {
     func getCountryInformation(shortCode: String, completion: @escaping (Result<CountryFromServer, Error>) -> Void)
 }
 
-class NetworkService: NetworkServiceLimitedProtocol {
+protocol NetworkServiceCountriesProtocol {
+    func getCountriesInformation(completion: @escaping (Result<[CountryFromServer], Error>) -> Void)
+}
+
+protocol NetworkServiceImageDataProtocol {
+    func getImageData(with shortCode: String, completion: @escaping (Data) -> Void)
+}
+
+class NetworkService: NetworkServiceSingleCountryProtocol, NetworkServiceCountriesProtocol {
 
     // MARK: - Properties
     enum RestcountriesPath: String {
@@ -20,7 +28,7 @@ class NetworkService: NetworkServiceLimitedProtocol {
         case single = "/rest/v2/alpha/%@"
     }
 
-    static let flagUrl = "https://www.countryflags.io/%@/flat/32.png"
+    private let imageUrl = "https://www.countryflags.io/%@/flat/32.png"
 
     // MARK: - Public functions
     public func getCountryInformation(shortCode: String,
@@ -81,6 +89,25 @@ class NetworkService: NetworkServiceLimitedProtocol {
                 DispatchQueue.main.async {
                     completion(.failure(NetworkError.incorrectDataError))
                 }
+            }
+        }
+        task.resume()
+    }
+}
+
+// MARK: - NetworkServiceImageDataProtocol
+extension NetworkService: NetworkServiceImageDataProtocol {
+
+    func getImageData(with shortCode: String, completion: @escaping (Data) -> Void) {
+
+        let urlString = String(format: imageUrl, shortCode)
+
+        guard let url = URL(string: urlString) else { return }
+        let request = URLRequest(url: url)
+        let task = URLSession.shared.dataTask(with: request) { (data, _, _) in
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                completion(data)
             }
         }
         task.resume()

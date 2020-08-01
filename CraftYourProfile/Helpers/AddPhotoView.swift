@@ -89,10 +89,9 @@ class AddPhotoView: UIView {
     private func buttonIsHidden(_ value: Bool) {
 
         if value {
-            UIView
-                .animate(withDuration: 1,
-                         animations: { self.editButton.alpha = 0 },
-                         completion: { _ in self.editButton.isHidden = true })
+            UIView.animate(withDuration: 1,
+                           animations: { self.editButton.alpha = 0 },
+                           completion: { _ in self.editButton.isHidden = true })
             return
         }
 
@@ -105,9 +104,7 @@ class AddPhotoView: UIView {
                        usingSpringWithDamping: 0.7,
                        initialSpringVelocity: 0.6,
                        options: .allowUserInteraction,
-                       animations: {
-                        self.editButton.transform = CGAffineTransform.identity
-        })
+                       animations: { self.editButton.transform = .identity })
     }
 
     // MARK: - Actions

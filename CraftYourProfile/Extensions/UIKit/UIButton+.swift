@@ -11,15 +11,15 @@ import UIKit
 extension UIButton {
 
     func addRightImage(image: UIImage?, side: CGFloat, offset: CGFloat) {
+
         let imageView = UIImageView(image: image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(imageView)
+        addSubviews([imageView])
 
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: side),
             imageView.heightAnchor.constraint(equalToConstant: side),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: offset),
-            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: offset),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }

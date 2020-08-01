@@ -10,34 +10,6 @@ import UIKit
 
 extension UIView {
 
-    func addMainSubviewInSafeArea(_ view: UIView?) {
-
-        guard let view = view else { return }
-        addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            view.leftAnchor.constraint(equalTo: self.leftAnchor),
-            view.rightAnchor.constraint(equalTo: self.rightAnchor),
-            view.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
-
-    func addMainSubview(_ view: UIView?) {
-
-        guard let view = view else { return }
-        addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: self.topAnchor),
-            view.leftAnchor.constraint(equalTo: self.leftAnchor),
-            view.rightAnchor.constraint(equalTo: self.rightAnchor),
-            view.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
-    }
-
     func addSubviews(_ views: [UIView]) {
         views.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false

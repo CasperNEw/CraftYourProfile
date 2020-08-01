@@ -78,6 +78,7 @@ class AddProfilePhotoView: UIView {
     }
 
     // MARK: - Public function
+    // TODO: rebuild remove animations
     public func setImage(_ image: UIImage?) {
         photoView.setImage(image)
         buttonState = image == nil ? .add : .done
