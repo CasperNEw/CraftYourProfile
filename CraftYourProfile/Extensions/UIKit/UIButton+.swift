@@ -10,7 +10,9 @@ import UIKit
 
 extension UIButton {
 
-    func addRightImage(image: UIImage?, side: CGFloat, offset: CGFloat) {
+    func addRightImage(image: UIImage?,
+                       side: CGFloat,
+                       offset: CGFloat) {
 
         let imageView = UIImageView(image: image)
         addSubviews([imageView])

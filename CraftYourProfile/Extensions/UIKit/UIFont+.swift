@@ -11,7 +11,16 @@ import UIKit
 extension UIFont {
 
     enum FontStyle {
-        case ultralight, black, thin, light, bold, semibold, heavy, medium, regular
+
+        case ultralight
+        case black
+        case thin
+        case light
+        case bold
+        case semibold
+        case heavy
+        case medium
+        case regular
     }
 
     static func compactRounded(style: FontStyle, size: CGFloat) -> UIFont? {

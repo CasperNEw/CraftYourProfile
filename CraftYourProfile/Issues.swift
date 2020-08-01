@@ -14,10 +14,7 @@ struct CodeReview {
     - Add the ability to return to the previous screen using a swipe.
     - Check out PhoneNumberKit.
     - DesignerService, redo, get rid of strong links.
-    - Redo ResizwScrollViewService, self is captured. Remake methods with keyboard frame size.
     - Redesign the Authorization class.
-    - Change extension to UIImage, simplify and make it more readable.
-    - Check extension on UIScrollView, remove if unnecessary.
 
     """
 }

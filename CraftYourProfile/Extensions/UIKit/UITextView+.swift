@@ -19,8 +19,7 @@ extension UITextView {
         self.init()
 
         self.text = text
-        let attributedString = NSAttributedString.makeHyperlinks(for: couples, in: text)
-        self.attributedText = attributedString
+        self.attributedText = NSAttributedString.makeHyperlinks(for: couples, in: text)
         self.isEditable = false
         self.font = font
         self.textColor = textColor

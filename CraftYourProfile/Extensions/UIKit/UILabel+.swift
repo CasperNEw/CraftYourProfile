@@ -10,8 +10,11 @@ import UIKit
 
 extension UILabel {
 
-    convenience init(text: String, font: UIFont?, color: UIColor,
-                     lines: Int = 1, alignment: NSTextAlignment = .center) {
+    convenience init(text: String,
+                     font: UIFont?,
+                     color: UIColor,
+                     lines: Int = 1,
+                     alignment: NSTextAlignment = .center) {
         self.init()
 
         self.text = text

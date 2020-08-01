@@ -12,22 +12,20 @@ extension UIImage {
 
     func rotate(radians: Float) -> UIImage? {
 
-        // swiftlint:disable line_length
-        var newSize = CGRect(origin: CGPoint.zero, size: self.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
-        newSize.width = floor(newSize.width)
-        newSize.height = floor(newSize.height)
+        let newSize = CGRect(origin: CGPoint.zero, size: size)
+            .applying(CGAffineTransform(rotationAngle: CGFloat(radians)))
+            .integral
+            .size
 
-        UIGraphicsBeginImageContextWithOptions(newSize, false, self.scale)
-        let context = UIGraphicsGetCurrentContext()!
+        return UIGraphicsImageRenderer(size: newSize).image { context in
 
-        context.translateBy(x: newSize.width/2, y: newSize.height/2)
-        context.rotate(by: CGFloat(radians))
-        self.draw(in: CGRect(x: -self.size.width/2, y: -self.size.height/2, width: self.size.width, height: self.size.height))
-        // swiftlint:enable line_length
+            context.cgContext.translateBy(x: newSize.width / 2, y: newSize.height / 2)
+            context.cgContext.rotate(by: CGFloat(radians))
 
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return newImage
+            draw(in: CGRect(x: -size.width / 2,
+                            y: -size.height / 2,
+                            width: size.width,
+                            height: size.height))
+        }
     }
 }
