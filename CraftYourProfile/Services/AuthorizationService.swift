@@ -72,6 +72,9 @@ class AuthorizationService {
         }
     }
 
+    public func updateUserData(name: String, birthday: Date) { }
+    public func updateUserPhoto(image: UIImage?) { }
+
     // MARK: - Module function
     private func generationPinCode(with pinCount: Int) -> String {
         var pinCode = ""
@@ -79,30 +82,5 @@ class AuthorizationService {
             pinCode.append(contentsOf: String(Int.random(in: 0...9)))
         }
         return pinCode
-    }
-}
-
-// TODO: need rebuild
-// MARK: fake methods
-extension AuthorizationService {
-
-    func createUserData(name: String, birthday: Date) {
-        print("Name -", name)
-        print("Birthday -", birthday)
-    }
-
-    func updateUserPhoto(image: UIImage?) {
-        guard image != nil else {
-            print("False", #function)
-            return
-        }
-        print("Success", #function)
-    }
-}
-
-extension AuthorizationService: NSCopying {
-
-    func copy(with zone: NSZone? = nil) -> Any {
-        return self
     }
 }

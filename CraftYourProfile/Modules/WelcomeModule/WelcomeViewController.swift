@@ -38,8 +38,17 @@ extension WelcomeViewController {
         let viewController = VerifyPhoneConfigurator.create()
         VerifyPhoneConfigurator.configure(with: viewController)
         let navController = UINavigationController(rootViewController: viewController)
+        navController.interactivePopGestureRecognizer?.delegate = self
         navController.modalPresentationStyle = .fullScreen
         navController.setNavigationBarHidden(true, animated: true)
         present(navController, animated: true)
+    }
+}
+
+extension WelcomeViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

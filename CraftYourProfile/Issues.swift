@@ -13,7 +13,5 @@ struct CodeReview {
     - See how to implement hyperlinks inside a UILabel, not inside a UITextView.
     - Check out PhoneNumberKit.
 
-    - Add the ability to return to the previous screen using a swipe.
-
     """
 }
