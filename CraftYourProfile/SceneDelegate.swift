@@ -20,5 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = WelcomeViewController()
         window?.makeKeyAndVisible()
+
+        configureAuthorizationService()
+    }
+
+    private func configureAuthorizationService() {
+        AuthorizationService.shared.database = KeychainRepository()
     }
 }

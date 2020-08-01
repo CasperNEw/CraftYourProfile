@@ -117,22 +117,14 @@ extension VerifyPhoneViewController: VerifyPhoneViewDelegate {
 
     func nextButtonTapped(phone: String) {
 
-        let pinCode = AuthorizationService.shared.generationPinCode(with: 6)
-        do {
-            try AuthorizationService.shared.signIn(account: phone, pinCode: pinCode)
-        } catch let error {
-            showAlert(with: "Keychain Error", and: error.localizedDescription)
-            return
-        }
+        AuthorizationService.shared.signIn(account: phone) { [weak self] result in
 
-        view.endEditing(true)
-        let timerService = createTimerService()
-
-        showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number") {
-
-            let viewController = VerifyPinCodeViewController()
-            viewController.timerService = timerService
-            self.navigationController?.pushViewController(viewController, animated: true)
+            switch result {
+            case .success(let pinCode):
+                self?.preparationAndPushNextVC(pinCode: pinCode)
+            case .failure(let error):
+                self?.showAlert(with: "Authorization Error", and: error.localizedDescription)
+            }
         }
     }
 }
@@ -161,6 +153,17 @@ extension VerifyPhoneViewController {
         })
 
         return validationStatus
+    }
+
+    private func preparationAndPushNextVC(pinCode: String) {
+
+        view.endEditing(true)
+        let viewController = VerifyPinCodeViewController()
+        viewController.timerService = createTimerService()
+
+        showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number") {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
 
     private func createTimerService() -> TimerService {

@@ -74,6 +74,7 @@
 		DAAEC4B824D450100088D864 /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEC4B724D450100088D864 /* DateTextField.swift */; };
 		DAAEC4BA24D459150088D864 /* OffsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEC4B924D459150088D864 /* OffsetTextField.swift */; };
 		DACF49BD24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */; };
+		DAF6D54A24D5787000C0CB57 /* KeychainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6D54924D5787000C0CB57 /* KeychainRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +161,7 @@
 		DAAEC4B724D450100088D864 /* DateTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
 		DAAEC4B924D459150088D864 /* OffsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetTextField.swift; sourceTree = "<group>"; };
 		DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneConfigurator.swift; sourceTree = "<group>"; };
+		DAF6D54924D5787000C0CB57 /* KeychainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +363,7 @@
 				DA262DBA248E6612007FB3EA /* Modules */,
 				DAAC5D0F24860EE80079E6F5 /* Services */,
 				DA1D9A2A249238EF00913A22 /* Errors */,
+				DAF6D54724D577F500C0CB57 /* Database */,
 				DAAEC4BD24D47FCB0088D864 /* Helpers */,
 				DA8AD260246FDA8700876C69 /* Extensions */,
 				DA8AD235246FBF8F00876C69 /* Assets.xcassets */,
@@ -450,6 +453,22 @@
 				DA1D9A202491354900913A22 /* PinCodeView */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		DAF6D54724D577F500C0CB57 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				DAF6D54824D5785500C0CB57 /* Keychain */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		DAF6D54824D5785500C0CB57 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				DAF6D54924D5787000C0CB57 /* KeychainRepository.swift */,
+			);
+			path = Keychain;
 			sourceTree = "<group>";
 		};
 		FC795780290540DE90AE7B79 /* Frameworks */ = {
@@ -686,6 +705,7 @@
 				DA1D9A1D2491050B00913A22 /* VerifyPinCodeView.swift in Sources */,
 				DA8AD2712470759A00876C69 /* String+.swift in Sources */,
 				DA62355D24CD92FD0020711C /* Issues.swift in Sources */,
+				DAF6D54A24D5787000C0CB57 /* KeychainRepository.swift in Sources */,
 				DA20866F2493B1CD0017F0E8 /* AddProfilePhotoView.swift in Sources */,
 				DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */,
 				DA8AD265246FDCFD00876C69 /* UIColor+.swift in Sources */,

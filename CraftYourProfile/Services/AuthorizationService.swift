@@ -8,106 +8,81 @@
 
 import UIKit
 
-// TODO: need rebuild
 class AuthorizationService {
 
+    // MARK: - Properties
     static var shared = AuthorizationService()
-    private let service = "www.CraftYourProfile.com"
+    var database: DatabaseProtocol?
+
     private var currentAccount: String = ""
 
+    // MARK: - Initialization
     private init() { }
 
-    func generationPinCode(with pinCount: Int) -> String {
+    public func configure(with database: DatabaseProtocol) {
+        self.database = database
+    }
+
+    // MARK: - Public functions
+    public func signIn(account: String,
+                       completion: @escaping (Result<String, Error>) -> Void) {
+
+        currentAccount = account
+        let pinCode = generationPinCode(with: 6)
+
+        database?.createAccount(account: account,
+                                pinCode: pinCode) { error in
+
+                    switch error {
+                    case .none:
+                        completion(.success(pinCode))
+                    case .some(let error):
+                        completion(.failure(error))
+                    }
+        }
+    }
+
+    public func updatePinCode(completion: @escaping (Result<String, Error>) -> Void) {
+
+        let newPinCode = generationPinCode(with: 6)
+
+        database?.updateAccount(account: currentAccount,
+                                pinCode: newPinCode) { error in
+
+                    switch error {
+                    case .none:
+                        completion(.success(newPinCode))
+                    case .some(let error):
+                        completion(.failure(error))
+                    }
+        }
+    }
+
+    public func pinCodeIsValid(pinCode: String,
+                               completion: @escaping (Result<Bool, Error>) -> Void) {
+
+        database?.searchAccount(account: currentAccount) { result in
+
+            switch result {
+            case .success(( _, let validPinCode)):
+                completion(.success(pinCode == validPinCode ? true : false))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    // MARK: - Module function
+    private func generationPinCode(with pinCount: Int) -> String {
         var pinCode = ""
         for _ in 1...pinCount {
             pinCode.append(contentsOf: String(Int.random(in: 0...9)))
         }
         return pinCode
     }
-
-    func signIn(account: String, pinCode: String) throws {
-
-        guard let pinCodeData = pinCode.data(using: .utf8) else { throw KeychainError.pinCodeDataError }
-
-        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrService as String: self.service,
-                                    kSecAttrAccount as String: account,
-                                    kSecValueData as String: pinCodeData]
-
-        let status = SecItemAdd(query as CFDictionary, nil)
-        guard status == errSecSuccess else {
-            try updateAccount(account: account, pinCode: pinCode)
-            return
-        }
-
-        currentAccount = account
-        print("[Keychain] Create account - Complete. Your PIN Code - \(pinCode)")
-    }
-
-    func updatePinCode(with pinCount: Int) throws -> String {
-        let newPinCode = generationPinCode(with: pinCount)
-        try updateAccount(account: currentAccount, pinCode: newPinCode)
-        return newPinCode
-    }
-
-    private func updateAccount(account: String, pinCode: String) throws {
-
-        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrService as String: self.service]
-
-        guard let pinCodeData = pinCode.data(using: .utf8) else { throw KeychainError.pinCodeDataError }
-
-        let attributes: [String: Any] = [kSecAttrAccount as String: account,
-                                         kSecValueData as String: pinCodeData]
-
-        let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
-
-        guard status != errSecItemNotFound else { throw KeychainError.accountSearchError }
-        guard status != errSecDuplicateItem else {
-            try deleteAccount()
-            throw KeychainError.duplicateError
-        }
-        guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
-
-        currentAccount = account
-        print("[Keychain] Update account - Complete. Your PIN Code - \(pinCode)")
-    }
-
-    private func deleteAccount() throws {
-
-        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrService as String: self.service]
-
-        let status = SecItemDelete(query as CFDictionary)
-        guard status == errSecSuccess || status == errSecItemNotFound else {
-            throw KeychainError.unhandledError(status: status)
-        }
-    }
-
-    func getExpectedPinCode() throws -> String {
-
-        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
-                                    kSecAttrAccount as String: currentAccount,
-                                    kSecAttrService as String: self.service,
-                                    kSecMatchLimit as String: kSecMatchLimitOne,
-                                    kSecReturnAttributes as String: true,
-                                    kSecReturnData as String: true]
-
-        var item: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &item)
-        guard status != errSecItemNotFound else { throw KeychainError.accountSearchError }
-        guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
-
-        guard let existingItem = item as? [String: Any],
-            let pinCodeData = existingItem[kSecValueData as String] as? Data,
-            let pinCode = String(data: pinCodeData, encoding: String.Encoding.utf8)
-            else {
-                throw KeychainError.pinCodeDataError
-        }
-        return pinCode
-    }
 }
 
+// TODO: need rebuild
 // MARK: fake methods
 extension AuthorizationService {
 

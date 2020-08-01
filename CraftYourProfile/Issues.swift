@@ -11,10 +11,9 @@ struct CodeReview {
     let issues = """
 
     - See how to implement hyperlinks inside a UILabel, not inside a UITextView.
-    - Add the ability to return to the previous screen using a swipe.
     - Check out PhoneNumberKit.
-    - DesignerService, redo, get rid of strong links.
-    - Redesign the Authorization class.
+
+    - Add the ability to return to the previous screen using a swipe.
 
     """
 }

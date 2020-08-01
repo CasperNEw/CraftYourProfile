@@ -48,6 +48,21 @@ class VerifyPinCodeViewController: UIViewController {
             }
         }
     }
+
+    private func validation(isValid: Bool) {
+
+        if !isValid {
+            presentationView.shakePinCodeView()
+            return
+        }
+
+        view.endEditing(true)
+        isFirstLoad = false
+        showAlert(with: "Success", and: "Go to Create Your Profile! 😍") {
+            let viewController = IntroduceYourselfViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
 }
 
 // MARK: VerifyPinCodeViewDelegate
@@ -59,31 +74,28 @@ extension VerifyPinCodeViewController: VerifyPinCodeViewDelegate {
 
     func resendCodeButtonTapped() {
 
-        do {
-            let newPinCode = try AuthorizationService.shared.updatePinCode(with: 6)
-            showAlert(with: "Success", and: "A PIN code \(newPinCode) has been sent to your phone number")
-            startTimer()
-        } catch let error {
-            showAlert(with: "Keychain Error", and: error.localizedDescription)
+        AuthorizationService.shared.updatePinCode { [weak self] result in
+
+            switch result {
+            case .success(let pinCode):
+                self?.startTimer()
+                self?.showAlert(with: "Success", and: "A PIN code \(pinCode) has been sent to your phone number")
+            case .failure(let error):
+                self?.showAlert(with: "Authorization Error", and: error.localizedDescription)
+            }
         }
     }
 
     func didFinishedEnterCode(_ code: String) {
 
-        do {
-            let pinCode = try AuthorizationService.shared.getExpectedPinCode()
-            if pinCode != code {
-                presentationView.shakePinCodeView()
-            } else {
-                view.endEditing(true)
-                isFirstLoad = false
-                showAlert(with: "Success", and: "Go to Create Your Profile! 😍") {
-                    let viewController = IntroduceYourselfViewController()
-                    self.navigationController?.pushViewController(viewController, animated: true)
-                }
+        AuthorizationService.shared.pinCodeIsValid(pinCode: code) { [weak self] result in
+
+            switch result {
+            case .success(let isValid):
+                self?.validation(isValid: isValid)
+            case .failure(let error):
+                self?.showAlert(with: "Authorization Error", and: error.localizedDescription)
             }
-        } catch let error {
-            showAlert(with: "Keychain Error", and: error.localizedDescription)
         }
     }
 }
