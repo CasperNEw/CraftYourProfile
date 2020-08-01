@@ -25,7 +25,7 @@ class CountryCodeCell: UICollectionViewCell {
                                      lines: 1,
                                      alignment: .left)
 
-    private let flagImageView = UIImageView()
+    private let flagImageView = CachedImageView()
 
     var imageService: NetworkServiceImageDataProtocol?
 
@@ -54,7 +54,9 @@ class CountryCodeCell: UICollectionViewCell {
 
         codeLabel.text = code
         titleLabel.text = country
-        loadImage(with: shortCode)
+
+        flagImageView
+            .loadImage(urlString: imageService?.getImageUrl(with: shortCode) ?? "")
     }
 
     // MARK: - Module functions
@@ -82,15 +84,5 @@ class CountryCodeCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
-    }
-
-    // TODO: need caching
-    private func loadImage(with shortCode: String) {
-
-        imageService?.getImageData(with: shortCode,
-                                   completion: { [weak self] data in
-
-            self?.flagImageView.image = UIImage(data: data)
-        })
     }
 }

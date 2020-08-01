@@ -75,6 +75,7 @@
 		DAAEC4BA24D459150088D864 /* OffsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEC4B924D459150088D864 /* OffsetTextField.swift */; };
 		DACF49BD24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */; };
 		DAF6D54A24D5787000C0CB57 /* KeychainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6D54924D5787000C0CB57 /* KeychainRepository.swift */; };
+		DAF6D54C24D5AB3100C0CB57 /* CachedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6D54B24D5AB3100C0CB57 /* CachedImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +163,7 @@
 		DAAEC4B924D459150088D864 /* OffsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetTextField.swift; sourceTree = "<group>"; };
 		DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneConfigurator.swift; sourceTree = "<group>"; };
 		DAF6D54924D5787000C0CB57 /* KeychainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainRepository.swift; sourceTree = "<group>"; };
+		DAF6D54B24D5AB3100C0CB57 /* CachedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -450,6 +452,7 @@
 				DAAEC4B924D459150088D864 /* OffsetTextField.swift */,
 				DA2086722498DACF0017F0E8 /* AddPhotoView.swift */,
 				DA20867424991F9C0017F0E8 /* ImagePicker.swift */,
+				DAF6D54B24D5AB3100C0CB57 /* CachedImageView.swift */,
 				DA1D9A202491354900913A22 /* PinCodeView */,
 			);
 			path = Helpers;
@@ -684,6 +687,7 @@
 				DA262DC8248F449C007FB3EA /* ScrollViewContainer.swift in Sources */,
 				DA1D9A252491596F00913A22 /* KeyboardService.swift in Sources */,
 				DA262DB7248E3507007FB3EA /* CountryCodeViewController.swift in Sources */,
+				DAF6D54C24D5AB3100C0CB57 /* CachedImageView.swift in Sources */,
 				DAAC5D1624869FEA0079E6F5 /* ValidationService.swift in Sources */,
 				DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */,
 				DA8AD22F246FBF8A00876C69 /* SceneDelegate.swift in Sources */,

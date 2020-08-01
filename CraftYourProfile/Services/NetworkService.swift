@@ -17,6 +17,7 @@ protocol NetworkServiceCountriesProtocol {
 }
 
 protocol NetworkServiceImageDataProtocol {
+    func getImageUrl(with shortCode: String) -> String
     func getImageData(with shortCode: String, completion: @escaping (Data) -> Void)
 }
 
@@ -97,6 +98,10 @@ class NetworkService: NetworkServiceSingleCountryProtocol, NetworkServiceCountri
 
 // MARK: - NetworkServiceImageDataProtocol
 extension NetworkService: NetworkServiceImageDataProtocol {
+
+    func getImageUrl(with shortCode: String) -> String {
+        return String(format: imageUrl, shortCode)
+    }
 
     func getImageData(with shortCode: String, completion: @escaping (Data) -> Void) {
 
