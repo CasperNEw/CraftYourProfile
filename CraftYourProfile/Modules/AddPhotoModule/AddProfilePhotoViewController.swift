@@ -34,6 +34,7 @@ class AddProfilePhotoViewController: UIViewController {
 
     // MARK: - Module function
     private func finish() {
+        // TODO: add 'aboutVC'
         showAlert(with: "Success", and: "You did it! 🙃")
     }
 }
