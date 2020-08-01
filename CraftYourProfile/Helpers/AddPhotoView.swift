@@ -29,7 +29,7 @@ class AddPhotoView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0, green: 0.02164490582, blue: 0, alpha: 0.5)
         button.titleLabel?.font = .compactRounded(style: .semibold, size: 18)
-        button.isHidden = true
+        button.alpha = 0
         return button
     }()
 
@@ -60,7 +60,15 @@ class AddPhotoView: UIView {
 
     // MARK: - Public function
     public func setImage(_ image: UIImage?) {
-        imageView.image = image == nil ? #imageLiteral(resourceName: "addPhoto") : image
+
+        UIView.animate(withDuration: 0.4,
+                       animations: { self.imageView.alpha = 0 },
+                       completion: { _ in
+
+                self.imageView.image = image == nil ? #imageLiteral(resourceName: "addPhoto") : image
+                UIView.animate(withDuration: 0.4,
+                               animations: { self.imageView.alpha = 1 })
+        })
         buttonIsHidden(image == nil ? true : false)
     }
 
@@ -89,22 +97,14 @@ class AddPhotoView: UIView {
     private func buttonIsHidden(_ value: Bool) {
 
         if value {
-            UIView.animate(withDuration: 1,
-                           animations: { self.editButton.alpha = 0 },
-                           completion: { _ in self.editButton.isHidden = true })
+            UIView.animate(withDuration: 0.4,
+                           animations: { self.editButton.alpha = 0 })
             return
         }
 
-        editButton.isHidden = false
-        editButton.alpha = 1
-        editButton.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-
-        UIView.animate(withDuration: 1.5,
-                       delay: 0,
-                       usingSpringWithDamping: 0.7,
-                       initialSpringVelocity: 0.6,
-                       options: .allowUserInteraction,
-                       animations: { self.editButton.transform = .identity })
+        UIView.animate(withDuration: 0.4,
+                       delay: 0.4,
+                       animations: { self.editButton.alpha = 1 })
     }
 
     // MARK: - Actions

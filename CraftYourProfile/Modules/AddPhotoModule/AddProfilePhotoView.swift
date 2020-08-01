@@ -78,7 +78,6 @@ class AddProfilePhotoView: UIView {
     }
 
     // MARK: - Public function
-    // TODO: rebuild remove animations
     public func setImage(_ image: UIImage?) {
         photoView.setImage(image)
         buttonState = image == nil ? .add : .done
@@ -119,7 +118,17 @@ class AddProfilePhotoView: UIView {
     private func changeAddButtonText() {
 
         for view in addPhotoButton.subviews {
-            (view as? UILabel)?.text = buttonState.rawValue
+            if let label = (view as? UILabel) {
+
+                UIView.animate(withDuration: 0.4,
+                               animations: { label.alpha = 0 },
+                               completion: { _ in
+
+                                label.text = self.buttonState.rawValue
+                                UIView.animate(withDuration: 0.4,
+                                               animations: { label.alpha = 1 })
+                })
+            }
         }
     }
 
