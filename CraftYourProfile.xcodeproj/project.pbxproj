@@ -34,9 +34,9 @@
 		DA2DED3F24A110D800944342 /* IntroduceYourselfModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2DED3E24A110D800944342 /* IntroduceYourselfModule.swift */; };
 		DA327B3424D823E500D2E86A /* ThanksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA327B3324D823E500D2E86A /* ThanksViewController.swift */; };
 		DA327B3624D823F100D2E86A /* ThanksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA327B3524D823F100D2E86A /* ThanksView.swift */; };
+		DA327B3A24D82FD500D2E86A /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA327B3924D82FD500D2E86A /* ImageCache.swift */; };
 		DA390AD824CDD20E008A535D /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA390AD724CDD20E008A535D /* PushButton.swift */; };
 		DA52EE4124893B480062D174 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52EE4024893B480062D174 /* UIView+.swift */; };
-		DA62355D24CD92FD0020711C /* Issues.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA62355C24CD92FD0020711C /* Issues.swift */; };
 		DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A296248F94EC004079AC /* WelcomeView.swift */; };
 		DA67A299248FBCC5004079AC /* EmitterLayerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */; };
 		DA67A29F2490FC9A004079AC /* VerifyPinCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA67A29E2490FC9A004079AC /* VerifyPinCodeViewController.swift */; };
@@ -77,7 +77,6 @@
 		DAAEC4BA24D459150088D864 /* OffsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEC4B924D459150088D864 /* OffsetTextField.swift */; };
 		DACF49BD24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */; };
 		DAF6D54A24D5787000C0CB57 /* KeychainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6D54924D5787000C0CB57 /* KeychainRepository.swift */; };
-		DAF6D54C24D5AB3100C0CB57 /* CachedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6D54B24D5AB3100C0CB57 /* CachedImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,9 +121,9 @@
 		DA2DED3E24A110D800944342 /* IntroduceYourselfModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceYourselfModule.swift; sourceTree = "<group>"; };
 		DA327B3324D823E500D2E86A /* ThanksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksViewController.swift; sourceTree = "<group>"; };
 		DA327B3524D823F100D2E86A /* ThanksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksView.swift; sourceTree = "<group>"; };
+		DA327B3924D82FD500D2E86A /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		DA390AD724CDD20E008A535D /* PushButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		DA52EE4024893B480062D174 /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
-		DA62355C24CD92FD0020711C /* Issues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issues.swift; sourceTree = "<group>"; };
 		DA67A296248F94EC004079AC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		DA67A298248FBCC5004079AC /* EmitterLayerAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterLayerAnimator.swift; sourceTree = "<group>"; };
 		DA67A29E2490FC9A004079AC /* VerifyPinCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPinCodeViewController.swift; sourceTree = "<group>"; };
@@ -167,7 +166,6 @@
 		DAAEC4B924D459150088D864 /* OffsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetTextField.swift; sourceTree = "<group>"; };
 		DACF49BC24CDDEEE005BCCE9 /* VerifyPhoneConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneConfigurator.swift; sourceTree = "<group>"; };
 		DAF6D54924D5787000C0CB57 /* KeychainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainRepository.swift; sourceTree = "<group>"; };
-		DAF6D54B24D5AB3100C0CB57 /* CachedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,7 +371,6 @@
 		DA8AD22B246FBF8A00876C69 /* CraftYourProfile */ = {
 			isa = PBXGroup;
 			children = (
-				DA62355C24CD92FD0020711C /* Issues.swift */,
 				DA8AD22C246FBF8A00876C69 /* AppDelegate.swift */,
 				DA8AD22E246FBF8A00876C69 /* SceneDelegate.swift */,
 				DA262DBA248E6612007FB3EA /* Modules */,
@@ -466,7 +463,7 @@
 				DAAEC4B924D459150088D864 /* OffsetTextField.swift */,
 				DA2086722498DACF0017F0E8 /* AddPhotoView.swift */,
 				DA20867424991F9C0017F0E8 /* ImagePicker.swift */,
-				DAF6D54B24D5AB3100C0CB57 /* CachedImageView.swift */,
+				DA327B3924D82FD500D2E86A /* ImageCache.swift */,
 				DA1D9A202491354900913A22 /* PinCodeView */,
 			);
 			path = Helpers;
@@ -679,6 +676,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA327B3A24D82FD500D2E86A /* ImageCache.swift in Sources */,
 				DA262DB5248A4D57007FB3EA /* CountryCode.swift in Sources */,
 				DA8AD269246FE36000876C69 /* UIStackView+.swift in Sources */,
 				DA1D9A2E24925D9400913A22 /* IntroduceYourselfViewController.swift in Sources */,
@@ -702,7 +700,6 @@
 				DA262DC8248F449C007FB3EA /* ScrollViewContainer.swift in Sources */,
 				DA1D9A252491596F00913A22 /* KeyboardService.swift in Sources */,
 				DA262DB7248E3507007FB3EA /* CountryCodeViewController.swift in Sources */,
-				DAF6D54C24D5AB3100C0CB57 /* CachedImageView.swift in Sources */,
 				DAAC5D1624869FEA0079E6F5 /* ValidationService.swift in Sources */,
 				DA327B3424D823E500D2E86A /* ThanksViewController.swift in Sources */,
 				DA8AD26F24701FC500876C69 /* UITextView+.swift in Sources */,
@@ -724,7 +721,6 @@
 				DA1D9A1F249123CA00913A22 /* PinCodeView.swift in Sources */,
 				DA1D9A1D2491050B00913A22 /* VerifyPinCodeView.swift in Sources */,
 				DA8AD2712470759A00876C69 /* String+.swift in Sources */,
-				DA62355D24CD92FD0020711C /* Issues.swift in Sources */,
 				DAF6D54A24D5787000C0CB57 /* KeychainRepository.swift in Sources */,
 				DA20866F2493B1CD0017F0E8 /* AddProfilePhotoView.swift in Sources */,
 				DA67A297248F94EC004079AC /* WelcomeView.swift in Sources */,

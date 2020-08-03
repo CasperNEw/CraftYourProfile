@@ -25,7 +25,7 @@ class CountryCodeCell: UICollectionViewCell {
                                      lines: 1,
                                      alignment: .left)
 
-    private let flagImageView = CachedImageView()
+    private let flagImageView = UIImageView()
 
     var imageService: NetworkServiceImageDataProtocol?
 
@@ -55,8 +55,10 @@ class CountryCodeCell: UICollectionViewCell {
         codeLabel.text = code
         titleLabel.text = country
 
-        flagImageView
-            .loadImage(urlString: imageService?.getImageUrl(with: shortCode) ?? "")
+        guard let url = imageService?.getImageUrl(with: shortCode) else { return }
+        ImageCache.publicCache.load(urlString: url) { image in
+            self.flagImageView.image = image
+        }
     }
 
     // MARK: - Module functions
