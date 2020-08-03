@@ -91,7 +91,9 @@ class IntroduceYourselfView: UIView {
     }
 
     @objc func nextButtonTapped() {
+
         guard let birthday = currentData.birthday else { return }
+        endEditing(true)
         delegate?.nextButtonTapped(currentData.name, birthday)
     }
 }
