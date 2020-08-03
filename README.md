@@ -1,6 +1,6 @@
 # CraftYourProfile
 
-Test task from my friend) Creating a welcome screen and authorization screens. I received five screenshots and a brief description ) Below you can see the source data, and my project in the code )
+Test task from my friend 😜 Creating a welcome screen and authorization screens. I received five screenshots and a brief description. Below you can see the source data, and my project in the code 🤪
 
 - Emojis should fly up from the bottom of the screen and disappear at the top, random emojis. The Terms and Privacy Policy links should lead to some pages on the Internet. All buttons must be pressed when pressed.
 - Entering a phone number with a check that it is correct. Allow to go further only with the correct number. By clicking on the code, select a country.
@@ -13,7 +13,7 @@ Test task from my friend) Creating a welcome screen and authorization screens. I
 
 # CodeReview
 
-I am very grateful to my friend for taking the time to view this code ) Link to the video of the review process - https://youtu.be/BIzOiBUKtxM (in Russian). Below are the points of the issues that need to be fixed ...
+I am very grateful to my friend for taking the time to view this code 🙏🏼 Link to the video of the review process - https://youtu.be/BIzOiBUKtxM (in Russian). Below are the issues that were corrected by me after the review process. Mission accomplished! 🥳
 
 ## Issues
 
