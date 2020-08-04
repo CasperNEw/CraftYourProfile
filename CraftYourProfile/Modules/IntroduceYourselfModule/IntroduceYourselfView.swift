@@ -140,6 +140,7 @@ extension IntroduceYourselfView {
 
         birthdayTextField.dateDelegate = self
         nameTextField.delegate = self
+        nameTextField.returnKeyType = .continue
         nameTextField.tintColor = .gray
     }
 
@@ -185,5 +186,11 @@ extension IntroduceYourselfView: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+
+        birthdayTextField.becomeFirstResponder()
+        return false
     }
 }
