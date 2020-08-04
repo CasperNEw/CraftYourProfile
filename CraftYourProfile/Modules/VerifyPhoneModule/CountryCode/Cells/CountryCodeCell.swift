@@ -27,8 +27,6 @@ class CountryCodeCell: UICollectionViewCell {
 
     private let flagImageView = UIImageView()
 
-    var imageService: NetworkServiceImageDataProtocol?
-
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,13 +48,12 @@ class CountryCodeCell: UICollectionViewCell {
     // MARK: - Public function
     public func setupCell(code: String,
                           country: String,
-                          shortCode: String) {
+                          imageUrl: String) {
 
         codeLabel.text = code
         titleLabel.text = country
 
-        guard let url = imageService?.getImageUrl(with: shortCode) else { return }
-        ImageCache.publicCache.load(urlString: url) { image in
+        ImageCache.publicCache.load(urlString: imageUrl) { image in
             self.flagImageView.image = image
         }
     }

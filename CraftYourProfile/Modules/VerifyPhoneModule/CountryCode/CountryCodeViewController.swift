@@ -24,7 +24,7 @@ class CountryCodeViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, CountryCode>!
     weak var delegate: CountryCodeViewControllerDelegate?
 
-    var networkService: NetworkServiceCountriesProtocol?
+    var networkService: NetworkService?
 
     private var countryCodes: [CountryCode] = []
     private var sourceCodes: [CountryCode] = [] {
@@ -96,10 +96,11 @@ extension CountryCodeViewController {
                 .dequeueReusableCell(withReuseIdentifier: CountryCodeCell.identifier,
                                      for: indexPath) as? CountryCodeCell
 
-            countryCodeCell?.imageService = NetworkService()
+            let imageUrl = self.networkService?.getImageUrl(with: countryCode.shortName) ?? ""
+
             countryCodeCell?.setupCell(code: countryCode.code,
                                        country: countryCode.name,
-                                       shortCode: countryCode.shortName)
+                                       imageUrl: imageUrl)
 
             return countryCodeCell
         })

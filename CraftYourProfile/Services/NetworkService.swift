@@ -12,16 +12,7 @@ protocol NetworkServiceSingleCountryProtocol {
     func getCountryInformation(shortCode: String, completion: @escaping (Result<CountryFromServer, Error>) -> Void)
 }
 
-protocol NetworkServiceCountriesProtocol {
-    func getCountriesInformation(completion: @escaping (Result<[CountryFromServer], Error>) -> Void)
-}
-
-protocol NetworkServiceImageDataProtocol {
-    func getImageUrl(with shortCode: String) -> String
-    func getImageData(with shortCode: String, completion: @escaping (Data) -> Void)
-}
-
-class NetworkService: NetworkServiceSingleCountryProtocol, NetworkServiceCountriesProtocol {
+class NetworkService: NetworkServiceSingleCountryProtocol {
 
     // MARK: - Properties
     enum RestcountriesPath: String {
@@ -96,8 +87,8 @@ class NetworkService: NetworkServiceSingleCountryProtocol, NetworkServiceCountri
     }
 }
 
-// MARK: - NetworkServiceImageDataProtocol
-extension NetworkService: NetworkServiceImageDataProtocol {
+// MARK: - Work with Image
+extension NetworkService {
 
     func getImageUrl(with shortCode: String) -> String {
         return String(format: imageUrl, shortCode)
